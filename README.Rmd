@@ -14,7 +14,7 @@ html_preview: false
 
 ----
 
-This repo contains source code and data to produce Manuscript and Supplementary Material of the above paper.
+This repo contains source code and data to produce <!--Manuscript and-->Supplementary Material of the above paper.
 
   + rawdata: contains `HMP_tree`, `kegg` and `PhyloPhlAn`, downloaded from the examples of [GraPhlAn](https://github.com/biobakery/graphlan/tree/master/examples), and the `Methanotroph`, downloaded from the [repo](https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018).
   + data: contains the data has been processed, it can be displayed directly in the paper.
@@ -58,7 +58,7 @@ make manuscript && make supple
 make supple
 ```
 
-Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/xiangpin/ggtreeExtra_article/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
+Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
 
 ```{r, echo=FALSE}
 sessionInfo()

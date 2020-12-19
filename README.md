@@ -7,8 +7,8 @@
 
 -----
 
-This repo contains source code and data to produce Manuscript and
-Supplementary Material of the above paper.
+This repo contains source code and data to produce
+<!--Manuscript and-->Supplementary Material of the above paper.
 
   - rawdata: contains `HMP_tree`, `kegg` and `PhyloPhlAn`, downloaded
     from the examples of
@@ -46,7 +46,7 @@ make supple
 ```
 
 Here is the output of `sessionInfo()` on the system on which [the
-document](https://github.com/xiangpin/ggtreeExtra_article/blob/master/Rmarkdown/supplementary_file.pdf)
+document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf)
 was compiled:
 
     ## R version 4.0.3 (2020-10-10)
