@@ -1,0 +1,66 @@
+---
+output:
+  md_document:
+    variant: gfm
+html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree
+
+<!--If you use this work in published research, please cite:
+    Shuangbin Xu, , Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu*. ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree, XXX, XXX, XXX -->
+
+----
+
+This repo contains source code and data to produce Manuscript and Supplementary Material of the above paper.
+
+  + rawdata: contains `HMP_tree`, `kegg` and `PhyloPhlAn`, downloaded from the examples of [GraPhlAn](https://github.com/biobakery/graphlan/tree/master/examples), and the `Methanotroph`, downloaded from the [repo](https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018).
+  + data: contains the data has been processed, it can be displayed directly in the paper.
+  + Rmarkdown: contains the source code to produce Manuscript and Supplementary Material.
+  + scripts: contains the script to produce the dataset of `data` using the data set of `rawdata`.
+
+## Dependencies and locations
+
+  + GNU Make should be located in the user's PATH
+  + Python (2 or 3) should be installed and located in the user's PATH 
+    and `Biopython` also should be installed.
+  + R (>=4.0.3) should be installed and located in the user's PATH
+    + the following packages also should be installed.
+      `ggtreeExtra`, `ggtree`, `tidytree`, `treeio`, `MicrobiotaProcess`, `kableExtra`, `ggplot2`, 
+      `bookdown`, `ggstar`, `tidyverse`, `Cairo`, `openxlsx`, `patchwork`, `ggnewscale` and `knitr`.
+
+```{r, message=FALSE, echo=FALSE, setup}
+library(ggtreeExtra)
+library(ggstar)
+library(ggplot2)
+library(ggtree)
+library(treeio)
+library(tidytree)
+library(ggnewscale)
+library(MicrobiotaProcess)
+library(tidyverse)
+library(openxlsx)
+library(kableExtra)
+library(Cairo)
+library(patchwork)
+library(knitr)
+```
+
+To compile the Rmarkdown/manuscript.docx and Rmarkdown/supplemental_file.pdf, please run the following command on terminal of Linux or Mac.
+
+<!-- ```r
+make manuscript && make supple 
+``` -->
+
+```r
+make supple
+```
+
+Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/xiangpin/ggtreeExtra_article/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
+
+```{r, echo=FALSE}
+sessionInfo()
+```
+
