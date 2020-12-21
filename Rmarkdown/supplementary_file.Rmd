@@ -16,7 +16,7 @@ link-citations: yes
 
 **Supplemental File of**
 
-# ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree
+# ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree
 
 **Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and Guangchuang Yu\* **
 
@@ -55,7 +55,7 @@ library(patchwork)
 
 ## Examples of mapping and visualizing associated data on circular layout tree.
 
-It can help to find patterns and generate new hypotheses by integrating and visualizing external data to the phylogenetic tree. And no matter in which field, associated data type of phylogenetic tree can be roughly divided into continuous data and discrete data. For example, abundance of species, number of target genes and length of genome can be considered as continuous data. Endemic region information of virus, Taxonomy information of species and sampling location information can be considered as discrete data. They are also often multi-dimensional. To display them on the outer of phylogenetic tree more compactly. We developed *ggtreeExtra* to annotate multi-dimensional data to the outer ring of circular phylogenetic tree. It is a universal tool, based on the grammar of graphics[@Wilkinson2012]. So user can easily map the associated dataset to aesthetic attributes (size, color, shape) of outer geometric objects (bar, point, boxplot) of circular phylogenetic tree using *ggtreeExtra*. Here, we present several examples to elucidate how the associated data can be mapped and displayed on the outer rings of circular phylogenetic trees using *ggtreeExtra*. More examples can be found on the *chapter10* of online book^[<http://yulab-smu.top/treedata-book>]. 
+It can help to find patterns and generate new hypotheses by integrating and visualizing external data to the phylogenetic tree. And no matter in which field, associated data type of phylogenetic tree can be roughly divided into continuous data and discrete data. For example, abundance of species, number of target genes and length of genome can be considered as continuous data. Endemic region information of virus, Taxonomy information of species and sampling location information can be considered as discrete data. They are also often multi-dimensional. To display them on the outer of phylogenetic tree more compactly, we developed *ggtreeExtra* to annotate multi-dimensional data to the outer ring of circular phylogenetic tree. It is a universal tool, based on the grammar of graphics[@Wilkinson2012]. So user can easily map the associated dataset to aesthetic attributes (size, color, shape) of outer geometric objects (bar, point, boxplot) of circular phylogenetic tree using *ggtreeExtra*. Here, we present several examples to elucidate how the associated data can be mapped and displayed on the outer rings of circular phylogenetic trees using *ggtreeExtra*. More examples can be found on the *chapter10* of online book^[<http://yulab-smu.top/treedata-book>]. 
 
 ### Displaying the continuous data to annotate circular phylogenetic trees.
 
