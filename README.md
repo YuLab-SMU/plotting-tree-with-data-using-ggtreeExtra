@@ -26,14 +26,15 @@ This repo contains source code and data to produce
 
 <!-- - GNU Make should be located in the user’s PATH -->
 <!-- - Python (2 or 3) should be installed and located in the user’s PATH -->
-<!--and `Biopython` also should be installed. --> + R (\>=4.0.3) should
-be installed and located in the user’s PATH + the following packages
-also should be installed.
+<!--and `Biopython` also should be installed. -->
 
-``` 
-  `ggtreeExtra`, `ggtree`, `tidytree`, `treeio`, `MicrobiotaProcess`, `kableExtra`, `ggplot2`, 
-  `bookdown`, `ggstar`, `tidyverse`, `Cairo`, `openxlsx`, `patchwork`, `ggnewscale` and `knitr`.
-```
+  - R ( \>= 4.0.3 ) should be installed and located in the user’s PATH
+      - the following packages also should be installed.
+        
+        ‘ggtreeExtra’, ‘ggtree’, ‘tidytree’, ‘treeio’,
+        ‘MicrobiotaProcess’, ‘kableExtra’, ‘ggplot2’, ‘bookdown’,
+        ‘ggstar’, ‘tidyverse’, ‘Cairo’, ‘openxlsx’, ‘patchwork’,
+        ‘ggnewscale’, ‘knitr’.
 
 To compile the <!-- Rmarkdown/manuscript.docx and -->
 Rmarkdown/supplemental\_file.pdf, please run the following command on
@@ -47,7 +48,7 @@ make manuscript && make supple
 Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")'
 ```
 
-Or run the following command on the interactive environment of R.
+Or run the following command in the interactive environment of R.
 
 ``` r
 rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
