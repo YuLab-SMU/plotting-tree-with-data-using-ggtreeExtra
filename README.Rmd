@@ -7,10 +7,10 @@ html_preview: false
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree
+# ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree
 
 <!--If you use this work in published research, please cite:
-    Shuangbin Xu, , Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu*. ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree, XXX, XXX, XXX -->
+    Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu*. ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree, XXX, XXX, XXX -->
 
 ----
 
@@ -22,12 +22,12 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
   + scripts: contains the script to produce the dataset of `data` using the data set of `rawdata`.
 
 ## Dependencies and locations
-
-  + GNU Make should be located in the user's PATH
-  + Python (2 or 3) should be installed and located in the user's PATH 
-    and `Biopython` also should be installed.
+  <!-- - GNU Make should be located in the user’s PATH -->
+  <!-- - Python (2 or 3) should be installed and located in the user’s PATH -->
+  <!--and `Biopython` also should be installed. -->
   + R (>=4.0.3) should be installed and located in the user's PATH
     + the following packages also should be installed.
+
       `ggtreeExtra`, `ggtree`, `tidytree`, `treeio`, `MicrobiotaProcess`, `kableExtra`, `ggplot2`, 
       `bookdown`, `ggstar`, `tidyverse`, `Cairo`, `openxlsx`, `patchwork`, `ggnewscale` and `knitr`.
 
@@ -48,14 +48,20 @@ library(patchwork)
 library(knitr)
 ```
 
-To compile the Rmarkdown/manuscript.docx and Rmarkdown/supplemental_file.pdf, please run the following command on terminal of Linux or Mac.
+To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/supplemental_file.pdf, please run the following command on terminal of Linux or Mac.
 
 <!-- ```r
 make manuscript && make supple 
 ``` -->
 
+```bash
+Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")'
+```
+
+Or run the following command on the interactive environment of R.
+
 ```r
-make supple
+rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
 ```
 
 Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
