@@ -28,9 +28,10 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
 
   + R ( >= 4.0.3 ) should be installed and located in the user's PATH
     + the following packages also should be installed.
+     
+      ```'ggtreeExtra', 'ggtree', 'tidytree', 'treeio', 'MicrobiotaProcess', 'kableExtra', 'ggplot2', 
+      'bookdown', 'ggstar', 'tidyverse', 'Cairo', 'openxlsx', 'patchwork', 'ggnewscale', 'knitr'.```
 
-      'ggtreeExtra', 'ggtree', 'tidytree', 'treeio', 'MicrobiotaProcess', 'kableExtra', 'ggplot2', 
-      'bookdown', 'ggstar', 'tidyverse', 'Cairo', 'openxlsx', 'patchwork', 'ggnewscale', 'knitr'.
 
 ```{r, message=FALSE, echo=FALSE, setup}
 library(ggtreeExtra)
@@ -49,20 +50,20 @@ library(patchwork)
 library(knitr)
 ```
 
-To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/supplemental_file.pdf, please run the following command on terminal of Linux or Mac.
+To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/supplemental_file1.pdf, please run the following command on terminal of Linux or Mac.
 
 <!-- ```r
 make manuscript && make supple 
 ``` -->
 
 ```bash
-Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")'
+Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file1.Rmd")'
 ```
 
 Or run the following command in the interactive environment of R.
 
 ```r
-rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
+rmarkdown::render("./Rmarkdown/supplementary_file1.Rmd")
 ```
 
 Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
