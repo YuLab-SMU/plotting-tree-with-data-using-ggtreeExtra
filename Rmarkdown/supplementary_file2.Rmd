@@ -51,7 +51,7 @@ The supplementary file1 has listed several examples to show how to map the assoc
 
 *ggdist*[@ggdist] can be used to display the distribution and uncertainty of data, *ggtreeExtra* can work with several geometric function defined by it (supplementary file Table.S1). If the associated data should be displayed the distribution, such as the gene expression in different samples.
 
-(ref:ggdist) This example to show ggtreeExtra works with *geom_dots* and *geom_slabinterval* of *ggdist*[@ggdist].
+(ref:ggdist) This example to show ggtreeExtra works with *geom_dots* and *geom_slabinterval* of *ggdist*[@ggdist]. And ggtreeExtra also support other layout of ggtree [@ggtree1].
 
 ```{r, fig.width=7, fig.height=4.5, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggdist)', dev="CairoPNG", dpi=300, ggdist}
 library(tibble)
@@ -76,9 +76,10 @@ df = tribble(
     "t10", "phy5", rnorm(100, mean = 5)
   ) %>% unnest(value)
 tr <- rtree(10)
-p <- ggtree(tr) + geom_tiplab(size=3)
+p1 <- ggtree(tr, layout="roundrect", size=0.3) + geom_tiplab(size=3)
+p2 <- ggtree(tr, layout="ellipse", size=0.3) + geom_tiplab(size=3)
 # The associate data (df) 
-p1 <- p +
+p1 <- p1 +
       geom_fruit(data=df,
                  geom=geom_dots,
                  mapping=aes(y=id, x=value, fill=class),
@@ -91,9 +92,8 @@ p1 <- p +
                  side="both",
                  grid.params=list(),
                  axis.params=list(axis="x",text.size=2, nbreak=6)
-      ) +
-      theme(legend.key.size=unit(0.5, "cm"))
-p2 <- p + 
+      ) + theme(legend.key.size=unit(0.5, "cm"))
+p2 <- p2 + 
       geom_fruit(data=df,
                  geom=geom_slabinterval,
                  mapping=aes(y=id, x=value, fill=class),
