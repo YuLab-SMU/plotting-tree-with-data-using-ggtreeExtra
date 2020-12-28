@@ -945,38 +945,38 @@ As mentioned above, *geom_fruit* is an general function for linking multiple geo
 
 ```{r geom, echo=FALSE,results='asis'}
 
-x <- "ggdist\tgeom_dotsinterval\tcreates dots, intervals, and quantile dotplots\n
-ggdist\tgeom_pointinterval\tcreates point and multiple uncertainty interval\n
-ggdist\tgeom_slab\tcreats slab geom\n
-ggdist\tgeom_slabinterval\tcreates slab, point and interval meta-geom\n
-ggimage\tgeom_image\tvisualizes image files\n
-ggimage\tgeom_phylopic\tqueries image files from phylopic database and visualizes them\n
-ggpattern\tgeom_bar_pattern\tdraws bar charts with support for pattern fills\n
-ggpattern\tgeom_boxplot_pattern\tdraws box and whiskers plot with support for pattern fills\n
-ggpattern\tgeom_col_pattern\tdraws bar charts using ’stat_identity()’ with support for pattern fills\n
-ggpattern\tgeom_tile_pattern\tdraws rectangle by using the center of the tile and its size with support for pattern fills\n
-ggplot2\tgeom_bar\tdraws bar charts\n
-ggplot2\tgeom_boxplot\tdraws box and whiskers plot\n
-ggplot2\tgeom_col\tdraws bar charts using 'stat_identity()'\n
-ggplot2\tgeom_label\tdraws a rectangle behind the text\n
-ggplot2\tgeom_point\tcreats scatterplots\n
-ggplot2\tgeom_raster\ta high performance special case for all the tiles are the same size\n
-ggplot2\tgeom_text\tadds text to the plot\n
-ggplot2\tgeom_tile\tdraws rectangle by using the center of the tile and its size\n
-ggrepel\tgeom_text_repel\tadds text to the plot. The text labels repel away from each other and away from the data points\n
-ggrepel\tgeom_label_repel\tdraws a rectangle underneath the text. The text labels repel away from each other and away from the data ponts\n
-ggstance\tgeom_barh\thorizontal version of 'geom_bar()'\n
-ggstance\tgeom_boxploth\thorizontal version of 'geom_boxplot()'\n
-ggstance\tgeom_colh\thorizontal version of 'geom_col()'\n
-ggstar\tgeom_star\tcreates scatterplots\n
-ggsymbol\tgeom_symbol\tcreates scatterplots\n
-scatterpie\tgeom_scatterpie\tcreates scatter pie plot\n
+x <- "ggdist\tgeom_dotsinterval\talpha, color, fill, size, shape\tcreates dots, intervals, and quantile dotplots\n
+ggdist\tgeom_pointinterval\talpha, color, fill, size, shape\tcreates point and multiple uncertainty interval\n
+ggdist\tgeom_slab\talpha, color, fill\tcreats slab geom\n
+ggdist\tgeom_slabinterval\talpha, color, fill\tcreates slab, point and interval meta-geom\n
+ggimage\tgeom_image\talpha, color, size\tvisualizes image files\n
+ggimage\tgeom_phylopic\talpha, color, size\tqueries image files from phylopic database and visualizes them\n
+ggpattern\tgeom_bar_pattern\tpattern_alpha, pattern_color, pattern_fill, pattern_angle, alpha, color, fill\tdraws bar charts with support for pattern fills\n
+ggpattern\tgeom_boxplot_pattern\tpattern_alpha, pattern_color, pattern_fill, pattern_angle, alpha, color, fill\tdraws box and whiskers plot with support for pattern fills\n
+ggpattern\tgeom_col_pattern\tpattern_alpha, pattern_color, pattern_fill, pattern_angle, alpha, color, fill\tdraws bar charts using ’stat_identity()’ with support for pattern fills\n
+ggpattern\tgeom_tile_pattern\tpattern_alpha, pattern_color, pattern_fill, pattern_angle, alpha, color, fill\tdraws rectangle by using the center of the tile and its size with support for pattern fills\n
+ggplot2\tgeom_bar\talpha, color, fill\tdraws bar charts\n
+ggplot2\tgeom_boxplot\talpha, color, fill\tdraws box and whiskers plot\n
+ggplot2\tgeom_col\talpha, color, fill\tdraws bar charts using 'stat_identity()'\n
+ggplot2\tgeom_label\talpha, color, fill, size\tdraws a rectangle behind the text\n
+ggplot2\tgeom_point\talpha, color, fill, shape, size\tcreats scatterplots\n
+ggplot2\tgeom_raster\talpha, fill\ta high performance special case for all the tiles are the same size\n
+ggplot2\tgeom_text\tcolor, size\tadds text to the plot\n
+ggplot2\tgeom_tile\talpha, color, fill\tdraws rectangle by using the center of the tile and its size\n
+ggrepel\tgeom_text_repel\tcolor, size\tadds text to the plot. The text labels repel away from each other and away from the data points\n
+ggrepel\tgeom_label_repel\talpha, color, fill, size\tdraws a rectangle underneath the text. The text labels repel away from each other and away from the data ponts\n
+ggstance\tgeom_barh\talpha, color, fill\thorizontal version of 'geom_bar()'\n
+ggstance\tgeom_boxploth\talpha, color, fill\thorizontal version of 'geom_boxplot()'\n
+ggstance\tgeom_colh\talpha, color, fill\thorizontal version of 'geom_col()'\n
+ggstar\tgeom_star\talpha, color, fill, size, starshape\tcreates scatterplots\n
+ggsymbol\tgeom_symbol\talpha, color, fill, size, symbolshape\tcreates scatterplots\n
+scatterpie\tgeom_scatterpie\talpha, color, fill\tcreates scatter pie plot\n
 "
 
 xx <- strsplit(x, "\n\n")[[1]]
 y <- strsplit(xx, "\t") %>% do.call("rbind", .)
 y <- as.data.frame(y)
-colnames(y) <- c("Package", "Geom Layer", "Description")
+colnames(y) <- c("Package", "Geom Layer", "Attributes", "Description")
 
 require(kableExtra)
 caption = "List of geometric layers supported by 'geom\\textunderscore fruit()'"

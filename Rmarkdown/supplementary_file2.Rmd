@@ -117,7 +117,7 @@ p1 / p2
 
 (ref:ggpattern) This example to show ggtreeExtra works with *geom_bar_pattern* and *geom_boxplot_pattern* of *ggpattern*[@ggpattern].
 
-```{r, fig.width=8, fig.height=5, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, GeomLayers2}
+```{r, fig.width=8, fig.height=7, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, GeomLayers2}
 library(ggtree)
 library(ggtreeExtra)
 library(ggpattern)
@@ -133,13 +133,15 @@ dat <- data.frame(id=tr$tip.label,
 dt <- data.frame(id=rep(tr$tip.label, 8), value=abs(rnorm(20 * 8, 8, 1.5)),
                  class=rep(rep(c("A","B","C","D"), 5), 8))
 
-p <- ggtree(
-          tr,
-          layout="fan",
-          open.angle=180
-     )
+p1 <- ggtree(tr)
 
-p1 <- p +
+p2 <- ggtree(tr, layout="slanted")
+
+p3 <- ggtree(tr, layout="ellipse")
+
+p4 <- ggtree(tr, layout="roundrect")
+
+p1 <- p1 +
       geom_fruit(
           data=dat,
           geom=geom_bar_pattern,
@@ -153,14 +155,14 @@ p1 <- p +
           fill = "grey",
           pattern_fill="grey35",
           position=position_identityx(),
-          axis.params=list(axis="xy")
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
       ) +
       theme(
-          legend.position= c(0.94, 0.8),
+          #legend.position= c(0.94, 0.8),
           legend.key.size = unit(0.3, 'cm')
       )
 
-p2 <- p +
+p2 <- p2 +
       geom_fruit(
           data=dat,
           geom=geom_bar_pattern,
@@ -173,14 +175,14 @@ p2 <- p +
           pattern_density = 0.4,
           fill = "grey",
           position=position_identityx(),
-          axis.params=list(axis="xy")
+          axis.params=list(axis="x",text.size=1.5, text.angle=-45, hjust=0)
       ) +
       theme(
-          legend.position= c(0.94, 0.8),
+          #legend.position= c(0.94, 0.8),
           legend.key.size = unit(0.3, 'cm')
       )
 
-p3 <- p + 
+p3 <- p3 + 
       geom_fruit(
           data=dt,
           geom=geom_boxplot_pattern,
@@ -195,14 +197,14 @@ p3 <- p +
           pattern_fill="grey35",
           position=position_dodgex(),
           grid.params=list(),
-          axis.params=list(axis="x")
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
       ) +
       theme(
-          legend.position= c(0.94, 0.8),
+          #legend.position= c(0.94, 0.8),
           legend.key.size = unit(0.5, 'cm')
       )
 
-p4 <- p +
+p4 <- p4 +
       geom_fruit(
           data=dt,
           geom=geom_boxplot_pattern,
@@ -216,15 +218,14 @@ p4 <- p +
           fill = "grey",
           position=position_dodgex(),
           grid.params=list(),
-          axis.params=list(axis="x")
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
       ) +
       theme(
-          legend.position= c(0.94, 0.8),
+          #legend.position= c(0.94, 0.8),
           legend.key.size = unit(0.5, 'cm')
       )
 
-p1 + p2
-p3 + p4
+(p1 + p2)/(p3 + p4)
 ```
 
 ## Reference
