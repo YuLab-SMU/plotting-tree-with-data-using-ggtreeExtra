@@ -1,0 +1,338 @@
+---
+bibliography: references.bib
+biblio-style: apalike
+highlight_bw: yes
+output:
+  bookdown::pdf_document2:
+    toc: false
+    includes:
+      in_header: header.tex
+    dev: "cairo_pdf"
+    latex_engine: xelatex
+    fig_caption: yes
+geometry: margin=0.45in
+link-citations: yes
+---
+
+**Supplemental File of**
+
+# ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree
+
+**Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and Guangchuang Yu\* **
+
+^\*^correspondence: guangchuangyu@gmail.com, gcyu1@smu.edu.cn
+
+\renewcommand{\figurename}{Fig.}
+\newcommand{\beginsupplement}{%
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}%
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}%
+}
+
+\beginsupplement
+
+```{r, echo=FALSE, message=FALSE, results='hide'}
+require(kableExtra)
+options(knitr.table.fromat = "latex")
+knitr::opts_chunk$set(fig.pos= "!ht")
+#knitr::opts_chunk$set(out.width="90%")
+knitr::opts_chunk$set(fig.align="center")
+usepackage_latex("float")
+usepackage_latex("makecell")
+usepackage_latex("booktabs")
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(ggtreeExtra)
+library(ggtree)
+library(treeio)
+library(tidytree)
+library(ggplot2)
+library(ggnewscale)
+library(patchwork)
+```
+
+## The purpose of development and overview
+
+Integrating and visualizing associated data to the phylogenetic tree can help to find biological patterns and generate new hypotheses. The associated data type of phylogenetic tree can be roughly divided into continuous data and categorical data (discrete data). The continuous data sets represent measurements, they can be measured but not be counted, such as the height, weight, abundance of species, gene expression and the number of target genes etc. The categorical data sets represent characteristics, they can not be measured but they can be counted, such as endemic region information of virus, taxonomy information of species, type of target gene and sampling location information etc. Certainly, categorical data can also take on numerical values (for example, 1 for target gene A, 2 for target gene B). The associated data sets are also often multi-dimensional. Several tools have been developed to integrate and display associated data to phylogenetic tree. However, they still have some shortcomings, such as don't support annotation circular layout (tree and graphic alignment), provide few geometric layers, need predefined input etc, which make them not universal. Here, we developed *ggtreeExtra* to annotate multi-dimensional data to the outer of phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree*[@ggtree1] and geometric layers function defined in *ggplot2*[@ggplot2] or other ggplot2-based package. And it supports not only circular layout, but also other layouts defined in *ggtree*[@ggtree1]. The tree can be annotated by geometric function defined in ggtree[@ggtree1] (Fig. \ref{fig:OverView}). In addition, it was developed based on the grammar of graphics[@Wilkinson2012]. So user can easily map the variables (abundance of species, length of genome, sampling location) of associated data to aesthetic attributes (size, color, shape) of outer geometric objects (bar, point, box plot) of circular phylogenetic tree using *ggtreeExtra*. The details (such as legends and theme) of figure can be adjusted by corresponding *scale* function and theme function defined in ggplot2[@ggplot2] (Fig. \ref{fig:OverView}). Compared other tools, *ggtreeExtra* supports annotation of multiple layout of phylogenetic tree, it can integrate more geometric layers and don't need predefined input, which make it more universal (Tab. \ref{tab:compare}).
+
+(ref:OverView) overview of ggtreeExtra. 
+
+```{r, echo=FALSE, fig.cap="(ref:OverView)", fig.pos= "!h", out.width = '90%', OverView}
+knitr::include_graphics("./overview.png", dpi=300)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', compare}
+require(kableExtra)
+
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked or dodged bar,box,pattern box,violin,dot intervals plot,density plot,pie,image plot\tYes\tYes\tprogramming\tadd,modify,delete\n
+GraPhlAn\tPython,package\tcircular\tHeat map,scatter,simple bar\tNo\tYes\tcommand line,(configure file)\tadd\n
+ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot\tNo\tYes\tprogramming,and interaction,(mouse click)\tadd\n
+iTOL\tWeb,tool\tcircular,rectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot\tNo\tYes\tinteraction,(mouse click,configure file)\tadd\n
+Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter\tNo\tYes\tinteraction,(mouse click,and command line,configure file)\tadd\n
+Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar,box\tNo\tYes\tinteraction,(mouse click,configure file)\tadd\n"
+
+caption <- "Comparison list of ggtreeExtra and other tools"
+header <- c("Tools", "Platform", "Supported layouts,for tree annotation[note]",
+            "Annotation layers", "Supported grammar,of graphic", "Combined freely[note]",
+            "Methods of,figure out", "Layer,operations")
+
+header <- gsub(" ", "\\ ", header) %>%
+          linebreak(align="l", linebreaker = ",")
+
+compare_tab <-
+  read.table(text=x, header=F, sep="\t", quote="", check.names=F) %>%
+  dplyr::mutate(
+         V3 = gsub(" ", "\\ ", V3),
+         V4 = gsub(" ", "\\ ", V4),
+         V7 = gsub(" ", "\\ ", V7)
+  ) %>%
+  dplyr::mutate(
+         V3 = gsub(",", ",;", V3),
+         V4 = gsub(",", ",;", V4),
+         V8 = gsub(",", ",;", V8)
+  )%>%
+  dplyr::mutate(
+         V2 = linebreak(V2, align = "l", linebreaker = ","),
+         V3 = linebreak(V3, align = "l", linebreaker = ";"),
+         V4 = linebreak(V4, align = "l", linebreaker = ";"),
+         V7 = linebreak(V7, align = "l", linebreaker = ","),
+         V8 = linebreak(V8, align = "l", linebreaker = ";")
+  ) %>%
+  knitr::kable(
+               caption=caption,
+               col.names=header,
+               booktabs = T,
+               position = "!h",
+               escape=F
+  ) %>%
+  row_spec(0, bold=T) %>%
+  row_spec(row=c(1,2,3,4,5), hline_after=T) %>%
+  kable_styling(
+                latex_options = c(
+                #                  "striped",
+                                  "scale_down"
+                                  ),
+                #full_width = T,
+                stripe_color = "gray!10",
+                position="center"
+  ) %>%
+  add_footnote(c(
+                 "tree annotation: tree and geometric alignment;",
+                 "Combined freely: layers can be combined freely."
+                 )
+  )
+
+compare_tab
+```
+
+## Geometric layers that supported by *geom_fruit* of *ggtreeExtra*
+
+*ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggdist}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
+
+```{r, echo=FALSE, results='asis', geom}
+
+x <- "Package\tGeom layer\tVisual characteristic\tDescription\n
+ggdist\tgeom_dotsinterval\talpha, color, fill, size, shape\tcreates dots, intervals, and quantile dotplots\n
+ggdist\tgeom_pointinterval\talpha, color, fill, size, shape\tcreates point and multiple uncertainty interval\n
+ggdist\tgeom_slab\talpha, color, fill\tcreats slab geom\n
+ggdist\tgeom_slabinterval\talpha, color, fill\tcreates slab, point and interval meta-geom\n
+ggimage\tgeom_image\talpha, color, size\tvisualizes image files\n
+ggimage\tgeom_phylopic\talpha, color, size\tqueries image files from phylopic database and visualizes them\n
+ggpattern\tgeom_bar_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws bar charts with support for pattern fills\n
+ggpattern\t \tpattern_angle, alpha, color, fill\t \n
+ggpattern\tgeom_boxplot_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws box and whiskers plot with support for pattern fills\n
+ggpattern\t \tpattern_angle, alpha, color, fill\t \n
+ggpattern\tgeom_col_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws bar charts using ’stat_identity()’\n
+ggpattern\t \tpattern_angle, alpha, color, fill\twith support for pattern fills\n
+ggpattern\tgeom_tile_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws rectangle by using the center of the tile and its\n
+ggpattern\t \tpattern_angle, alpha, color, fill\tsize with support for pattern fills\n
+ggplot2\tgeom_bar\talpha, color, fill\tdraws bar charts\n
+ggplot2\tgeom_boxplot\talpha, color, fill\tdraws box and whiskers plot\n
+ggplot2\tgeom_col\talpha, color, fill\tdraws bar charts using 'stat_identity()'\n
+ggplot2\tgeom_label\talpha, color, fill, size\tdraws a rectangle behind the text\n
+ggplot2\tgeom_point\talpha, color, fill, shape, size\tcreats scatterplots\n
+ggplot2\tgeom_raster\talpha, fill\ta high performance special case for all the tiles are the same size\n
+ggplot2\tgeom_text\tcolor, size\tadds text to the plot\n
+ggplot2\tgeom_tile\talpha, color, fill\tdraws rectangle by using the center of the tile and its size\n
+ggrepel\tgeom_text_repel\tcolor, size\tadds text to the plot. The text labels repel away\n
+ggrepel\t \t \tfrom each other and away from the data points\n
+ggrepel\tgeom_label_repel\talpha, color, fill, size\tdraws a rectangle underneath the text. The text labels repel away\n
+ggrepel\t \t \tfrom each other and away from the data ponts\n
+ggridges\tgeom_density_ridges\talpha,fill\tarranges multiple density plots in a staggered fashion\n
+ggridges\tgeom_density_ridges2\talpha,fill\tarranges multiple density plots in a staggered fashion\n
+ggridges\tgeom_ridgeline\talpha,color,fill\tplots the sum of the 'y' and 'height' aesthetics versus 'x',\n
+ggridges\t \t \tfilling the area between 'y' and 'y + height' with a color\n
+ggridges\tgeom_ridgeline_gradient\tcolor,fill\tworks just like 'geom_ridgeline' except\n
+ggridges\t \t \tthat the 'fill' aesthetic can vary along the x axis\n
+ggstance\tgeom_barh\talpha, color, fill\thorizontal version of 'geom_bar()'\n
+ggstance\tgeom_boxploth\talpha, color, fill\thorizontal version of 'geom_boxplot()'\n
+ggstance\tgeom_colh\talpha, color, fill\thorizontal version of 'geom_col()'\n
+ggstar\tgeom_star\talpha, color, fill, size, starshape\tcreates scatterplots\n
+ggsymbol\tgeom_symbol\talpha, color, fill, size, symbolshape\tcreates scatterplots\n
+scatterpie\tgeom_scatterpie\talpha, color, fill\tcreates scatter pie plot\n
+"
+
+y <- read.table(text=x, sep="\t", header=T, quote="", check.names=F)
+require(kableExtra)
+caption = "List of geometric layers supported by 'geom\\textunderscore fruit()'"
+knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
+  collapse_rows(columns = 1, latex_hline = "major", valign ="middle") %>%
+  row_spec(0, bold=T) %>%
+  kable_styling(
+      latex_options = c(
+                       "striped",
+                       "scale_down"
+                  ), 
+      position="center")
+```
+
+(ref:ggdist) This example shows *ggtreeExtra* can work with *geom_dots* and *geom_slabinterval* of *ggdist*[@ggdist], the associated data was import with *data* of *geom_fruit*, it has a column contained tip labels. Then the tip labels column was assigned to *y*, the *value* is continuous data, which was mapped to the *x*, and *class* is categorical data, which was mapped to the *fill* (color).
+
+```{r, fig.width=6, fig.height=4, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggdist)', dev="CairoPNG", dpi=300, ggdist}
+library(tibble)
+library(tidyr)
+library(ggdist)
+library(ggtree)
+library(ggplot2)
+library(ggtreeExtra)
+library(patchwork)
+set.seed(1024)
+# To generate associated data, which has a column contained tip labels.
+df = tribble( ~id, ~class, ~value,
+    "t1",  "phy1", rnorm(100, mean = 5),
+    "t2",  "phy1", rnorm(100, mean = 6, sd = 1.5),
+    "t3",  "phy2", rnorm(100, mean = 8),
+    "t4",  "phy2", rnorm(100, mean = 9),
+    "t5",  "phy1", rnorm(100, mean = 5.5),
+    "t6",  "phy2", rnorm(100, mean = 8.5),
+    "t7",  "phy3", rnorm(100, mean = 3),
+    "t8",  "phy2", rnorm(100, mean = 6.8),
+    "t9",  "phy3", rnorm(100, mean = 3.5),
+    "t10", "phy3", rnorm(100, mean = 4)
+  ) %>% unnest(value)
+tr <- rtree(10)
+p1 <- ggtree(tr, layout="roundrect", size=0.3) + geom_tiplab(size=3)
+p2 <- ggtree(tr, layout="ellipse", size=0.3) + geom_tiplab(size=3)
+# The associate data also contains the value of different tip labels in different class. 
+p1 <- p1 +
+      geom_fruit(data=df, geom=geom_dots,
+                 mapping=aes(y=id, x=value, fill=class),
+                 pwidth=1.8, offset=0.1,
+                 position=position_identityx(),
+                 color=NA, dotsize=3,
+                 orientation="y", side="right",
+                 grid.params=list(),
+                 axis.params=list(axis="x",vjust=1, text.size=2, nbreak=6)
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
+p2 <- p2 +
+      geom_fruit(data=df, geom=geom_slabinterval,
+                 mapping=aes(y=id, x=value, fill=class),
+                 position=position_identityx(),
+                 pwidth=1.8, offset=0.1,
+                 orientation="y", side="right",
+                 stat=StatSampleSlabinterval,
+                 interval_size_range=c(0.2, 1),
+                 grid.params=list(),
+                 axis.params=list(axis="x", vjust=1, text.size=2, nbreak=6)
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
+p1 / p2
+```
+
+(ref:ggpattern) This example shows *ggtreeExtra* can work with *geom_bar_pattern* and *geom_boxplot_pattern* of *ggpattern*[@ggpattern]. This example also shows *ggtreeExtra* can work with multiple layouts of tree.
+
+```{r, fig.width=7, fig.height=5, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
+library(ggtree)
+library(ggtreeExtra)
+library(ggpattern)
+library(ggplot2)
+
+set.seed(1024)
+tr <- rtree(20)
+dat <- data.frame(id=tr$tip.label, value=abs(rnorm(20, 3)),
+                  group=c(rep("A", 5), rep("B", 5), rep("C", 5), rep("D", 5)))
+dt <- data.frame(id=rep(tr$tip.label, 8), value=abs(rnorm(20 * 8, 8, 1.5)),
+                 class=rep(rep(c("A","B","C","D"), 5), 8))
+p1 <- ggtree(tr, size=0.2, branch.length="none")
+p2 <- ggtree(tr, size=0.2, layout="slanted", branch.length="none")
+p3 <- ggtree(tr, size=0.2, layout="fan", open.angle=180, branch.length="none")
+p4 <- ggtree(tr, size=0.2, layout="fan", open.angle=180, branch.length="none")
+
+p1 <- p1 +
+      geom_fruit(
+          data=dat,
+          geom=geom_bar_pattern,
+          mapping=aes(y=id, x=value, pattern=group, pattern_angle=group),
+          width=0.6, stat="identity",
+          pwidth = 0.6, pattern_spacing =0.01,
+          pattern_size = 0.1, pattern_density = 0.4,
+          fill = "grey", pattern_fill="grey35",
+          position=position_identityx(),
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
+
+p2 <- p2 +
+      geom_fruit(
+          data=dat,
+          geom=geom_bar_pattern,
+          mapping=aes(y=id, x=value, pattern=group, pattern_fill=group),
+          width=0.6, stat="identity",
+          pwidth = 0.6, pattern_spacing =0.01,
+          pattern_size = 0.1, pattern_density = 0.4,
+          fill = "grey",
+          position=position_identityx(),
+          axis.params=list(axis="x",text.size=1.5, text.angle=-45, hjust=0)
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
+
+p3 <- p3 +
+      geom_fruit(
+          data=dt,
+          geom=geom_boxplot_pattern,
+          mapping=aes(y=id, x=value, pattern=class, pattern_angle = class),
+          size=0.1, outlier.size=0.5,
+          pwidth=0.5, pattern_size = 0.1,
+          pattern_density = 0.4, pattern_spacing =0.01,
+          fill = "grey", pattern_fill="grey35",
+          position=position_dodgex(),
+          grid.params=list(),
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
+      ) + 
+      theme(legend.key.size = unit(0.35, 'cm'))
+
+p4 <- p4 +
+      geom_fruit(
+          data=dt,
+          geom=geom_boxplot_pattern,
+          mapping=aes(y=id, x=value, pattern=class, pattern_fill = class),
+          size=0.1, outlier.size=0.5,
+          pwidth = 0.5, pattern_size = 0.1,
+          pattern_density = 0.4, pattern_spacing = 0.01,
+          fill = "grey",
+          position=position_dodgex(),
+          grid.params=list(),
+          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
+      ) + 
+      theme(legend.key.size = unit(0.35, 'cm'))
+
+(p1 + p2)/(p3 + p4)
+```
+
+## Examples of mapping and visualizing associated data on circular layout tree.
+
+*ggtreeExtra* can integrate many geometric layers by linking *geom* function defined in *ggplot2*[@ggplot2] or ggplot2-extension packages (Tab. \ref{tab:geom} and \ref{tab:compare}). This is the basis for *ggtreeExtra* to be used for the annotation of phylogenetic tree. We presented two examples (Fig. \ref{fig:ggdist} and \ref{fig:ggpattern}) to show how to use *ggtreeExtra* to map simple associated data to rectangular phylogenetic tree by linking *geom* funtions. For the multiple associated data sets, circular layout is an efficient way to visualize multi-dimensional data sets[@circlize], since it can reduce space and make the graph more compact. Fortunately, *ggtreeExtra* support annotation of multiple layouts of tree (Fig. \ref{fig:OverView} and \ref{fig:ggpattern} and Tab. \ref{tab:compare}), including circular layout. Furthermore, *ggtreeExtra* is developed based on the grammar of graphics[@Wilkinson2012]. The associated data can be imported with the *data* parameter of *geom_fruit*, it can also be integrated to tree data (ggtree graphic object) with %<+% of *ggtree*[@ggtree2], before passing it to *geom_fruit* (Fig. \ref{fig:OverView}). Then the variables (abundance of species, length of genome, sampling location) of associated data can be mapped to the attributes of outer geometric objects (bar, point, boxplot) of circular phylogenetic tree (Fig. \ref{fig:OverView} and \ref{fig:ggdist}). Here, we present several examples to elucidate how to map and display the associated data on the outer rings of circular phylogenetic trees using *ggtreeExtra*. More examples can be found on the *chapter10* of online book^[<http://yulab-smu.top/treedata-book>].
+
+### Displaying multiple associated data to circular phylogenetic tree using layer overlay method
+
+
+
+
+### Annotating circular phylogenetic tree with the associated data contained in ggtree graphic object
+
+### Annotating large phylogenetic tree with multiple associated data
+
+### Annotating associated data to the phylogenetic tree combined relationship data
+
+## Summary
+
+## References
