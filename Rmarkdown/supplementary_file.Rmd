@@ -322,9 +322,10 @@ p4 <- p4 +
 
 *ggtreeExtra* can integrate many geometric layers by linking *geom* function defined in *ggplot2*[@ggplot2] or ggplot2-extension packages (Tab. \ref{tab:geom} and \ref{tab:compare}). This is the basis for *ggtreeExtra* to be used for the annotation of phylogenetic tree. We presented two examples (Fig. \ref{fig:ggdist} and \ref{fig:ggpattern}) to show how to use *ggtreeExtra* to map simple associated data to rectangular phylogenetic tree by linking *geom* funtions. For the multiple associated data sets, circular layout is an efficient way to visualize multi-dimensional data sets[@circlize], since it can reduce space and make the graph more compact. Fortunately, *ggtreeExtra* support annotation of multiple layouts of tree (Fig. \ref{fig:OverView} and \ref{fig:ggpattern} and Tab. \ref{tab:compare}), including circular layout. Furthermore, *ggtreeExtra* is developed based on the grammar of graphics[@Wilkinson2012]. The associated data can be imported with the *data* parameter of *geom_fruit*, it can also be integrated to tree data (ggtree graphic object) with %<+% of *ggtree*[@ggtree2], before passing it to *geom_fruit* (Fig. \ref{fig:OverView}). Then the variables (abundance of species, length of genome, sampling location) of associated data can be mapped to the attributes of outer geometric objects (bar, point, boxplot) of circular phylogenetic tree (Fig. \ref{fig:OverView} and \ref{fig:ggdist}). Here, we present several examples to elucidate how to map and display the associated data on the outer rings of circular phylogenetic trees using *ggtreeExtra*. More examples can be found on the *chapter10* of online book^[<http://yulab-smu.top/treedata-book>].
 
-### Displaying multiple associated data to circular phylogenetic tree using layer overlay method
+### Data supported by *ggtreeExtra*
 
 
+### Displaying multiple associated data to circular phylogenetic tree using grammar of graphic
 
 
 ### Annotating circular phylogenetic tree with the associated data contained in ggtree graphic object
