@@ -132,7 +132,7 @@ compare_tab
 
 # Geometric layers that supported by *geom_fruit* of *ggtreeExtra*
 
-*ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggdist}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
+*ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggdist}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). Even though other tools might provide the same graphic layers, *ggtreeExtra* is more flexible since it can inherit the features of the geometric functions, for example, *iTOL*, *Evolview* and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but *ggtreeExtra* is more flexible, it can integrate *ggplot2* object (Fig. \ref{fig:subplot}.A), and the attributes of subplot integrated can also be mapped to variable of associated data (Fig.\ref{fig:subplot}.B). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
 
 ```{r, echo=FALSE, results='asis', geom}
 
@@ -233,7 +233,7 @@ p1 <- p1 +
                  pwidth=1.8, offset=0.1,
                  position=position_identityx(),
                  color=NA, dotsize=3,
-                 orientation="y", side="right",
+                 orientation="y", side="both",
                  grid.params=list(),
                  axis.params=list(axis="x",vjust=1, text.size=2, nbreak=6)
       ) + theme(legend.key.size = unit(0.3, 'cm'))
@@ -258,11 +258,13 @@ library(ggtree)
 library(ggtreeExtra)
 library(ggpattern)
 library(ggplot2)
+library(patchwork)
 
 set.seed(1024)
 tr <- rtree(20)
 dat <- data.frame(id=tr$tip.label, value=abs(rnorm(20, 3)),
                   group=c(rep("A", 5), rep("B", 5), rep("C", 5), rep("D", 5)))
+
 dt <- data.frame(id=rep(tr$tip.label, 8), value=abs(rnorm(20 * 8, 8, 1.5)),
                  class=rep(rep(c("A","B","C","D"), 5), 8))
 p1 <- ggtree(tr, size=0.2, branch.length="none")
@@ -315,18 +317,112 @@ p4 <- p4 +
       geom_fruit(
           data=dt,
           geom=geom_boxplot_pattern,
-          mapping=aes(y=id, x=value, pattern=class, pattern_fill = class),
-          size=0.1, outlier.size=0.5,
+          mapping=aes(y = id, x = value, pattern = class, pattern_fill = class),
+          size = 0.1, outlier.size = 0.5,
           pwidth = 0.5, pattern_size = 0.1,
           pattern_density = 0.4, pattern_spacing = 0.01,
           fill = "grey",
-          position=position_dodgex(),
-          grid.params=list(),
-          axis.params=list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
+          position = position_dodgex(),
+          grid.params = list(),
+          axis.params = list(axis="x", text.size=1.5, text.angle=-45, hjust=0)
       ) + 
       theme(legend.key.size = unit(0.35, 'cm'))
 
 (p1 + p2)/(p3 + p4)
+```
+
+(ref:subplot) This example show *ggtreeExtra* can integrate subplot to phylogenetic tree, and the subplot can be *ggplot* object (Fig.\ref{fig:subplot}.A), and the attributes of subplot can be mapped the variables of associated data when silhouette image file was used(Fig.\ref{fig:subplot}.B).
+
+```{r, fig.width=7, fig.height=7, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:subplot)', dev="CairoPNG", dpi=300, subplot}
+library(ggtreeExtra)
+library(ggtree)
+library(ggpmisc)
+library(ggplot2)
+library(ggimage)
+library(patchwork)
+
+set.seed(1024)
+tr <- rtree(10)
+
+dat1 <- data.frame(value=c(abs(rnorm(10, 3)),abs(rnorm(10, 5))), group=c(rep("A",10),rep("B",10)))
+dat2 <- data.frame(value=c(abs(rnorm(15, 6)), abs(rnorm(15, 3))), group=c(rep("A",15),rep("B",15)))
+
+subp1 <- ggplot(dat1) +
+         geom_boxplot(aes(x=group, y=value, fill=group), 
+                      size=0.1, outlier.size = 0.1) +
+         theme_bw() +
+         theme(legend.key.size = unit(1, 'mm'),
+               plot.background=element_rect(fill=NA, color=NA),
+               legend.title=element_text(size=3.6),
+               legend.text=element_text(size=3.2),
+               axis.ticks = element_line(size=0.1),
+               axis.text = element_text(size=2.8),
+               axis.title = element_text(size=3))
+
+subp2 <- ggplot(dat2) +
+         geom_boxplot(aes(x=group, y=value, fill=group), 
+         size=0.1, outlier.size = 0.1) +
+         theme_bw() +
+         theme(legend.key.size = unit(1, 'mm'),
+               plot.background=element_rect(fill=NA, color=NA),
+               legend.title=element_text(size=3.6),
+               legend.text=element_text(size=3.2),
+               axis.ticks = element_line(size=0.1),
+               axis.text = element_text(size=2.8),
+               axis.title = element_text(size=3))
+
+dt <- tibble::tibble(id=c("t1", "t2"), plot=list(subp1, subp2))
+
+p1 <- ggtree(tr,
+             layout="fan",
+             open.angle=180
+             ) +
+      geom_tiplab(align=T, size=1.2) 
+
+p2 <- p1 +
+      geom_fruit(
+                 data=dt,
+                 geom=geom_plot,
+                 mapping=aes(y=id, label=plot),
+                 offset=0.4,
+                 position=position_identityx(),
+                 vjust=0.6,
+                 hjust=0.6,
+                 vp.width=0.34,
+                 vp.height=0.26
+      ) +
+      ggtitle("A")
+
+newick <- "((Pongo_abelii,(Gorilla_gorilla_gorilla,(Pan_paniscus,Pan_troglodytes)
+             Pan,Homo_sapiens)Homininae)Hominidae,Nomascus_leucogenys)Hominoidea;"
+
+tree <- read.tree(text=newick)
+
+p3 <- ggtree(tree,
+             layout="fan",
+             open.angle=180) +
+      geom_tiplab(aes(label=label), offset = .2, size=1.6)
+
+d <- ggimage::phylopic_uid(tree$tip.label)
+d$body_mass <- c(52, 114, 47, 45, 58, 6)
+d$ids <- tree$tip.label
+
+p4 <- p3 +
+      geom_fruit(
+          data = d,
+          geom = geom_phylopic,
+          mapping = aes(y=ids, image=uid, colour=body_mass),
+          position = position_identityx(),
+          offset = 2,
+          size = 0.04
+      ) +
+      ggtitle("B") +
+      xlim(NA, 12) +
+      scale_color_viridis_c(guide=guide_colorbar(barheight=2, barwidth=0.4)) +
+      theme(legend.text=element_text(size=6),
+            legend.title=element_text(size=7))
+
+p2 + p4
 ```
 
 # Examples of mapping and visualizing associated data on circular layout tree.
