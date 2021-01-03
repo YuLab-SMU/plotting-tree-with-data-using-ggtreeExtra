@@ -16,7 +16,9 @@ link-citations: yes
 
 **Supplemental File of**
 
-# ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree
+\begingroup\Large
+**ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree**
+\endgroup
 
 **Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and Guangchuang Yu\* **
 
@@ -53,7 +55,7 @@ library(ggnewscale)
 library(patchwork)
 ```
 
-## The purpose of development and overview
+# The purpose of development and overview
 
 Integrating and visualizing associated data to the phylogenetic tree can help to find biological patterns and generate new hypotheses. The associated data type of phylogenetic tree can be roughly divided into continuous data and categorical data (discrete data). The continuous data sets represent measurements, they can be measured but not be counted, such as the height, weight, abundance of species, gene expression and the number of target genes etc. The categorical data sets represent characteristics, they can not be measured but they can be counted, such as endemic region information of virus, taxonomy information of species, type of target gene and sampling location information etc. Certainly, categorical data can also take on numerical values (for example, 1 for target gene A, 2 for target gene B). The associated data sets are also often multi-dimensional. Several tools have been developed to integrate and display associated data to phylogenetic tree. However, they still have some shortcomings, such as don't support annotation circular layout (tree and graphic alignment), provide few geometric layers, need predefined input etc, which make them not universal. Here, we developed *ggtreeExtra* to annotate multi-dimensional data to the outer of phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree*[@ggtree1] and geometric layers function defined in *ggplot2*[@ggplot2] or other ggplot2-based package. And it supports not only circular layout, but also other layouts defined in *ggtree*[@ggtree1]. The tree can be annotated by geometric function defined in ggtree[@ggtree1] (Fig. \ref{fig:OverView}). In addition, it was developed based on the grammar of graphics[@Wilkinson2012]. So user can easily map the variables (abundance of species, length of genome, sampling location) of associated data to aesthetic attributes (size, color, shape) of outer geometric objects (bar, point, box plot) of circular phylogenetic tree using *ggtreeExtra*. The details (such as legends and theme) of figure can be adjusted by corresponding *scale* function and theme function defined in ggplot2[@ggplot2] (Fig. \ref{fig:OverView}). Compared other tools, *ggtreeExtra* supports annotation of multiple layout of phylogenetic tree, it can integrate more geometric layers and don't need predefined input, which make it more universal (Tab. \ref{tab:compare}).
 
@@ -82,7 +84,7 @@ header <- gsub(" ", "\\ ", header) %>%
           linebreak(align="l", linebreaker = ",")
 
 compare_tab <-
-  read.table(text=x, header=F, sep="\t", quote="", check.names=F) %>%
+  read.table(text=x, header=F, sep="\t", quote="", check.names=F) %>%  
   dplyr::mutate(
          V3 = gsub(" ", "\\ ", V3),
          V4 = gsub(" ", "\\ ", V4),
@@ -122,18 +124,21 @@ compare_tab <-
                  "tree annotation: tree and geometric alignment;",
                  "Combined freely: layers can be combined freely."
                  )
-  )
+  ) %>% 
+  landscape()
 
 compare_tab
 ```
 
-## Geometric layers that supported by *geom_fruit* of *ggtreeExtra*
+# Geometric layers that supported by *geom_fruit* of *ggtreeExtra*
 
 *ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggdist}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
 
 ```{r, echo=FALSE, results='asis', geom}
 
 x <- "Package\tGeom layer\tVisual characteristic\tDescription\n
+ggdist\tgeom_dots\talpha, color, fill, size, shape\tcreates dotplots that automatically determines a bin\n
+ggdist\t \t \twidth that ensures the plot fits within the available space\n
 ggdist\tgeom_dotsinterval\talpha, color, fill, size, shape\tcreates dots, intervals, and quantile dotplots\n
 ggdist\tgeom_pointinterval\talpha, color, fill, size, shape\tcreates point and multiple uncertainty interval\n
 ggdist\tgeom_slab\talpha, color, fill\tcreats slab geom\n
@@ -156,6 +161,12 @@ ggplot2\tgeom_point\talpha, color, fill, shape, size\tcreats scatterplots\n
 ggplot2\tgeom_raster\talpha, fill\ta high performance special case for all the tiles are the same size\n
 ggplot2\tgeom_text\tcolor, size\tadds text to the plot\n
 ggplot2\tgeom_tile\talpha, color, fill\tdraws rectangle by using the center of the tile and its size\n
+ggpmisc\tgeom_plot\tvp.width,vp.height\tggplot objects as insets to the base ggplot,\n
+ggpmisc\t \t \tusing syntax similar to that of 'geom_label'\n
+ggpmisc\tgeom_table\tsize\tadds a textual table directly to the ggplot,\n
+ggpmisc\t \t \tusing syntax similar to that of 'geom_label'\n
+ggpmisc\tgeom_grob\tvp.width,vp.height\tadd a Grob as inset to the ggplot,\n
+ggpmisc\t \t \tusing syntax similar to that of 'geom_label'\n
 ggrepel\tgeom_text_repel\tcolor, size\tadds text to the plot. The text labels repel away\n
 ggrepel\t \t \tfrom each other and away from the data points\n
 ggrepel\tgeom_label_repel\talpha, color, fill, size\tdraws a rectangle underneath the text. The text labels repel away\n
@@ -318,22 +329,22 @@ p4 <- p4 +
 (p1 + p2)/(p3 + p4)
 ```
 
-## Examples of mapping and visualizing associated data on circular layout tree.
+# Examples of mapping and visualizing associated data on circular layout tree.
 
 *ggtreeExtra* can integrate many geometric layers by linking *geom* function defined in *ggplot2*[@ggplot2] or ggplot2-extension packages (Tab. \ref{tab:geom} and \ref{tab:compare}). This is the basis for *ggtreeExtra* to be used for the annotation of phylogenetic tree. We presented two examples (Fig. \ref{fig:ggdist} and \ref{fig:ggpattern}) to show how to use *ggtreeExtra* to map simple associated data to rectangular phylogenetic tree by linking *geom* funtions. For the multiple associated data sets, circular layout is an efficient way to visualize multi-dimensional data sets[@circlize], since it can reduce space and make the graph more compact. Fortunately, *ggtreeExtra* support annotation of multiple layouts of tree (Fig. \ref{fig:OverView} and \ref{fig:ggpattern} and Tab. \ref{tab:compare}), including circular layout. Furthermore, *ggtreeExtra* is developed based on the grammar of graphics[@Wilkinson2012]. The associated data can be imported with the *data* parameter of *geom_fruit*, it can also be integrated to tree data (ggtree graphic object) with %<+% of *ggtree*[@ggtree2], before passing it to *geom_fruit* (Fig. \ref{fig:OverView}). Then the variables (abundance of species, length of genome, sampling location) of associated data can be mapped to the attributes of outer geometric objects (bar, point, boxplot) of circular phylogenetic tree (Fig. \ref{fig:OverView} and \ref{fig:ggdist}). Here, we present several examples to elucidate how to map and display the associated data on the outer rings of circular phylogenetic trees using *ggtreeExtra*. More examples can be found on the *chapter10* of online book^[<http://yulab-smu.top/treedata-book>].
 
-### Data supported by *ggtreeExtra*
+## Data supported by *ggtreeExtra*
 
 
-### Displaying multiple associated data to circular phylogenetic tree using grammar of graphic
+## Displaying multiple associated data to circular phylogenetic tree using grammar of graphic
 
 
-### Annotating circular phylogenetic tree with the associated data contained in ggtree graphic object
+## Annotating circular phylogenetic tree with the associated data contained in ggtree graphic object
 
-### Annotating large phylogenetic tree with multiple associated data
+## Annotating large phylogenetic tree with multiple associated data
 
-### Annotating associated data to the phylogenetic tree combined relationship data
+## Annotating associated data to the phylogenetic tree combined relationship data
 
-## Summary
+# Summary
 
-## References
+# References
