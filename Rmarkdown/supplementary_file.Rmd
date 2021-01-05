@@ -137,7 +137,7 @@ compare_tab
 
 # Geometric layers that supported by *geom_fruit* of *ggtreeExtra*
 
-*ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggridges}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). Even though other tools might provide the same graphic layers, *ggtreeExtra* is more flexible since it can inherit the features of the geometric functions, for example, *iTOL*, *Evolview* and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but *ggtreeExtra* is more flexible, it can integrate *ggplot2* object (Fig. \ref{fig:subplot}.A), and the attributes of subplot integrated can also be mapped to variable of associated data (Fig.\ref{fig:subplot}.B). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
+*ggtreeExtra* is designed to link ggtree[@ggtree1] and some **geom** functions defined in *ggplot2*[@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). Here is the list of the geometric layer functions which work seamlessly with *geom_fruit* of *ggtreeExtra* (Tab. \ref{tab:geom}). Each geometric layer function has own unique geometric attributes (Tab. \ref{tab:geom}). User can choose appropriate geometric layer functions according the type of associated data. And the variables of associated data can be mapped to the attributes of corresponding geometric layer function. For example, when user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), Box, violin or dot interval plot etc can be used to display them (Fig. \ref{fig:ggridges}). For the simple numeric data (length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot (pattern bar plot is efficient to the visualization that don't want to use color) (Fig. \ref{fig:ggpattern}). Certainly, the aesthetics parameters of **geom** not only can be mapped by variables, but also can be used to adjust the attributes of geometric layers directly (such as *pattern_fill* in Fig. \ref{fig:ggpattern}). Since *ggtreeExtra* can work seamlessly with the *geom* functions, it can integrate more geometric layers compare other tools (Tab. \ref{tab:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, image plot, pie (Tab. \ref{tab:compare}). Even though other tools might provide the same graphic layers, *ggtreeExtra* is more powerful and flexible since it can inherit the features of the geometric functions, for example, *iTOL*, *Evolview* and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but *ggtreeExtra* is more flexible, it can integrate *ggplot2* object (Fig. \ref{fig:subplot}.A), and the attributes of subplot integrated can also be mapped to variable of associated data (Fig.\ref{fig:subplot}.B). As the *ggplot2*[@ggplot2] community keeps expanding and more *geom* functions will be implemented in either *ggplot2*[@ggplot2] or other extensions, *geom_fruit* will gain more power to present data in future.
 
 ```{r, echo=FALSE, results='asis', geom}
 
@@ -198,7 +198,7 @@ knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
 
 (ref:ggridges) This example shows *ggtreeExtra* can work with *geom_density_ridges* of *ggridges*[@ggridges] and *geom_boxplot* of *ggplot2*[@ggplot2]. This dataset has also been visualized by *facet_plot*, but it can not work with circular layout tree[@ggtree2]. The associated data (melt_simple) was imported with *data* of *geom_fruit*, it has a column (*OTU*) contained tip labels. Then the tip labels column was assigned to *y*, the *val* is abundance of species (continuous data), which was mapped to the *x*, and *OTU* is the phylum information of species (categorical data), which was mapped to the *fill* (color).
 
-```{r, fig.width=8, fig.height=6, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', dev="CairoPNG", dpi=300, ggridges}
+```{r, fig.width=8, fig.height=8, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', dev="CairoPNG", dpi=300, ggridges}
 library(ggtree)
 library(ggplot2)
 library(ggtreeExtra)
@@ -218,46 +218,37 @@ mergedGP <- rarefy_even_depth(mergedGP, rngseed=1024)
 mergedGP <- tax_glom(mergedGP,"Order")
 
 melt_simple <- psmelt(mergedGP) %>%
-  filter(Abundance < 120) %>%
-  select(OTU, val=Abundance)
+  dplyr::filter(Abundance < 120) %>%
+  dplyr::select(OTU, val=Abundance)
 
-p <- ggtree(mergedGP, layout = "circular", size = 0.3) +
+p <- ggtree(mergedGP, size = 0.3) +
      geom_tippoint(aes(color = Phylum),
                    show.legend = FALSE,
                    size=0.6)
-
 p1 <- p +
       geom_fruit(
           data = melt_simple,
           geom = geom_density_ridges,
-          mapping = aes(
-                      y = OTU,
-                      x = val,
-                      fill = Phylum,
-                    ),
+          mapping = aes(y = OTU, x = val, fill = Phylum),
           offset = 0.12,
           pwidth = 0.4,
           lwd = .05,
-          axis.params = list(axis       = "x",
-                             text.size  = 1.2,
-                             hjust      = 0,
-                             vjust      = 1,
-                             text.angle = -45
+          axis.params = list(
+                            axis = "x", 
+                            text.size  = 1.2, 
+                            hjust = 0, 
+                            vjust = 1, 
+                            text.angle = -45
                         ),
           grid.params = list(),
           show.legend = FALSE
-      ) +
-      ggtitle("A") 
+      ) + ggtitle("A") 
 
 p2 <- p +
       geom_fruit(
           data = melt_simple,
           geom = geom_boxplot,
-          mapping = aes(
-                      y = OTU,
-                      x = val,
-                      fill = Phylum
-                    ),
+          mapping = aes(y = OTU, x = val, fill = Phylum),
           offset = 0.12,
           pwidth = 0.4,
           size = 0.1,
@@ -265,18 +256,19 @@ p2 <- p +
           outlier.stroke = 0.06,
           outlier.shape = 21,
           axis.params = list(
-                          axis       = "x",
-                          text.size  = 1.2,
-                          hjust      = 0,
-                          vjust      = 1,
-                          text.angle = -45
-                      ),
+                            axis = "x", 
+                            text.size = 1.2, 
+                            hjust = 0, 
+                            vjust = 1, 
+                            text.angle = -45
+                        ),
           grid.params = list(),
           show.legend = FALSE
-      ) +
-      ggtitle("B")
+      ) + ggtitle("B")
 
-p1 + p2 
+p3 <- p1 + layout_circular() + ggtitle("C")
+p4 <- p2 + layout_circular() + ggtitle("D")
+(p1 + p2)/(p3 + p4)
 ```
 
 (ref:ggpattern) This example shows *ggtreeExtra* can work with *geom_bar_pattern* and *geom_boxplot_pattern* of *ggpattern*[@ggpattern]. This example also shows *ggtreeExtra* can work with multiple layouts of tree.
@@ -482,7 +474,7 @@ p2 + p4
 
 ## Data supported by *ggtreeExtra*
 
-*ggtreeExtra* is designed to work with *ggtree*[@ggtree1] and *treeio*[@treeio], it supports visualizing the tree data parsed by *treeio*[@treeio], any data frame that contains a column of tip labels can also be imported with *data* parameter of *geom_fruit* (Fig. \ref{fig:ggridges}). Or the data frame that contains a column of tip labels can also be integrated into *ggtree* graphic object using *%<+%* operator[@ggtree2], before passing it to *geom_fruit*. So *ggtreeExtra* can be used to annotate evolutionary statistics inferred by commonly used software, and It is possible to display the evolutionary statistics with phylogeny-associated data (such as traits, metadata) using *ggtreeExtra*. These features are not available in other tools. We reproduce Figure 3.3 of [@smith2019] to show how to integrate the associated data to tree data using *%<+%* and visualize it. And the source data is available at this repository^[<https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018>]. The associated data sets contain the information of Ecosystem type, sequencing type and sample treatment method (all categorical data). The first column of external data is tip labels (the element of the column must be unique). The tree was built using *RAxML*[@RAxML], it is parsed to tree data using *read.raxml* of *treeio*[@treeio], contained bootstrap information. The tree data was visualized with *ggtree*[@ggtree1]. Then the associated data sets was imported *ggtree* graphic object using %<+%, *geom_fruit* can extract the tree data integrated automatically, and the attributes of data can be mapped using related attributes of geometry layers. The *y* of *aes* can be ignored. Here we used heat map to display the associated data sets (categorical data). The external ring heat maps represent the different types in corresponding categories (the type of Ecosystem was mapped to the color of innermost ring heat map, the type of sequencing was mapped to the color of middle ring heat map, the type of sample treatment was mapped to the color of outermost ring heat map) (Fig. \ref{fig:Metha}). In addition, compared with other tools, no restriction of data types should be visualized in *geom_fruit* of *ggtreeExtra*. It depends on the data types of various geometric functions (Tab. \ref{tab:geom}). For example, The multiple density plots is not supported by other tools, but *ggtreeExtra* can support it by linking *geom_density_ridges* of *ggridges*[@ggridges] (the data types of *geom_density_ridges* should be provided) (Fig. \ref{fig:ggridges}.A). The *ggplot* graphic object (one type of image plot) is also not supported by other tools, but *ggtreeExtra* can support it by linking *geom_plot* of *ggpmisc*[@ggpmisc], only we provides the data types of *geom_plot* (Fig. \ref{fig:subplot}.A). As the *geom* of *ggplot2* [@ggplot2] or other extensions will be updated and developed, so *ggtreeExtra* will be also more to present datasets in the future.
+*ggtreeExtra* is designed to work with *ggtree*[@ggtree1] and *treeio*[@treeio], it supports visualizing the tree data parsed by *treeio*[@treeio], any data frame that contains a column of tip labels can also be imported with *data* parameter of *geom_fruit* (Fig. \ref{fig:ggridges}). Or the data frame that contains a column of tip labels can also be integrated into *ggtree* graphic object using *%<+%* operator[@ggtree2], before passing it to *geom_fruit*. So *ggtreeExtra* can be used to annotate evolutionary statistics inferred by commonly used software, and It is possible to display the evolutionary statistics with phylogeny-associated data (such as traits, metadata) using *ggtreeExtra*. These features are not available in other tools. We reproduce Figure 3.3 of [@smith2019] to show how to integrate the associated data to tree data using *%<+%* and visualize it. And the source data is available at this repository^[<https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018>]. The associated data sets contain the information of Ecosystem type, sequencing type and sample treatment method (all categorical data). The first column of external data is tip labels (the element of the column must be unique). The tree was built using *RAxML*[@RAxML], it is parsed to tree data using *read.raxml* of *treeio*[@treeio], contained bootstrap information. The tree data was visualized with *ggtree*[@ggtree1]. Then the associated data sets was imported *ggtree* graphic object using %<+%, *geom_fruit* can extract the tree data integrated automatically, and the attributes of data can be mapped using related attributes of geometry layers. The *y* of *aes* can be ignored. Here we used heat map to display the associated data sets (categorical data). The external ring heat maps represent the different types in corresponding categories (the type of Ecosystem was mapped to the color of innermost ring heat map, the type of sequencing was mapped to the color of middle ring heat map, the type of sample treatment was mapped to the color of outermost ring heat map) (Fig. \ref{fig:Metha}). In addition, compared with other tools, no restriction of data types should be visualized in *geom_fruit* of *ggtreeExtra*. It depends on the data types of various geometric functions (Tab. \ref{tab:geom}). For example, The multiple density plots is not supported by other tools, but *ggtreeExtra* can support it by linking *geom_density_ridges* of *ggridges*[@ggridges] (the data types of *geom_density_ridges* should be provided) (Fig. \ref{fig:ggridges}.A and \ref{fig:ggridges}.C). The *ggplot* graphic object (one type of image plot) is also not supported by other tools, but *ggtreeExtra* can support it by linking *geom_plot* of *ggpmisc*[@ggpmisc], only we provides the data types of *geom_plot* (Fig. \ref{fig:subplot}.A). As the *geom* of *ggplot2* [@ggplot2] or other extensions will be updated and developed, so *ggtreeExtra* will be also more to present datasets in the future.
 
 (ref:Metha) Phylogeny of methanotroph ribosomal protein S39 (rpS3) genes from Figure 3.3 [@smith2019]. The external ring of circular tree is built with the associated data sets integrated to tree data using *%<+%*.
 
@@ -509,14 +501,25 @@ df$MetaType <- factor(df$MetaType,
 df$Treatment <- factor(df$Treatment, levels=c("Native", "Enrichment","Isolate", "Unknown"))
 
 p <- ggtree(tree, layout="fan", open.angle=30)
+print(as.treedata(p))
 p <- rotate_tree(p, 90)
-p1 <- p + geom_treescale(x=0.2, y=727*6/11, width=1, offset=20) +
-      geom_nodepoint(aes(subset=as.numeric(bootstrap)>=70),
-                     shape=21, fill="grey", size=1)
-print(as.treedata(p1))
+p1 <- p + 
+      geom_treescale(x=0.2, y=727*6/11, width=1, offset=20) +
+      geom_point2(aes(subset = !isTip,
+                      fill = cut(bootstrap, c(0, 70, 90, 100), right = F)),
+                  shape=21, size=1.2, stroke=0.3) +
+      scale_fill_manual(values = c("black", "grey", "white"),
+                        name = "Bootstrap (BP)",
+                        breaks = c('[90,100)', '[70,90)', '[0,70)'),
+                        labels = expression(BP>=90, 70<=BP * '<90', BP < 70),
+                        guide=guide_legend(keywidth=0.5, keyheight=0.5,
+                                           override.aes=list(size=2.5, stroke=0.5), 
+                                           order=1)
+                        ) 
 # we can use %<+% to integrate the external datasets to tree structure.
 # and the y can not be specified.
 p2 <- p1 %<+% df +
+      new_scale_fill() +
       geom_fruit(
           geom=geom_tile,
           mapping=aes(fill=Specific.Ecosystem),
@@ -524,63 +527,67 @@ p2 <- p1 %<+% df +
           width=0.35,
           axis.params=list(axis="x", text="Ecosystem", text.angle=0,
                           hjust=0, text.size=3, family="Times", fontface="bold")
-     ) +
-     scale_fill_manual(
-         values=c("green3","turquoise", "maroon", "orchid",
-          "deepskyblue", "forestgreen","salmon", "cadetblue3",
-          "slategray4",  "yellowgreen", "gray90", "chocolate2",
-          "yellow"),
-         guide=guide_legend(title="Ecosystem", keywidth=0.5, keyheight=0.5, order=4),
-         na.translate=FALSE
-     ) +
-     new_scale_fill() +
-     geom_fruit(
-         geom=geom_tile,
-         mapping=aes(fill=MetaType),
-         offset=0.13,
-         width=0.35,
-         axis.params=list(axis="x", text="Sequencing Type", text.angle=0,
-                         hjust=0, text.size=3, family="Times", fontface="bold")
-     ) +
-     scale_fill_manual(
-         values=c("red", "black", "dodgerblue", "gray50"),
-         guide=guide_legend(title="Sequencing Type", keywidth=0.5, keyheight=0.5, order=3),
-         na.translate=FALSE
-     ) +
-     new_scale_fill() +
-     geom_fruit(
-         geom=geom_tile,
-         mapping=aes(fill=Treatment),
-         offset=0.13,
-         width=0.35,
-         axis.params=list(
-                         axis="x",
-                         text="Sample Treatment",
-                         text.angle=0,
-                         hjust=0,
-                         text.size=3,
-                         family="Times",
-                         fontface="bold"
-                     )
-     ) +
-     scale_fill_manual(
-         values=c("red","gray50", "black", "yellow"),
-         guide=guide_legend(
-                   title="Sample Treatment",
-                   keywidth=0.5,
-                   keyheight=0.5,
-                   order=2),
-         na.translate=FALSE
-     ) +
-     theme(
-           legend.background=element_rect(fill=NA), # the background of legend.
-           legend.title=element_text(size=9, family="Times", face="bold"),
-           legend.text=element_text(size=7, family="Times"), # the text size of legend.
-           legend.spacing.y = unit(0.02, "cm"),
-           legend.margin=margin(0.1, 0.9, 0.1,-0.9, unit="cm"), # t, r, b, l, cm
-           legend.box.margin=margin(0.1, 0.9, 0.1, -0.9, unit="cm"),
-           plot.margin = unit(c(-1.2, -1.2, -1.2, 0.1),"cm")
-     )
+      ) +
+      scale_fill_manual(
+          values=c("green3","turquoise", "maroon", "orchid",
+           "deepskyblue", "forestgreen","salmon", "cadetblue3",
+           "slategray4",  "yellowgreen", "gray90", "chocolate2",
+           "yellow"),
+          guide=guide_legend(title="Ecosystem", keywidth=0.5, keyheight=0.5, order=4),
+          na.translate=FALSE
+      ) 
+
+p3 <- p2 +
+      new_scale_fill() +
+      geom_fruit(
+          geom=geom_tile,
+          mapping=aes(fill=MetaType),
+          offset=0.13,
+          width=0.35,
+          axis.params=list(axis="x", text="Sequencing Type", text.angle=0,
+                          hjust=0, text.size=3, family="Times", fontface="bold")
+      ) +
+      scale_fill_manual(
+          values=c("red", "black", "dodgerblue", "gray50"),
+          guide=guide_legend(title="Sequencing Type", keywidth=0.5, keyheight=0.5, order=3),
+          na.translate=FALSE
+      ) 
+
+p4 <- p3 +
+      new_scale_fill() +
+      geom_fruit(
+          geom=geom_tile,
+          mapping=aes(fill=Treatment),
+          offset=0.13,
+          width=0.35,
+          axis.params=list(
+                          axis="x",
+                          text="Sample Treatment",
+                          text.angle=0,
+                          hjust=0,
+                          text.size=3,
+                          family="Times",
+                          fontface="bold"
+                      )
+      ) +
+      scale_fill_manual(
+          values=c("red","gray50", "black", "yellow"),
+          guide=guide_legend(
+                    title="Sample Treatment",
+                    keywidth=0.5,
+                    keyheight=0.5,
+                    order=2),
+          na.translate=FALSE
+      ) +
+      theme(
+            legend.background=element_rect(fill=NA), # the background of legend.
+            legend.title=element_text(size=9, family="Times", face="bold"),
+            legend.text=element_text(size=7, family="Times"), # the text size of legend.
+            legend.spacing.y = unit(0.02, "cm"),
+            legend.margin=margin(0.1, 0.9, 0.1,-0.9, unit="cm"), # t, r, b, l, cm
+            legend.box.margin=margin(0.1, 0.9, 0.1, -0.9, unit="cm"),
+            plot.margin = unit(c(-1.2, -1.2, -1.2, 0.1),"cm")
+      )
 
 # optional
 cladeda <- data.frame(nodeid = c(793, 791, 1384, 1394, 1440, 1405), 
@@ -590,10 +597,15 @@ cladeda <- data.frame(nodeid = c(793, 791, 1384, 1394, 1440, 1405),
                       horizontal = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
                       hjust = c(0.5, 0.5, 0, 0, 0, 0))
 
-p3 <- p2 + 
+p5 <- p4 + 
       geom_cladelab(
           data = cladeda,
-          mapping = aes(node=nodeid, label=label, horizontal=horizontal, hjust=hjust),
+          mapping = aes(
+                        node=nodeid, 
+                        label=label, 
+                        horizontal=horizontal, 
+                        hjust=hjust
+                    ),
           angle = "auto",
           offset = 1.4, 
           align = T, 
@@ -603,7 +615,7 @@ p3 <- p2 +
           fontface="bold",
           offset.text = 0.1
       )
-p3
+p5
 ```
 
 ## Displaying multiple associated data to circular phylogenetic tree using grammar of graphic
@@ -635,22 +647,29 @@ dat2$Sites <- factor(dat2$Sites, levels=c("Stool (prevalence)", "Cheek (prevalen
                                           "Plaque (prevalence)","Tongue (prevalence)",
                                           "Nose (prevalence)", "Vagina (prevalence)",
                                           "Skin (prevalence)"))
+
 dat3$Sites <- factor(dat3$Sites, levels=c("Stool (prevalence)", "Cheek (prevalence)",
                                           "Plaque (prevalence)", "Tongue (prevalence)",
                                           "Nose (prevalence)", "Vagina (prevalence)",
                                           "Skin (prevalence)"))
+
 # extract the clade label information. Because some nodes of tree are annotated to genera,
 # which can be displayed with high light using ggtree.
+# This is optional, since the node information are always not present.
 nodeids <- nodeid(tree, tree$node.label[nchar(tree$node.label)>4])
 nodedf <- data.frame(node=nodeids)
 nodelab <- gsub("[\\.0-9]", "", tree$node.label[nchar(tree$node.label)>4])
+
 # The layers of clade and hightlight (optional)
 poslist <- c(1.6, 1.4, 1.6, 0.8, 0.1, 0.25, 1.6, 1.6, 1.2, 0.4,
              1.2, 1.8, 0.3, 0.8, 0.4, 0.3, 0.4, 0.4, 0.4, 0.6,
              0.3, 0.4, 0.3)
 labdf <- data.frame(node=nodeids, label=nodelab, pos=poslist)
+
 # The circular layout tree.
 p <- ggtree(tree, layout="fan", size=0.15, open.angle=5) 
+
+# add tip points with geom_star of ggstar
 p <- p %<+% dat1 +
      geom_star(
           mapping=aes(fill=Phylum, starshape=Type, size=Size),
@@ -692,7 +711,11 @@ p1 <- p +
       ) +
       geom_cladelab(
          data=labdf,
-         mapping=aes(node=node, label=label, offset.text=pos),
+         mapping=aes(
+                     node=node, 
+                     label=label, 
+                     offset.text=pos
+                 ),
          barsize=NA,
          fontsize=0.7,
          angle="auto",
@@ -706,7 +729,12 @@ p2 <- p1 +
       geom_fruit(
           data=dat2,
           geom=geom_tile,
-          mapping=aes(y=ID, x=Sites, alpha=Abundance, fill=Sites),
+          mapping=aes(
+                     y=ID, 
+                     x=Sites, 
+                     alpha=Abundance, 
+                     fill=Sites
+                  ),
           color = "grey50",
           offset = 0.04,
           size = 0.02
@@ -727,7 +755,11 @@ p3 <- p2 +
       geom_fruit(
           data=dat3,
           geom=geom_col,
-          mapping=aes(y=ID, x=HigherAbundance, fill=Sites),
+          mapping=aes(
+                      y=ID, 
+                      x=HigherAbundance, 
+                      fill=Sites
+                  ),
           pwidth=0.38,
           orientation="y",
           position=position_stackx(),
@@ -744,7 +776,7 @@ p4
 
 ## Annotating phylogenetic tree fully with multiple associated data
 
-Since *ggtreeExtra* supports annotation of multiple layouts tree (tree and geometric layers alignment) (Tab. \ref{tab:compare} and Fig. \ref{fig:ggridges} and \ref{fig:ggpattern}). It can also link *ggtree*[@ggtree1] and geometric layer functions defined in *ggplot2*[@ggplot2] or ggplot2-based packages based on grammar of graphic (Tab. \ref{tab:geom} in **2 section** and Fig. \ref{fig:HMP} in **3.2 section**). The annotation layers on the outer of phylogenetic tree can be combined freely. So it can be easily used to visualize complex and high-dimensional associated data on the outer of phylogenetic tree including the tree containing thousands of tips. Here, we reproduce Fig 2 of [@GraPhlAn]. The phylogenetic tree also was built using a part of 3737 microbes [@PhyloPhlAn]. The associated data sets have also been extracted from configure file and saved as the data frame types for corresponding geometric layer functions. They contains present or not (discrete data) and type (discrete data) of target gene, the type (discrete data) and capability (continuous data) of fatty acid metabolism, and the length of microbes genome. The present or not of different target gene was visualized with first inner heat map (the type of target gene was mapped to color of heat map, and the subtype of target gene was mapped to the x value(take on numerical values)). The type and capability of fatty acid metabolism was also visualized with middle heat map (the type was mapped to color of heat map, the capability of fatty acid metabolism was mapped to the transparency of heat map). The length of genome was displayed with bar chart (the length of genome was mapped to length of bar, the phylum information of genome was mapped to the color of bar). (Fig. \ref{fig:KEGG}). Notably, the same colors of Proteobacteria and Spirochaetes were found in the original configure file[@GraPhlAn]. We tried to separate the tips from Proteobacteria and Spirochaetes. Unfortunately, the phylum information of tips was replaced color code, so color of Proteobacteria and Spirochaetes is also identical in Fig. \ref{fig:KEGG}. This show that providing configure files mixed associated data and profiler of graphic layer is tedious and error-prone since the profilerd of graphic layer (such like color or size) should be consistent for the same information. 
+Since *ggtreeExtra* supports annotation of multiple layouts tree (tree and geometric layers alignment) (Tab. \ref{tab:compare} and Fig. \ref{fig:ggridges} and \ref{fig:ggpattern}). It can also link *ggtree*[@ggtree1] and geometric layer functions defined in *ggplot2*[@ggplot2] or ggplot2-based packages based on grammar of graphic (Tab. \ref{tab:geom} in **2 section** and Fig. \ref{fig:HMP} in **3.2 section**). The annotation layers on the outer of phylogenetic tree can be combined freely. So it can be easily used to visualize complex and high-dimensional associated data on the outer of phylogenetic tree including the tree containing thousands of tips. Here, we reproduce Fig 2 of [@GraPhlAn]. The phylogenetic tree also was built using a part of 3737 microbes [@PhyloPhlAn]. The associated data sets have also been extracted from configure file and saved as the data frame types for corresponding geometric layer functions. They contains present or not (discrete data) and type (discrete data) of target gene, the type (discrete data) and capability (continuous data) of fatty acid metabolism, and the length of microbes genome. The present or not of different target gene was visualized with first inner heat map (the type of target gene was mapped to color of heat map, and the subtype of target gene was mapped to the x value(take on numerical values)). The type and capability of fatty acid metabolism was also visualized with middle heat map (the type was mapped to color of heat map, the capability of fatty acid metabolism was mapped to the transparency of heat map). The length of genome was displayed with bar chart (the length of genome was mapped to length of bar, the phylum information of genome was mapped to the color of bar). (Fig. \ref{fig:KEGG}). Notably, the same colors of Proteobacteria and Spirochaetes were found in the original configure file[@GraPhlAn]. We tried to separate the tips from Proteobacteria and Spirochaetes. Unfortunately, the phylum information of tips was replaced color code, so color of Proteobacteria and Spirochaetes is also identical in Fig. \ref{fig:KEGG}. This show that providing configure files mixed associated data and profiler of graphic layer is tedious and error-prone since the profiler of graphic layer (such like color or size) should be consistent for the same information. 
 
 (ref:KEGG) The phylogenetic tree built using in [@PhyloPhlAn] using 963 microbial genomes (a part of 3737 microbes [@PhyloPhlAn]). The first and second ring heat map were built with discrete data, it represents the presence or absence of each module, the other heat map rings were created with continuous data, the transparency represents the capability of fatty acid metabolism, the different colors represent the types of fatty acid metabolism. The length of bar represents the genome length of corresponding microbes.
 
@@ -885,8 +917,189 @@ p5
 
 ## Annotating associated data to the phylogenetic tree combined chord diagram.
 
+As the mentioned above, *ggtreeExtra* can link *ggtree*[@ggtree1] and geometric layer functions defined *ggplot2*[@ggplot2] or other ggplot2 extension packages (Tab. \ref{tab:geom}). It also developed based on grammar of graphic (Fig. \ref{fig:HMP}). The geometric layers of *ggtree*[@ggtree1] and *ggplot2* or other ggplot2 extension packages can be combined freely using *ggtreeExtra* (Fig. \ref{fig:KEGG}), and the layers can be added, deleted or modified. *ggtreeExtra* is more flexible and universal than other tools, since it can also integrate more geometric layers and support more layouts for tree annotation (Tab. \ref{tab:compare}). These features allow *ggtreeExtra* to better explore phylogenetic patterns behind multi-dimensional data. For example, the Fig.1b and Fig.2 of [@Arabidopsis] show the directional interactions and the biosynthetic potential of isolates from *Arabidopsis* leaf microbiome in phylogenetic tree using GraPhlAn[@GraPhlAn]. However, because GraPhlAn [@GraPhlAn] is not general, it only support annotation of circular layout tree and support few geometric layers, some phylogenetic patterns behind multi-dimensional data were not be found easily. Here, we can use *ggtree* and *ggtreeExtra* to combine the total information of Fig.1b and Fig.2 of [@Arabidopsis]. In details, the interactions of isolates are visualized with chord diagram using *geom_taxalink* of *ggtree*[@ggtree1]. The biosynthetic potential of isolates are displayed with heat map by linking *geom_tile* of *ggplot2*[@ggplot2] (the number of target gene (continuous data) was mapped to the transparency of heat map, the type of target gene (discrete data) was mapped to the x value and color of heat map). The number of interactions of inhibitions or sensitivities per strain is displayed with stacked bar by linking *geom_bar* of *ggplot2*[@ggplot2] (the number of interactions (continuous data) was mapped to the x value (length) of bar plot, and the type of interactions (discrete data) was mapped to the color of bar plot.). We found some strains from Firmicutes and from Grammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. In addition, These strains that prefer the interactions of sensitivity might be have more BGCs (biosynthesis gene clusters) from ribosomally synthesized and post-translationally modified peptide (*RiPP*). Notably, other tools do not support annotation of phylogenetic tree combined chord diagram to show relationship data, such as correlation data of species or genes, horizontal gene transfer and syntenic linkage. However, *ggtreeExtra* support this feature (Fig. \ref{fig:ArabidopsisTree}), because of its unique design (Fig. \ref{fig:OverView}). This proves *ggtreeExtra* is more powerful and universal than other tools again.
+
+(ref:ArabidopsisTree) The Phylogenetic tree of isolates from *Arabidopsis* leaf microbiome [@ArabidopsisMicrobiota]. The lines in inner represent the directional inhibitory interactions, the direction of arrow represents the directional inhibitory interaction, and the color of line represents the weak or strong interactions. The color of tip point represents the taxonomy annotation, circle represents the phylum, square represents the class from Proteobacteria. The heat map of external ring represents the number of detected BGCs (biosynthesis gene clusters). The ring from inner to outside represents the Modular polyketide synthase, Modular PKS non-ribosomal peptide synthetase (NRPS) hybrid, Non modular PKS, NRPS, ribosomally synthesized and post-translationally modified peptide (RiPP), Quorum sensing, Terpene, and Others. The external bar represent the number of interactions of inhibitions or sensitivities per strain.
+
+```{r, fig.width=7, fig.height=7, error=FALSE, warning=FALSE, message=FALSE, fig.cap="(ref:ArabidopsisTree)", dev="CairoPNG", dpi=300, ArabidopsisTree}
+library(ggtree)
+library(ggtreeExtra)
+library(ggplot2)
+library(MicrobiotaProcess)
+library(ggstar)
+library(ggnewscale)
+library(grid)
+
+alltax <- read.csv("../data/Arabidopsis_leaf_microbiome/all_stain_taxonomy.csv")
+linktab <- read.csv("../data/Arabidopsis_leaf_microbiome/Interaction_link_tab.csv")
+weighttab <- read.csv("../data/Arabidopsis_leaf_microbiome/Interaction_weight.csv")
+tippoint <- read.csv("../data/Arabidopsis_leaf_microbiome/stain_tippoint.csv")
+BGCsda <- read.csv("../data/Arabidopsis_leaf_microbiome/BGCs_heatmap.csv")
+
+tippoint$Taxa <- factor(tippoint$Taxa,
+                        levels=c("Actinobacteria",
+                                 "Bacteroidetes",
+                                 "Firmicutes",
+                                 "Deinococcus-Thermus",
+                                 "Alphaproteobacteria",
+                                 "Betaproteobacteria",
+                                 "Gammaproteobacteria"
+                               )
+                        )
+tippoint$names <- gsub("s__Leaf","",tippoint$Isolation)
+
+BGCsda$BGCs <- factor(BGCsda$BGCs,
+                     levels=c("modular.PKS",
+                              "modular.PKS.NRPS.hybrid",
+                              "non_modular.PKS", "NRPS",
+                              "RiPP",
+                              "Quorum.sensing",
+                              "terpene",
+                              "other"
+                            )
+                    )
+BGCsda$Count <- log10(BGCsda$Count+1)
+BGCsda$Count <- ifelse(BGCsda$Count==0, NA, BGCsda$Count)
+
+trda <- convert_to_treedata(alltax)
+p <- ggtree(
+         trda,
+         layout="inward_circular",
+         size=0.2,
+         xlim=c(18,NA)
+     )
+p <- p %<+% tippoint
+
+p1 <- p +
+      geom_tippoint(
+          mapping=aes(
+                      color=Taxa,
+                      shape=Level
+                      ),
+          size=1,
+          alpha=0.8
+      ) +
+      scale_color_manual(values=c("#EF3B2C", "#1D91C0", "#FEB24C", "grey60",
+                                  "#7FBC41", "#4D9221", "#276419"),
+                         guide=guide_legend(
+                                   keywidth=0.5,
+                                   keyheight=0.5,
+                                   order=2,
+                                   override.aes=list(shape=c("Actinobacteria"=20,
+                                                             "Bacteroidetes" =20,
+                                                             "Firmicutes"    =20,
+                                                             "Deinococcus-Thermus" =20,
+                                                             "Alphaproteobacteria" =18,
+                                                             "Betaproteobacteria"  =18,
+                                                             "Gammaproteobacteria" =18
+                                                             ),
+                                                     size=2
+                                                ),
+                                   na.translate=TRUE
+                               )
+      ) +
+      scale_shape_manual(values=c("Phylum"=20, "Class"=18), guide="none" )
+
+p2 <- p1 +
+      new_scale_color() +
+      geom_taxalink(
+          data=linktab,
+          mapping=aes(
+                      taxa1=Inhibitor,
+                      taxa2=Sensitive,
+                      color=Interaction
+                  ),
+          alpha=0.6,
+          offset=0.1,
+          size=0.15,
+          ncp=10,
+          hratio=1,
+          arrow=grid::arrow(length = unit(0.005, "npc"))
+      ) +
+      scale_colour_manual(values=c("chocolate2", "#3690C0", "#009E73"),
+                          guide=guide_legend(
+                                     keywidth=0.8, keyheight=0.5,
+                                     order=1, override.aes=list(alpha=1, size=0.5)
+                          )
+      )
+
+p3 <- p2 +
+      geom_fruit(
+          data=BGCsda,
+          geom=geom_tile,
+          mapping=aes(y=Strain, x=BGCs, alpha=Count, fill=BGCs),
+          offset=-0.9,
+          pwidth=1,
+          size=0.02,
+          color = "grey50"
+      ) +
+      scale_alpha_continuous(range=c(0.1, 1),
+                             name=bquote(paste(Log[10],"(",.("Count+1"), ")")),
+                             guide=guide_legend(keywidth = 0.4, keyheight = 0.4, order=4)
+      ) +
+      scale_fill_manual(
+          values=c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3",
+                   "#A6D854", "#FFD92F", "#E5C494", "#B3B3B3"),
+          guide=guide_legend(keywidth = 0.4, keyheight = 0.4, order=3)
+      )
+
+p4 <- p3 +
+      geom_tiplab(
+          mapping=aes(label=names),
+          align=TRUE,
+          size=1,
+          linetype=NA,
+          offset=7.8
+      )
+
+p5 <- p4 +
+      new_scale_fill() +
+      geom_fruit(
+          data=weighttab,
+          geom=geom_bar,
+          mapping=aes(
+                      x=value,
+                      y=Strain,
+                      fill=Number
+                  ),
+          stat="identity",
+          orientation="y",
+          offset=0.48,
+          pwidth=2,
+          axis.params=list(
+                          axis="x",
+                          text.angle=-45,
+                          hjust=0,
+                          vjust=0.5,
+                          nbreak=4,
+                          )
+      ) +
+      scale_fill_manual(
+          values=c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3"),
+          guide=guide_legend(keywidth=0.5,keyheight=0.5,order=5)
+      ) +
+      theme(
+            legend.background=element_rect(fill=NA),
+            legend.title=element_text(size=6.5),
+            legend.text=element_text(size=5),
+            legend.spacing.y = unit(0.02, "cm"),
+            legend.margin=margin(0.1, 0.9, 0.1,-0.9, unit="cm"),
+            legend.box.margin=margin(0.1, 0.9, 0.1, -0.9, unit="cm"),
+            plot.margin = unit(c(-1.2, -1.2, -1.2, 0.1),"cm")
+      )
+p5
+```
 
 # Summary
 
+There are some tools depending on python or other platform to annotate phylogenetic tree with associated data, but they are not general and still have some shortcomings. For example, they support less layouts and less geometric layers for tree annotation (tree and geometric layer alignment) (Tab. \ref{tab:compare}). And many tools need user providing configure file mixed associated data and profiler of graphic, which make them tedious and error-prone since the profiler of graphic layer (such like color or size) should be consistent for the same information (Fig. \ref{fig:KEGG} in **3.3 section**). There features make these tools not universal. It is worth mentioning that *ggtree* has also provided *facet_plot*(*geom_facet*) to annotated phylogenetic tree with external data [@ggtree2]. This function is also a universal function with many unique features [@ggtree2]. But it can't not work with circular layout tree, which is an efficient way to visualize multi-dimensional dataset and phylogenetic tree, since circular layout can reduce space and make the graph more compact. Fortunately, *geom_fruit* of *ggtreeExtra* inherits the design concept of *facet_plot* (*geom_facet*) of *ggtree* [@ggtree2] and supports more layouts for tree annotation (tree and graph alignment), So *geom_fruit* has also some features contained in *facet_plot*(*geom_facet*). For example:
+
+1. No restriction of input data types or how the data should be plotted in *geom_fruit*, it depends on the data types of various geometric functions. (Tab. \ref{tab:geom} and *3.1 section*)
+2. Associated data integrated by %<+% can also be used in "geom_fruit". (Fig. \ref{fig:Metha})
+3. Combining different *geom* functions to visualize associated data is supported. (Fig. \ref{fig:KEGG})
+4. Supporting ggplot object subplot or image. (Fig. \ref{fig:subplot})
+5. Supporting grammar of graphic. (Fig. \ref{fig:HMP})
+
+In addition, the phylogenetic tree annotated by *ggtreeExtra* can also be converted to another layout tree (Fig. \ref{fig:ggridges}). Moreover, although other tools can also integrate similar geometric layer to *ggtreeExtra*, such as bar plot, box plot, *ggtreeExtra* is more powerful and flexible since it inherits the features of corresponding **geom** functions (Fig. \ref{fig:ggpattern} and \ref{fig:subplot}). Furthermore, *ggtreeExtra* also supports annotation of phylogenetic combined chord diagram, which is an efficient way to display relationship data, such as correlation data of species or genes, horizontal gene transfer and syntenic linkage. (Fig. \ref{fig:ArabidopsisTree}) These features is also not available in other tools.
 
 # References
