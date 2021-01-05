@@ -7,7 +7,7 @@ html_preview: false
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtreeExtra: A universal package to visualize compact circular layers of phylogenetic tree
+# ggtreeExtra: A universal package to annotate phylogenetic tree using graph alignment
 
 <!--If you use this work in published research, please cite:
     Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu*. ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree, XXX, XXX, XXX -->
@@ -30,9 +30,9 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
     + the following packages also should be installed.
      
       ```'ggtreeExtra', 'ggtree', 'tidytree', 'treeio', 'MicrobiotaProcess', 'kableExtra', 'ggplot2', 
-      'bookdown', 'ggstar', 'tidyverse', 'Cairo', 'openxlsx', 'patchwork', 'ggnewscale', 'knitr'.```
-
-
+      'bookdown', 'ggstar', 'Cairo', 'openxlsx', 'patchwork', 'ggnewscale', 'knitr', 
+      'ggpmisc', 'ggpattern', 'tibble', 'tidyr', 'dplyr', 'ggimage'```
+  
 ```{r, message=FALSE, echo=FALSE, setup}
 library(ggtreeExtra)
 library(ggstar)
@@ -42,28 +42,34 @@ library(treeio)
 library(tidytree)
 library(ggnewscale)
 library(MicrobiotaProcess)
-library(tidyverse)
 library(openxlsx)
 library(kableExtra)
 library(Cairo)
 library(patchwork)
 library(knitr)
+library(ggpattern)
+library(ggpmisc)
+library(ggridges)
+library(tidyr)
+library(dplyr)
+library(tibble)
+library(ggimage)
 ```
 
-To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/supplemental_file1.pdf, please run the following command on terminal of Linux or Mac.
+To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/supplemental_file.pdf, please run the following command on terminal of Linux or Mac.
 
 <!-- ```r
 make manuscript && make supple 
 ``` -->
 
 ```bash
-Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file1.Rmd")'
+Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")'
 ```
 
 Or run the following command in the interactive environment of R.
 
 ```r
-rmarkdown::render("./Rmarkdown/supplementary_file1.Rmd")
+rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
 ```
 
 Here is the output of `sessionInfo()` on the system on which [the document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf) was compiled:
