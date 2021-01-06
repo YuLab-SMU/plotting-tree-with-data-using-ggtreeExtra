@@ -28,14 +28,28 @@ This repo contains source code and data to produce
 <!-- - Python (2 or 3) should be installed and located in the user’s PATH -->
 <!--and `Biopython` also should be installed. -->
 
-  - R ( \>= 4.0.3 ) should be installed and located in the user’s PATH
-      - the following packages also should be installed.
-        
-        `'ggtreeExtra', 'ggtree', 'tidytree', 'treeio',
-        'MicrobiotaProcess', 'kableExtra', 'ggplot2', 'bookdown',
-        'ggstar', 'Cairo', 'openxlsx', 'patchwork', 'ggnewscale',
-        'knitr', 'ggpmisc', 'ggpattern', 'tibble', 'tidyr', 'dplyr',
-        'ggimage'`
+  - R ( \>= 4.0.3 ) should be installed and located in the user’s PATH,
+    and the following packages also should be installed.
+      - `ggtreeExtra`
+      - `ggtree`
+      - `treeio`
+      - `tidytree`
+      - `ggplot2`
+      - `kableExtra`
+      - `bookdown`
+      - `MicrobiotaProcess`
+      - `ggstar`
+      - `Cairo`
+      - `openxlsx`
+      - `patchwork`
+      - `ggnewscale`
+      - `knitr`
+      - `ggpmisc`
+      - [`ggpattern`](https://github.com/coolbutuseless/ggpattern)
+      - `tibble`
+      - `tidyr`
+      - `dplyr`
+      - `ggimage`
 
 To compile the <!-- Rmarkdown/manuscript.docx and -->
 Rmarkdown/supplemental\_file.pdf, please run the following command on
