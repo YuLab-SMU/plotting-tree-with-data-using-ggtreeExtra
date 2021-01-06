@@ -9,8 +9,7 @@ create_data:
 
 supple:
 	cd Rmarkdown;\
-	Rscript -e 'rmarkdown::render("supplementary_file1.Rmd")';\
-	Rscript -e 'rmarkdown::render("supplementary_file2.Rmd")'
+	Rscript -e 'rmarkdown::render("supplementary_file.Rmd")';\
 
 clean:
-	rm Rmarkdown/supplementary_file*.log
+	rm Rmarkdown/supplementary_file.log
