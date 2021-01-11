@@ -87,7 +87,7 @@ Or run the following command in R.
 rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
 ```
 
-Here is the output of `sessionInfo()` on the system on which [the Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
+Here is the output of `sessionInfo()` of the system on which [the Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
 
 ```{r, echo=FALSE}
 sessionInfo()
