@@ -1,11 +1,12 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtreeExtra: A universal package to annotate phylogenetic tree using graph alignment
+# ggtreeExtra: Compact visualization of richly annotated phylogenetic data
 
-<!--If you use this work in published research, please cite:
-    Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu*. ggtreeExtra: An R package to visualize compact circular layers of phylogenetic tree, XXX, XXX, XXX -->
-
------
+If you use this work in published research, please cite: Shuangbin Xu,
+Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli
+Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu<sup>\*</sup>.
+ggtreeExtra: Compact visualization of richly annotated phylogenetic
+data, *in prepare*.
 
 This repo contains source code and data to produce
 <!--Manuscript and-->Supplementary Material of the above paper.
@@ -15,12 +16,11 @@ This repo contains source code and data to produce
     [GraPhlAn](https://github.com/biobakery/graphlan/tree/master/examples),
     and the `Methanotroph`, downloaded from the
     [repo](https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018).
-  - data: contains the data has been processed, it can be displayed
-    directly in the paper.
-  - Rmarkdown: contains the source code to produce Manuscript and
-    Supplementary Material.
   - scripts: contains the script to produce the dataset of `data` using
     the data set of `rawdata`.
+  - data: contains all the data sets that used to generate figures in
+    Supplemental file.
+  - Rmarkdown: contains the source code to produce Supplementary File.
 
 ## Dependencies and locations
 
@@ -29,7 +29,7 @@ This repo contains source code and data to produce
 <!--and `Biopython` also should be installed. -->
 
   - R ( \>= 4.0.3 ) should be installed and located in the user’s PATH,
-    and the following packages also should be installed.
+    and the following packages should be installed.
       - `ggtreeExtra`
       - `ggtree`
       - `treeio`
@@ -52,8 +52,8 @@ This repo contains source code and data to produce
       - `ggimage`
 
 To compile the <!-- Rmarkdown/manuscript.docx and -->
-Rmarkdown/supplemental\_file.pdf, please run the following command on
-terminal of Linux or Mac.
+Rmarkdown/[supplemental\_file.pdf](Rmarkdown/supplemental_file.pdf),
+please run the following command on terminal.
 
 <!-- ```r
 make manuscript && make supple 
@@ -63,15 +63,14 @@ make manuscript && make supple
 Rscript -e 'rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")'
 ```
 
-Or run the following command in the interactive environment of R.
+Or run the following command in R.
 
 ``` r
 rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
 ```
 
-Here is the output of `sessionInfo()` on the system on which [the
-document](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra/blob/master/Rmarkdown/supplementary_file.pdf)
-was compiled:
+Here is the output of `sessionInfo()` of the system on which [the
+Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
 
     ## R version 4.0.3 (2020-10-10)
     ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -97,9 +96,9 @@ was compiled:
     ##  [4] tidyr_1.1.2             ggridges_0.5.2          ggpmisc_0.3.7          
     ##  [7] ggpattern_0.1.3         knitr_1.30              patchwork_1.0.1        
     ## [10] Cairo_1.5-12.2          kableExtra_1.3.1        openxlsx_4.2.3         
-    ## [13] MicrobiotaProcess_1.3.2 ggnewscale_0.4.3        tidytree_0.3.4         
-    ## [16] treeio_1.14.0           ggtree_2.5.0.992        ggplot2_3.3.2          
-    ## [19] ggstar_0.0.9            ggtreeExtra_1.1.3      
+    ## [13] MicrobiotaProcess_1.3.5 ggnewscale_0.4.3        tidytree_0.3.4         
+    ## [16] treeio_1.15.2           ggtree_2.5.0.992        ggplot2_3.3.2          
+    ## [19] ggstar_0.0.9.1          ggtreeExtra_1.1.3      
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] TH.data_1.0-10      colorspace_1.4-1    ggsignif_0.6.0     
