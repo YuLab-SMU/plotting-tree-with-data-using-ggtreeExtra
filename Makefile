@@ -13,3 +13,8 @@ supple:
 
 clean:
 	rm Rmarkdown/supplementary_file.log
+
+update:
+	git fetch origin master:utemp
+	git merge utemp
+
