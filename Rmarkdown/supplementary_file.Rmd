@@ -61,26 +61,26 @@ Integrating and visualizing associated data with a phylogenetic tree can help to
 
 (ref:OverView) Overview of the design of *ggtreeExtra* package. 
 
-```{r, echo=FALSE, fig.cap="(ref:OverView)", fig.pos= "!h", out.width = '90%', OverView}
+```{r, echo=FALSE, fig.cap="(ref:OverView)", fig.pos= "!h", out.width = '100%', OverView}
 knitr::include_graphics("./overview.png", dpi=300)
 ```
 
 (ref:comparison) Visualization methods for tree annotation supported by different software tools.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6.8, fig.height=2.8, error=TRUE, fig.cap='(ref:comparison)', dev="CairoPNG", dpi=300, results='asis', out.width = '60%', compare}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6.8, fig.height=3.8, error=FALSE, fig.cap='(ref:comparison)', dev="CairoPNG", dpi=300, results='asis', out.width = '56%', compare}
 require(kableExtra)
 
-x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,insert plot\tYes\tYes\tprogramming,and command line\tadd,modify,delete\n
-GraPhlAn\tPython,package\tcircular\tHeat map,scatter,simple bar\tNo\tYes\tcommand line,(configure file)\tadd\n
-ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot\tNo\tYes\tprogramming,and command line\tadd\n
-iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter,simple bar,stacked bar,dodged bar,box,pie,image plot\tNo\tYes\tinteractive,(mouse click,with,configure file)\tadd\n
-Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter\tNo\tYes\tinteractive,(mouse click,and command line with,configure file)\tadd\n
-Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar\tNo\tYes\tinteractive,(mouse click with,configure file)\tadd\n"
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,insert plot\tYes\tadd,modify,delete\tYes\tprogramming,and command line\n
+GraPhlAn\tPython,package\tcircular\tHeat map,scatter,simple bar\tYes\tadd\tNo\tcommand line with configure file\n
+ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot\tYes\tadd\tNo\tprogramming,and command line\n
+iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter,simple bar,stacked bar,dodged bar,box,pie,image plot\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
+Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
+Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
 
 caption <- "Comparing features in ggtreeExtra and other tools"
 header <- c("Tool", "Platform", "Supported layouts,for tree annotation[note]",
-            "Annotation layers", "Has a grammar", "Layer,combination[note]",
-            "User,interface", "Layer,operations")
+            "Annotation layers", "Layer,combination[note]", "Layer,operation", 
+            "Has a grammar", "User,interface")
 
 header <- gsub(" ", "\\ ", header) %>%
           linebreak(align="l", linebreaker = ",")
@@ -90,19 +90,19 @@ compare_tab <-
    dplyr::mutate(
          V3 = gsub(" ", "\\ ", V3),
          V4 = gsub(" ", "\\ ", V4),
-         V7 = gsub(" ", "\\ ", V7)
+         V8 = gsub(" ", "\\ ", V8)
   ) %>%
   dplyr::mutate(
          V3 = gsub(",", ",;", V3),
-         V4 = gsub(",", ",;", V4),
-         V8 = gsub(",", ",;", V8)
+         V4 = gsub(",", ",;", V4)
+         #V8 = gsub(",", ",;", V8)
   )%>%
   dplyr::mutate(
          V2 = linebreak(V2, align = "l", linebreaker = ","),
          V3 = linebreak(V3, align = "l", linebreaker = ";"),
          V4 = linebreak(V4, align = "l", linebreaker = ";"),
-         V7 = linebreak(V7, align = "l", linebreaker = ","),
-         V8 = linebreak(V8, align = "l", linebreaker = ";")
+         V6 = linebreak(V6, align = "l", linebreaker = ","),
+         V8 = linebreak(V8, align = "l", linebreaker = ",")
   ) %>%
   knitr::kable(
                caption=caption,
@@ -119,7 +119,7 @@ compare_tab <-
                 #                  "scale_down"
                                   ),
                 full_width = T,
-                font_size = 8,
+                font_size = 7,
                 stripe_color = "gray!10",
                 position="center"
   ) %>%
@@ -129,18 +129,22 @@ compare_tab <-
                  ),
                notation="number"
   ) %>% 
-  column_spec(c(1, 2), width = "4.7em", latex_valign = "m") %>%
-  column_spec(3, width = "10.5em", latex_valign = "m") %>%
+  column_spec(1, width = "5em", latex_valign = "m") %>%
+  column_spec(2, width = "4.7em", latex_valign = "m") %>%
+  column_spec(3, width = "11em", latex_valign = "m") %>%
   column_spec(4, width = "11em", latex_valign = "m") %>%
-  column_spec(7, width = "6em", latex_valign="m") %>%
-  column_spec(c(5, 6, 8), width = "5em", latex_valign = "m") #%>% 
+  column_spec(5, width = "7em", latex_valign = "m") %>%
+  column_spec(6, width = "5em", latex_valign = "m") %>%
+  column_spec(7, width = "5.6em", latex_valign = "m") %>%
+  column_spec(8, width = "6em", latex_valign="m") #%>%
   #landscape() 
 
 compare_tab
 
 # visualization
 library(aplot)
-yy <- y %>%                                                                                                                                                                                                              dplyr::select(c("V1", "V4")) %>%
+yy <- y %>%
+      dplyr::select(c("V1", "V4")) %>%
       tidyr::separate("V4",
                       sep=",",
                       paste0("layer", seq_len(length(unlist(strsplit(as.character(y$V4[1]), ",")))))
@@ -151,18 +155,25 @@ yy <- y %>%                                                                     
 
 layers <- unlist(strsplit(as.character(y$V4[1]), ","))
 
-yy$V1 <- factor(yy$V1, levels=rev(y$V1))
-yy$value <- factor(yy$value, levels=layers)
-
 dy1 <- data.frame(soft=rep(y$V1, each=length(layers)),
                   layer=rep(layers, length(y$V1)),
-                  color="white") %>%
-       dplyr::mutate(soft=factor(soft, levels=rev(y$V1)),
-                     layer=factor(layer, levels=layers))
+                  color="white") 
 
 dy2 <- yy %>%
        dplyr::group_by(V1) %>%
        dplyr::summarise(number=length(value))
+
+dy3 <- yy %>%
+       dplyr::group_by(value) %>%
+       dplyr::summarise(number=length(V1))
+
+dy1 <- dy1 %>%
+       dplyr::mutate(soft=factor(soft, levels=unlist(dy2[order(dy2$number), "V1"])),
+                     layer=factor(layer, levels=unlist(dy3[rev(order(dy3$number)), "value"])))
+
+yy <- yy %>%
+      dplyr::mutate(V1=factor(V1, levels=unlist(dy2[order(dy2$number), "V1"])),
+                    value=factor(value, levels=unlist(dy3[rev(order(dy3$number)), "value"])))
 
 p1 <- ggplot() +
      geom_tile(data=dy1, aes(x=layer, y=soft, fill=I(color)), color="grey68", size=0.6) +
@@ -191,9 +202,26 @@ p2 <- ggplot(data=dy2) +
             panel.border = element_blank(),
             panel.grid = element_blank())
 
-p <-  p1 %>% insert_right(p2, width = 0.3)
+p3 <- ggplot(data=dy3) +
+      geom_col(aes(x=value, y=number), fill="grey68") +
+      geom_text(aes(x=value, y=number-0.5, label=number)) +
+      ylab(NULL) +
+      xlab(NULL) +
+      theme_bw() +
+      theme(axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.line = element_line(color="grey68", size=0.6),
+            plot.background=element_rect(fill=NA,color=NA),
+            panel.border = element_blank(),
+            panel.grid = element_blank())
+
+p <-  p1 %>% 
+      insert_right(p2, width = 0.3) %>%
+      insert_top(p3, height = 0.4)
 p
 ```
+
+\newpage
 
 # Geometric layers supported by *geom_fruit* of *ggtreeExtra* {#chapter2}
 
@@ -256,9 +284,11 @@ knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
       position="center")
 ```
 
-(ref:ggridges) This example shows *ggtreeExtra* can work with *geom_density_ridges* of *ggridges* [@ggridges] and *geom_boxplot* of *ggplot2* [@ggplot2]. This dataset has also been visualized by *facet_plot*, but it can not work with circular layout tree [@ggtree2]. The associated data (melt_simple) was imported with *data* of *geom_fruit*, it has a column (*OTU*) contained tip labels. Then the tip labels column was assigned to *y*, the *val* is abundance of species (continuous data), which was mapped to the *x*, and *OTU* is the phylum information of species (categorical data), which was mapped to the *fill* (color).
+\newpage
 
-```{r, fig.width=8, fig.height=8, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', dev="CairoPNG", dpi=300, ggridges}
+(ref:ggridges) This example shows *ggtreeExtra* can work with *geom_density_ridges* of *ggridges* [@ggridges] and *geom_boxplot* of *ggplot2* [@ggplot2]. This dataset has also been visualized by *facet_plot*, but it can not work with circular layout tree [@ggtree2]. The associated data (melt_simple) was imported with *data* of *geom_fruit*, it has a column (*OTU*) contained tip labels. Then the tip labels column (**OTU**) was assigned to *y*, the **val** is abundance of species (continuous data), which was mapped to the *x*, and **Phylum** is the phylum information of species (categorical data), which was mapped to the *fill* (color).
+
+```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', dev="CairoPNG", dpi=300, ggridges}
 library(ggtree)
 library(ggplot2)
 library(ggtreeExtra)
@@ -298,7 +328,7 @@ p1 <- p +
                         ),
           grid.params = list(),
           show.legend = FALSE
-      ) + ggtitle("A") 
+      ) 
 
 p2 <- p +
       geom_fruit(
@@ -319,16 +349,16 @@ p2 <- p +
                         ),
           grid.params = list(),
           show.legend = FALSE
-      ) + ggtitle("B")
+      )
 
-p3 <- p1 + layout_circular() + ggtitle("C")
-p4 <- p2 + layout_circular() + ggtitle("D")
-(p1 + p2)/(p3 + p4)
+p3 <- p1 + layout_circular()
+p4 <- p2 + layout_circular()
+(p1 + p2)/(p3 + p4) + plot_annotation(tag_levels = 'A')
 ```
 
 (ref:ggpattern) This example shows *ggtreeExtra* can work with *geom_bar_pattern* and *geom_boxplot_pattern* of *ggpattern* [@ggpattern]. This example also shows *ggtreeExtra* can work with multiple layouts of tree.
 
-```{r, fig.width=7, fig.height=5, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
+```{r, fig.width=7, fig.height=5, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
 library(ggtree)
 library(ggtreeExtra)
 library(ggpattern)
@@ -372,7 +402,7 @@ p1 <- p1 +
           fill = "grey", pattern_fill="grey35",
           position=position_identityx(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=0.5)
-      ) + ggtitle("A") + theme(legend.key.size = unit(0.3, 'cm'))
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
 
 p2 <- p2 +
       geom_fruit(
@@ -385,7 +415,7 @@ p2 <- p2 +
           fill = "grey",
           position=position_identityx(),
           axis.params=list(axis="x",text.size=1.2, hjust=0.5, vjust=0.5)
-      ) + ggtitle("B") + theme(legend.key.size = unit(0.3, 'cm'))
+      ) + theme(legend.key.size = unit(0.3, 'cm'))
 
 p3 <- p3 +
       geom_fruit(
@@ -399,7 +429,7 @@ p3 <- p3 +
           position=position_dodgex(),
           grid.params=list(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
-      ) + ggtitle("C") + theme(legend.key.size = unit(0.35, 'cm'))
+      ) + theme(legend.key.size = unit(0.35, 'cm'))
 
 p4 <- p4 +
       geom_fruit(
@@ -413,14 +443,14 @@ p4 <- p4 +
           position = position_dodgex(),
           grid.params = list(),
           axis.params = list(axis="x", text.size=1.2, hjust=0.5,  vjust=1)
-      ) + ggtitle("D") + theme(legend.key.size = unit(0.35, 'cm'))
+      ) + theme(legend.key.size = unit(0.35, 'cm'))
 
-(p1 + p2)/(p3 + p4)
+(p1 + p2)/(p3 + p4) + plot_annotation(tag_levels = 'A')
 ```
 
-(ref:subplot) This example show *ggtreeExtra* can integrate subplot to phylogenetic tree, and the subplot can be *ggplot* object (Fig. \ref{fig:subplot}.A), and the attributes of subplot can be mapped the variables of associated data when silhouette image file was used(Fig. \ref{fig:subplot}.B). Host tree was obtained from TimeTree [@TimeTree2017], the branch colour represents the Mantel Pearson correlation of gut microbiome, the stack bar chart represents the diet composition of host, the inner ring represents the host taxonomic class, and some representative species are also displayed in the outermost circle, the middle ring represents flight status (Fig. \ref{fig:subplot}.B).
+(ref:subplot) This example shows *ggtreeExtra* can integrate subplot to phylogenetic tree. The subplot can be *ggplot* object (Fig. \ref{fig:subplot}.A), and the attributes of subplot can be mapped the variables of associated data when silhouette image file was used (Fig. \ref{fig:subplot}.B). Host tree was obtained from TimeTree [@TimeTree2017], the branch colour represents the Mantel Pearson correlation of gut microbiome, the stack bar chart represents the diet composition of host, the inner ring represents the host taxonomic class, the middle ring represents flight status, and some representative species are also displayed in the outermost circle (Fig. \ref{fig:subplot}.B).
 
-```{r, fig.width=8, fig.height=8, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:subplot)', dev="CairoPNG", dpi=300, subplot}
+```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:subplot)', dev="CairoPNG", dpi=300, subplot}
 library(ggtreeExtra)
 library(ggtree)
 library(treeio)
@@ -485,9 +515,8 @@ p2 <- p1 +
                  hjust=0.7,
                  vp.width=0.18,
                  vp.height=0.22
-      ) +
-      ggtitle("A")
-
+      ) 
+      
 ## subplot B
 tr <- read.tree("../data/VertebrateGutMicrobiomes/annotated_host_tree.tre")
 corda <- read.csv("../data/VertebrateGutMicrobiomes/mantel.jaccard.pearson.csv")
@@ -609,10 +638,10 @@ fig4 <- fig3 +
           legend.title=element_text(size=7),
           legend.text=element_text(size=5),
           legend.spacing.y = unit(0.02, "cm")
-      ) + 
-      ggtitle("B")
+      )  
+      
 
-p2 + fig4 
+p2 + fig4 + plot_annotation(tag_levels = 'A') 
 ```
 
 # Examples of mapping and visualizing associated data on circular layout tree {#chapter3}
@@ -625,7 +654,7 @@ p2 + fig4
 
 (ref:Metha) Phylogeny of methanotroph ribosomal protein S39 (rpS3) genes from Figure 3.3 [@smith2019]. The external ring of circular tree is built with the associated data sets integrated to tree data using *%<+%*.
 
-```{r, fig.width=7, fig.height=7, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:Metha)', dev="CairoPNG", dpi=300, Metha}
+```{r, fig.width=7, fig.height=7, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:Metha)', dev="CairoPNG", dpi=300, Metha}
 library(ggtreeExtra)
 library(ggtree)
 library(treeio)
@@ -772,7 +801,7 @@ p5
 
 (ref:HMP) The abundance of microbes at different sites of human. The shape of tip labels indicated the commensal microbes or potential pathogens. The transparency of heat map indicates the abundance of microbes, and colors of heat map indicate the different sites of human. The bar plot indicates the relative abundance at body site of the most abundance. Fig. \ref{fig:HMP}.A contains the tree layer and tip point layer; Fig. \ref{fig:HMP}.B is from Fig. \ref{fig:HMP}.A added high light layer and clade label layer; Fig. \ref{fig:HMP}.C is from Fig. \ref{fig:HMP}.B added a heatmap layer; Fig. \ref{fig:HMP}.D is from Fig. \ref{fig:HMP}.C added a bar chart layer. This example shows the abilities of annotate phylogenetic tree through grammar of graphic using ggtree and ggtreeExtra.
 
-```{r, fig.width=8, fig.height=8, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:HMP)', dev="CairoPNG", dpi=300, HMP}
+```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:HMP)', dev="CairoPNG", dpi=300, HMP}
 library(ggtreeExtra)
 library(ggtree)
 library(treeio)
@@ -835,7 +864,6 @@ p <- p %<+% dat1 +
           override.aes=list(starshape=15))
      ) + 
      new_scale_fill() + 
-     ggtitle("A") + 
      theme(legend.position="none")
 # optional for high light and clade labels     
 p1 <- p + 
@@ -847,8 +875,7 @@ p1 <- p +
                     mapping=aes(node=node, label=label, offset.text=pos),
                     barsize=NA, fontsize=0.7, angle="auto",
                     hjust=0.5, horizontal=FALSE, fontface="italic"
-      ) + 
-      ggtitle("B")
+      )  
 # using geom_fruit to add outer layers
 p2 <- p1 +
       geom_fruit(
@@ -867,7 +894,7 @@ p2 <- p1 +
           values=c("#0000FF","#FFA500","#FF0000","#800000",
                    "#006400","#800080","#696969"),
           guide=guide_legend(keywidth = 0.3, keyheight = 0.3, order=4)
-      ) + ggtitle("C") + theme(legend.position="none")
+      ) + theme(legend.position="none")
 
 p3 <- p2 +
       geom_fruit(
@@ -877,11 +904,12 @@ p3 <- p2 +
           pwidth=0.38,
           orientation="y",
           position=position_stackx(),
-      )+ geom_treescale(fontsize=1.2, linesize=0.3, x=4.9, y=0.1) +
-      ggtitle("D") + theme(legend.position="none")
+      )+ 
+      geom_treescale(fontsize=1.2, linesize=0.3, x=4.9, y=0.1) +
+      theme(legend.position="none")
 
 p4 <- (p + p1 + plot_layout(width=c(3.4,4)))/ (p2 + p3 + plot_layout(width=c(3.4,4))) +
-      plot_layout(heights=c(3,4))
+      plot_layout(heights=c(3,4)) + plot_annotation(tag_levels = 'A')
 p4
 ```
 
@@ -891,7 +919,7 @@ Since *ggtreeExtra* supports annotation of multiple layouts tree (tree and geome
 
 (ref:KEGG) The phylogenetic tree built using in [@PhyloPhlAn] using 963 microbial genomes (a part of 3737 microbes [@PhyloPhlAn]). The first and second ring heat map were built with discrete data, it represents the presence or absence of each module, the other heat map rings were created with continuous data, the transparency represents the capability of fatty acid metabolism, the different colors represent the types of fatty acid metabolism. The length of bar represents the genome length of corresponding microbes.
 
-```{r, fig.width=7, fig.height=7, error=TRUE, warning=FALSE, message=FALSE, fig.cap="(ref:KEGG)", dev="CairoPNG", dpi=300, KEGG}
+```{r, fig.width=7, fig.height=7, error=FALSE, warning=FALSE, message=FALSE, fig.cap="(ref:KEGG)", dev="CairoPNG", dpi=300, KEGG}
 library(ggtreeExtra)
 library(ggtree)
 library(treeio)
