@@ -37,7 +37,7 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
     - `MicrobiotaProcess`
     - `ggstar`
     - `Cairo`
-    - `openxlsx`
+    - `aplot`
     - `patchwork`
     - `ggnewscale`
     - `knitr`
