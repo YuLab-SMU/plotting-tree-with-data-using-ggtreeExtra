@@ -328,7 +328,8 @@ p4 <- p2 + layout_circular() + ggtitle("D")
 (p1 + p2)/(p3 + p4)
 ```
 
-(ref:ggpattern) This example shows *ggtreeExtra* can work with *geom_bar_pattern* and *geom_boxplot_pattern* of *ggpattern* [@ggpattern]. This example also shows *ggtreeExtra* can work with multiple layouts of tree.
+(ref:ggpattern) This example demonstrates using *ggtreeExtra* with *geom_bar_pattern* and *geom_boxplot_pattern* layers from the *ggpattern* package [@ggpattern]. Different tree layouts including rectangular (A), slanted (B) and fan (C and D) layouts are all supported in *ggtreeExtra*.
+
 
 ```{r, fig.width=7, fig.height=5, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
 library(ggtree)
