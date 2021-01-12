@@ -2,11 +2,11 @@
 
 # ggtreeExtra: Compact visualization of richly annotated phylogenetic data
 
-If you use this work in published research, please cite: Shuangbin Xu,
-Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli
-Tang, Tingze Feng, Meijun Chen, Li Zhan and GuangChuang Yu<sup>\*</sup>.
-ggtreeExtra: Compact visualization of richly annotated phylogenetic
-data, *in prepare*.
+If you use this work in published research, please cite:
+
+S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan
+and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization of richly
+annotated phylogenetic data. *in preparation*.
 
 This repo contains source code and data to produce
 <!--Manuscript and-->Supplementary Material of the above paper.
@@ -28,7 +28,7 @@ This repo contains source code and data to produce
 <!-- - Python (2 or 3) should be installed and located in the user’s PATH -->
 <!--and `Biopython` also should be installed. -->
 
-  - R ( \>= 4.0.3 ) should be installed and located in the user’s PATH,
+  - R (\>= 4.0.3) should be installed and located in the user’s PATH,
     and the following packages should be installed.
       - `ggtreeExtra`
       - `ggtree`
@@ -40,7 +40,7 @@ This repo contains source code and data to produce
       - `MicrobiotaProcess`
       - `ggstar`
       - `Cairo`
-      - `openxlsx`
+      - `aplot`
       - `patchwork`
       - `ggnewscale`
       - `knitr`
