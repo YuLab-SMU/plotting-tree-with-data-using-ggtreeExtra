@@ -65,9 +65,9 @@ Integrating and visualizing associated data with a phylogenetic tree can help to
 knitr::include_graphics("./overview.png", dpi=300)
 ```
 
-(ref:comparison) Visualization methods for tree annotation supported by different software tools.
+(ref:comparison) Visualization methods for tree annotation supported by different software tools, circle: circular, inward circular, radial; rectangle: rectangular, slanted, ellipse, round rectangular.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6.8, fig.height=3.5, error=FALSE, fig.cap='(ref:comparison)', dev="CairoPNG", dpi=300, results='asis', out.width = '50%', compare}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.6, fig.height=3.28, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '50%', compare}
 require(kableExtra)
 
 x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,insert plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
@@ -157,18 +157,39 @@ yy <- y %>%
 
 layers <- unique(unlist(yy$value[!is.na(yy$value)]))
 
+yy2 <- y %>%
+      dplyr::select(c("V1", "V3")) %>%
+      tidyr::separate("V3",
+                      sep=",",
+                      paste0("layout", seq_len(length(unlist(strsplit(as.character(y$V3[1]), ",")))))
+                      ) %>%
+      reshape2::melt(id="V1", value.name = "layout") %>%
+      dplyr::select(c("V1", "layout")) %>%
+      dplyr::filter(!is.na(layout))
+
+yy2_1 <- yy2[!duplicated(yy2$V1),]
+yy2_1$layout <- gsub("circular", "circle", yy2_1$layout)
+yy2_1$layout <- gsub("rectangular", "rectangle", yy2_1$layout)
+yy2_2 <- data.frame(V1=unique(yy2$V1[duplicated(yy2$V1)]), layout= "rectangle")
+yy2 <- rbind(yy2_1, yy2_2)
+
+yy <- yy %>% dplyr::full_join(yy2, by="V1") %>%
+      dplyr::filter(!(V1=="ggtreeExtra" & value=="pie" & layout=="circle")) %>%
+      dplyr::filter(!(V1=="iTOL" & value=="MSA" & layout=="circle"))
+
 dy1 <- data.frame(soft=rep(y$V1, each=length(layers)),
-                  layer=rep(layers, length(y$V1)),
-                  color="white") 
+                  layer=rep(layers, length(y$V1))) 
 
 dy2 <- yy %>%
        dplyr::group_by(V1) %>%
+       dplyr::filter(!duplicated(value)) %>%
        dplyr::summarise(number=length(value))
 dy2 <- dy2 %>%
        dplyr::mutate(V1=factor(V1, levels=unlist(dy2[order(dy2$number), "V1"])))
 
 dy3 <- yy %>%
        dplyr::group_by(value) %>%
+       dplyr::filter(!duplicated(V1)) %>%
        dplyr::summarise(number=length(V1))
 
 dy1 <- dy1 %>%
@@ -180,9 +201,25 @@ yy <- yy %>%
                     value=factor(value, levels=unlist(dy3[rev(order(dy3$number)), "value"])))
 
 p1 <- ggplot() +
-     geom_tile(data=dy1, aes(x=layer, y=soft, fill=I(color)), color="grey68", size=0.6) +
-     ggnewscale::new_scale_fill() +
-     geom_tile(data=yy, aes(x=value, y=V1, fill=V1), na.rm=T, color="grey68", size=0.6) +
+     geom_tile(data=dy1, aes(x=layer, y=soft), fill="white", color="grey68", size=0.6) +
+     geom_star(data=yy, aes(x=value, y=V1, fill=layout, starshape=layout),
+               starstroke=0.3, size=5, color="grey68") +
+     scale_fill_manual(
+         values=c("#00AED7", "#FD9347"),
+         guide="none"
+     ) +
+     scale_starshape_manual(
+         name = "Layout",
+         values=c(19, 20),
+         guide=guide_legend(
+             keywidth=0.5, 
+             keyheight=0.5,
+             override.aes=list(
+                 size=2,
+                 fill=c("circle"="#00AED7", "rectangle"= "#FD9347")
+             )
+         )
+     ) +
      ylab(NULL) +
      xlab(NULL) +
      theme_bw() +
@@ -293,7 +330,7 @@ knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
 
 (ref:ggridges) This example demonstrates using *ggtreeExtra* with *geom_density_ridges* layer from the *ggridges* package [@ggridges] and *geom_boxplot* layer from the *ggplot2* package [@ggplot2]. The associated data (*i.e.*, *melt_simple*) was imported by the *data* argument of the *geom_fruit* function. The data has a column (*i.e.*, *OTU*) that contains tip labels which was mapped to the *y* axis. The *val* column contains the abundance of the species (continuous data) was mapped to the *x* axis and the *phylum* column contains phylum information of the species (categorical data) was mapped to the *fill* aesthetic to color the desity ridge plot and boxplot. This dataset has been visualized by *facet_plot* function from *ggtree* (Fig.1. of [@ggtree2]). However, it only supports rectangular layout (A) while *ggtreeExtra* supports more layouts and allows transformation between different layouts. In this example, subplot C and D were transformed from A and B. 
 
-```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', dev="CairoPNG", dpi=300, ggridges}
+```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', ggridges}
 library(ggtree)
 library(ggplot2)
 library(ggtreeExtra)
@@ -363,7 +400,7 @@ p4 <- p2 + layout_circular()
 
 (ref:ggpattern) This example demonstrates using *ggtreeExtra* with *geom_bar_pattern* and *geom_boxplot_pattern* layers from the *ggpattern* package [@ggpattern]. Different tree layouts including rectangular (A), slanted (B) and fan (C and D) layouts are all supported in *ggtreeExtra*.
 
-```{r, fig.width=7, fig.height=5, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
+```{r, fig.width=7, fig.height=5, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', ggpattern}
 library(ggtree)
 library(ggtreeExtra)
 library(ggpattern)
