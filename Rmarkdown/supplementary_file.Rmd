@@ -67,15 +67,15 @@ knitr::include_graphics("./overview.png", dpi=300)
 
 (ref:comparison) Visualization methods for tree annotation supported by different software tools.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6.8, fig.height=3.8, error=FALSE, fig.cap='(ref:comparison)', dev="CairoPNG", dpi=300, results='asis', out.width = '56%', compare}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6.8, fig.height=3.5, error=FALSE, fig.cap='(ref:comparison)', dev="CairoPNG", dpi=300, results='asis', out.width = '50%', compare}
 require(kableExtra)
 
-x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,insert plot\tYes\tadd,modify,delete\tYes\tprogramming,and command line\n
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,insert plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
 GraPhlAn\tPython,package\tcircular\tHeat map,scatter,simple bar\tYes\tadd\tNo\tcommand line with configure file\n
-ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot\tYes\tadd\tNo\tprogramming,and command line\n
-iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter,simple bar,stacked bar,dodged bar,box,pie,image plot\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
+ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
+iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter,simple bar,stacked bar,dodged bar,box,line plot,pie,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
 Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
-Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
+Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar,protein domain\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
 
 caption <- "Comparing features in ggtreeExtra and other tools"
 header <- c("Tool", "Platform", "Supported layouts,for tree annotation[note]",
@@ -94,14 +94,14 @@ compare_tab <-
   ) %>%
   dplyr::mutate(
          V3 = gsub(",", ",;", V3),
-         V4 = gsub(",", ",;", V4)
-         #V8 = gsub(",", ",;", V8)
+         V4 = gsub(",", ",;", V4),
+         V6 = gsub(",", ",;", V6)
   )%>%
   dplyr::mutate(
          V2 = linebreak(V2, align = "l", linebreaker = ","),
          V3 = linebreak(V3, align = "l", linebreaker = ";"),
          V4 = linebreak(V4, align = "l", linebreaker = ";"),
-         V6 = linebreak(V6, align = "l", linebreaker = ","),
+         V6 = linebreak(V6, align = "l", linebreaker = ";"),
          V8 = linebreak(V8, align = "l", linebreaker = ",")
   ) %>%
   knitr::kable(
@@ -119,13 +119,14 @@ compare_tab <-
                 #                  "scale_down"
                                   ),
                 full_width = T,
-                font_size = 7,
+                font_size = 6.6,
                 stripe_color = "gray!10",
                 position="center"
   ) %>%
   add_footnote(c(
                  "tree annotation: tree and data graphic alignment;",
-                 "Layer combination: whether layers listed in the 'Annotation layers' column can be combined freely."
+                 "Layer combination: whether layers listed in the 'Annotation layers' column can be combined freely;",
+                 "MSA: multiple sequence alignments"
                  ),
                notation="number"
   ) %>% 
@@ -145,6 +146,7 @@ compare_tab
 library(aplot)
 yy <- y %>%
       dplyr::select(c("V1", "V4")) %>%
+      dplyr::mutate(V4=gsub("\\[note\\]", "", V4)) %>%
       tidyr::separate("V4",
                       sep=",",
                       paste0("layer", seq_len(length(unlist(strsplit(as.character(y$V4[1]), ",")))))
@@ -153,7 +155,7 @@ yy <- y %>%
       dplyr::select(c("V1", "value")) %>%
       dplyr::filter(!is.na(value))
 
-layers <- unlist(strsplit(as.character(y$V4[1]), ","))
+layers <- unique(unlist(yy$value[!is.na(yy$value)]))
 
 dy1 <- data.frame(soft=rep(y$V1, each=length(layers)),
                   layer=rep(layers, length(y$V1)),
@@ -664,7 +666,7 @@ Comparing with other tools, there is no restriction of data types in *geom_fruit
 (ref:Metha) Phylogeny of methanotroph ribosomal protein S39 (rpS3) genes from Figure 3.3 of [@smith2019]. Bootstrap value was parsed with the tree by the *read.raxml* function and other associated data sets were integrated to the tree via the `%<+%` operator. The *ggtreeExtra* can directly use these data sets to visualize data layers.
 
 
-```{r, fig.width=7, fig.height=7, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:Metha)', dev="CairoPNG", dpi=300, Metha}
+```{r, fig.width=7, fig.height=7, error=TRUE, warning=FALSE, message=FALSE, fig.cap='(ref:Metha)', dev="CairoPNG", dpi=300, Metha}
 library(ggtreeExtra)
 library(ggtree)
 library(treeio)
