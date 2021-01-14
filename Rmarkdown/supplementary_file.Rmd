@@ -57,7 +57,7 @@ library(patchwork)
 
 # The purpose of development and overview {#chapter1}
 
-Integrating and visualizing associated data with a phylogenetic tree can help to find biological patterns and generate new hypotheses by interpreting the data in the evolutionary text. The associated data sets are heterogeneous (*e.g.* abundance of species, gene expression, taxonomy information of species, type and number of target genes and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools are designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as an universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphic [@Wilkinson2012] implemented in the ggplot2 [@ggplot2] package. Users can easily map variables (*e.g.* abundance of species, length of genome or sampling location) of associated data to aesthetic attributes (*e.g.* size, color and shape) for visualizing external geometric objects (*e.g.* bar, point or box plot) with a phylogenetic tree using *ggtreeExtra*. The details (such as the actual mapping of visual values, figure legends and plot appearance) of the graphic can be adjusted by corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
+Integrating and visualizing associated data with a phylogenetic tree can help to find biological patterns and generate new hypotheses by interpreting the data in the evolutionary text. The associated data sets are heterogeneous (*e.g.* abundance of species, gene expression, taxonomy information of species, type and number of target genes and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools are designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as an universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphic [@Wilkinson2012] implemented in the ggplot2 [@ggplot2] package. Users can easily map variables (*e.g.* abundance of species, length of genome or sampling location) of associated data to aesthetic attributes (*e.g.* size, color and shape) for visualizing external geometric objects (*e.g.* bar chart, point or box plot) with a phylogenetic tree using *ggtreeExtra*. The details (such as the actual mapping of visual values, figure legends and plot appearance) of the graphic can be adjusted by corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
 
 (ref:OverView) **Overview of the design of *ggtreeExtra* package.**
 
@@ -70,12 +70,12 @@ knitr::include_graphics("./overview.png", dpi=300)
 ```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.56, fig.height=3.28, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '55%', compare}
 require(kableExtra)
 
-x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter,simple bar,patter bar,stacked bar,dodged bar,box,pattern box,violin,dot intervals plot,density plot,line plot,pie,image plot,inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
-GraPhlAn\tPython,package\tcircular\tHeat map,scatter,simple bar\tYes\tadd\tNo\tcommand line with configure file\n
-ETE3\tPython,package\trectangular\tHeat map,scatter,simple bar,stacked bar,box,pie,image plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
-iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter,simple bar,stacked bar,dodged bar,box,line plot,pie,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
-Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
-Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter,simple bar,stacked bar,protein domain\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter plot,simple bar chart,patter bar,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin,dot intervals plot,density plot,line plot,pie chart,image plot,inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
+GraPhlAn\tPython,package\tcircular\tHeat map,scatter plot,simple bar chart\tYes\tadd\tNo\tcommand line with configure file\n
+ETE3\tPython,package\trectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,boxplot,pie chart,image plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
+iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter plot,simple bar chart,stacked bar chart,dodged bar chart,boxplot,line plot,pie chart,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
+Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter plot\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
+Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,protein domain\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
 
 caption <- "Comparing features in ggtreeExtra and other tools"
 header <- c("Tool", "Platform", "Supported layouts,for tree annotation[note]",
@@ -175,7 +175,7 @@ yy2_2 <- data.frame(V1=unique(yy2$V1[duplicated(yy2$V1)]), layout= "rectangle")
 yy2 <- rbind(yy2_1, yy2_2)
 
 yy <- yy %>% dplyr::full_join(yy2, by="V1") %>%
-      dplyr::filter(!(V1=="ggtreeExtra" & value=="pie" & layout=="circle")) %>%
+      dplyr::filter(!(V1=="ggtreeExtra" & value=="pie chart" & layout=="circle")) %>%
       dplyr::filter(!(V1=="iTOL" & value=="MSA" & layout=="circle"))
 
 dy1 <- data.frame(soft=rep(y$V1, each=length(layers)),
@@ -341,7 +341,7 @@ Here to demonstrate the usages of *ggtreeExtra* with other *ggplot2*-based packa
 
 (ref:ggridges) **This example demonstrates using *ggtreeExtra* with *geom_density_ridges* layer from the *ggridges* package [@ggridges] and *geom_boxplot* layer from the *ggplot2* package [@ggplot2]**. The associated data (*i.e.*, *melt_simple*) was imported by the *data* argument of the *geom_fruit* function. The data has a column (*i.e.*, *OTU*) that contains tip labels which was mapped to the *y* axis. The *val* column contains the abundance of the species (continuous data) was mapped to the *x* axis and the *phylum* column contains phylum information of the species (categorical data) was mapped to the *fill* aesthetic to color the desity ridge plot and boxplot. This dataset has been visualized by *facet_plot* function from *ggtree* (Fig.1. of [@ggtree2]). However, it only supports rectangular layout (A) while *ggtreeExtra* supports more layouts and allows transformation between different layouts. In this example, subplot C and D were transformed from A and B. 
 
-```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggridges)', ggridges}
+```{r, fig.width=8, fig.height=8, error=FALSE, warning=FALSE, message=FALSE, dev="CairoPNG", dpi=300, fig.cap='(ref:ggridges)', ggridges}
 library(ggtree)
 library(ggplot2)
 library(ggtreeExtra)
@@ -414,7 +414,7 @@ p4 <- p2 + layout_circular()
 
 (ref:ggpattern) **This example demonstrates using *ggtreeExtra* with *geom_bar_pattern* and *geom_boxplot_pattern* layers from the *ggpattern* package [@ggpattern]**. Different tree layouts including rectangular (A), slanted (B) and fan (C and D) layouts are all supported in *ggtreeExtra*.
 
-```{r, fig.width=7, fig.height=5, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', ggpattern}
+```{r, fig.width=7, fig.height=5, error=FALSE, warning=FALSE, message=FALSE, fig.cap='(ref:ggpattern)', dev="CairoPNG", dpi=300, ggpattern}
 library(ggtree)
 library(ggtreeExtra)
 library(ggpattern)
@@ -704,7 +704,7 @@ The *ggtreeExtra* package allows different geometric layers defined in *ggplot2*
 
 The associated data can be imported with the *data* parameter of the *geom_fruit* function (Fig. \ref{fig:ggridges} and \ref{fig:ggpattern}). The *geom_fruit* function can utilize tree data integrated to the ggtree graphic object by the `%<+%` operator [@ggtree2] defined in the *ggtree* package (Fig. \ref{fig:OverView}). In addition, tree data parsed by the *treeio* package [@treeio] can also be used in *ggtreeExtra*. 
 
-The *ggtreeExtra* package was developed based on the grammar of graphic [@Wilkinson2012]. It allows users mapping variables (*e.g.* abundance of species, length of genome, sampling location) of the associated data to the visual attributes (*e.g.* color, size, shape) of the geometric objects (*e.g.* bar, point, boxplot) on rectangular or circular phylogenetic tree (Fig. \ref{fig:OverView}). Users are freely to combine different geometric layers to create complex tree annotation. We present many examples to elucidate how to use *ggtree* and *ggtreeExtra* to visualize data on phylogenetic trees in the online book^[<http://yulab-smu.top/treedata-book>].
+The *ggtreeExtra* package was developed based on the grammar of graphic [@Wilkinson2012]. It allows users mapping variables (*e.g.* abundance of species, length of genome, sampling location) of the associated data to the visual attributes (*e.g.* color, size, shape) of the geometric objects (*e.g.* bar chart, point, boxplot) on rectangular or circular phylogenetic tree (Fig. \ref{fig:OverView}). Users are freely to combine different geometric layers to create complex tree annotation. We present many examples to elucidate how to use *ggtree* and *ggtreeExtra* to visualize data on phylogenetic trees in the online book^[<http://yulab-smu.top/treedata-book>].
 
 
 ## Data importation {#chapter3.1}
