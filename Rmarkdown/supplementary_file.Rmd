@@ -311,6 +311,7 @@ ggstance\tgeom_boxploth\talpha, color, fill\thorizontal version of 'geom_boxplot
 ggstance\tgeom_colh\talpha, color, fill\thorizontal version of 'geom_col()'\n
 ggstar\tgeom_star\talpha, color, fill, size, starshape\tcreates scatterplots\n
 ggsymbol\tgeom_symbol\talpha, color, fill, size, symbolshape\tcreates scatterplots\n
+ggtext\tgeom_richtext\talpha, color, fill, size, fontface\tdraws text labels similar to ‘ggplot2::geom_label()’,but formatted using basic markdown/html\n
 scatterpie\tgeom_scatterpie\talpha, color, fill\tcreates scatter pie plot\n
 "
 
@@ -331,12 +332,12 @@ knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
 Each geometric layer function has its own unique geometric attributes (Tab. \ref{tab:geom}). Users can choose appropriate geometric layer functions according the type of the input data. The variables of the data can be mapped to visual attributes of the corresponding geometric layer function. For example, if user want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), several methods, including box plot, violin and density plot, can be used to display them (Fig. \ref{fig:ggridges}). For simple numeric data (*e.g.* length of genome, abundance of species), they can be visualized with simple (pattern) bar plot or grouped (pattern) bar plot. Specifically, pattern bar plot is efficient to visualize count data for different groups in grayscale (Fig. \ref{fig:ggpattern}). Non-variable of aesthetic setting is also supported. 
 
 
-Here to demonstrate the usages of *ggtreeExtra* with other *ggplot2*-based packages, we provided several examples, including density plot with *ggridges* (Fig. \ref{fig:ggridges}A and C), boxplot with *ggplot2* (Fig. \ref{fig:ggridges}B and D) and *ggpattern* (Figure \ref{fig:ggpattern}C and D), bar chart with *ggpattern* (Fig. \ref{fig:ggpattern}A and B), subplot with *ggpmisc* (Fig. \ref{fig:subplot}A) and silhouette image with *ggimage* (Fig. \ref{fig:subplot}B). These examples also illustrate the design of the *ggtreeExtra* package (Fig. \ref{fig:OverView}). The *ggtreeExtra* package supports the grammar of graphic syntax and allows employing geometric layers defined in the *ggplot2* community to visualize phylogenetic data with a tree. With the development of the ggplot2 community, *ggtreeExtra* supports more geometric layers compare other tools (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, pie, image plot, inset plot (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Even though other tools might support similar graphic layers, *ggtreeExtra* is more powerful and flexible since it inherits all the features and advantages of the geometric functions developed by the community. For example, *iTOL* [@iTOL], *Evolview* [@Evolview] and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but only *ggtreeExtra* supports mapping variable to color and scale the images (Fig. \ref{fig:subplot}B^[The data that used to generate Fig. \ref{fig:subplot}B is from Fig.1 of [@Song2020] and it is available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]). In addition, *ggtreeExtra* supports several visualization methods that cannot be found elsewhere. For example, subplots that describe statistical information of taxa can be embeded as insets in *ggtreeExtra* (Fig. \ref{fig:subplot}A) to annotate corresponding taxa. As the *ggplot2* [@ggplot2] community keeps expanding, there will be more *geom* functions implemented in either *ggplot2* [@ggplot2] or other extensions and *geom_fruit* will gain more power to present data in future.
+Here to demonstrate the usages of *ggtreeExtra* with other *ggplot2*-based packages, we provided several examples, including density plot with *ggridges* (Fig. \ref{fig:ggridges}A and C), boxplot with *ggplot2* (Fig. \ref{fig:ggridges}B and D) and *ggpattern* (Figure \ref{fig:ggpattern}C and D), bar chart with *ggpattern* (Fig. \ref{fig:ggpattern}A and B), subplot with *ggpmisc* (Fig. \ref{fig:subplot}A) and silhouette image with *ggimage* (Fig. \ref{fig:subplot}B). These examples also illustrate the design of the *ggtreeExtra* package (Fig. \ref{fig:OverView}). The *ggtreeExtra* package supports the grammar of graphic syntax and allows employing geometric layers defined in the *ggplot2* community to visualize phylogenetic data with a tree. With the development of the ggplot2 community, *ggtreeExtra* supports more geometric layers compare other tools (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Until now, *ggtreeExtra* can integrate heat map, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, pie, image plot, inset plot (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Even though other tools might support similar graphic layers, *ggtreeExtra* is more powerful and flexible since it inherits all the features and advantages of the geometric functions developed by the community. For example, *iTOL* [@iTOL], *ETE3* [@ETE3] and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but only *ggtreeExtra* supports mapping variable to color and scale the images (Fig. \ref{fig:subplot}B^[The data that used to generate Fig. \ref{fig:subplot}B is from Fig.1 of [@Song2020] and it is available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]). In addition, *ggtreeExtra* supports several visualization methods that cannot be found elsewhere. For example, subplots that describe statistical information of taxa can be embeded as insets in *ggtreeExtra* (Fig. \ref{fig:subplot}A) to annotate corresponding taxa. As the *ggplot2* [@ggplot2] community keeps expanding, there will be more *geom* functions implemented in either *ggplot2* [@ggplot2] or other extensions and *geom_fruit* will gain more power to present data in future.
 
 
 ## Visualizing distribution of species abundance {#chapter2.1}
 
-Species phylogenetic tree and abundance in each samples are often common. To view the distribution of species abundance with phylogenetic tree, here, a microbiome data provided in *phyloseq* package [@phyloseq], density plot and box plot are used to display the abundance data (continuous data) by specified *geom* *i.e.* *geom_density_ridge* and *geom_boxplot*. The abundance data (*i.e.* *melt_simple*) is a data frame require by *geom_density_ridges* and *geom_boxplot*. It has a column (*i.e.* *OTU*) contained tip labels of phylogenetic tree, another column (*i.e.* *val*) contained abundance of the species. The data frame was imported by the *data* argument of *geom_fruit* function. Then the column (*i.e.* *OTU*) contained tip labels was assigned to the *y* axis in *aes*. The column (*i.e.* *val*) contained corresponding abundance was assigned to the *x* axis in *aes*. Then the phylum (*i.e.* *Phylum*) information which is in the *ggtree* object was assigned to the *fill* aesthetic to color the density ridge plot and box plot in *aes*. This dataset has been visualized by *facet_plot* function from *ggtree* (Fig.1. of [@ggtree2]). However, it only supports rectangular layout (A) while *ggtreeExtra* supports more layouts and allows transformation between different layouts. In this example, subplot C and D were transformed from A and B.
+Species phylogenetic tree and abundance in each samples are often common. To view the distribution of species abundance with phylogenetic tree, here, a microbiome data provided in *phyloseq* package [@phyloseq], density plot and box plot are used to display the abundance data (continuous data) via specified *geom* *i.e.* *geom_density_ridge* and *geom_boxplot*. The abundance data (*i.e.* *melt_simple*) is a data frame require by *geom_density_ridges* and *geom_boxplot*. It has a column (*i.e.* *OTU*) contained tip labels of phylogenetic tree, another column (*i.e.* *val*) contained abundance of the species. The data frame was imported by the *data* argument of *geom_fruit* function. Then the column (*i.e.* *OTU*) contained tip labels was assigned to the *y* axis in *aes*. The column (*i.e.* *val*) contained corresponding abundance was assigned to the *x* axis in *aes*. Then the phylum (*i.e.* *Phylum*) information which is in the *ggtree* object was assigned to the *fill* aesthetic to color the density ridge plot and box plot in *aes*. This dataset has been visualized by *facet_plot* function from *ggtree* (Fig.1. of [@ggtree2]). However, it only supports rectangular layout (A) while *ggtreeExtra* supports more layouts and allows transformation between different layouts. In this example, subplot C and D were transformed from A and B.
  
 (ref:ggridges) **This example demonstrates using *ggtreeExtra* with *geom_density_ridges* layer from the *ggridges* package [@ggridges] and *geom_boxplot* layer from the *ggplot2* package [@ggplot2]**. The associated data (*i.e.*, *melt_simple*) was imported by the *data* argument of the *geom_fruit* function. The data has a column (*i.e.*, *OTU*) that contains tip labels which was mapped to the *y* axis. The *val* column contains the abundance of the species (continuous data) was mapped to the *x* axis and the *phylum* column contains phylum information of the species (categorical data) was mapped to the *fill* aesthetic to color the density ridge plot and box plot. This dataset has been visualized by *facet_plot* function from *ggtree* (Fig.1. of [@ggtree2]). However, it only supports rectangular layout (A) while *ggtreeExtra* supports more layouts and allows transformation between different layouts. In this example, subplot C and D were transformed from A and B. 
 
@@ -349,26 +350,39 @@ library(ggridges)
 library(phyloseq)
 
 set.seed(1024)
+
 data("GlobalPatterns")
 GP <- GlobalPatterns
+
 GP <- prune_taxa(taxa_sums(GP) > 1000, GP)
+
 sample_data(GP)$human <- get_variable(GP, "SampleType") %in%
   c("Feces", "Skin")
+
 mergedGP <- merge_samples(GP, "SampleType")
 mergedGP <- rarefy_even_depth(mergedGP, rngseed=1024)
 mergedGP <- tax_glom(mergedGP,"Order")
+
 melt_simple <- psmelt(mergedGP) %>%
   dplyr::filter(Abundance < 120) %>%
   dplyr::select(OTU, val=Abundance)
 
 p <- ggtree(mergedGP, size = 0.3) +
-     geom_tippoint(aes(color = Phylum), show.legend = FALSE, size=0.6)
+     geom_tippoint(
+         mapping=aes(color = Phylum), 
+         show.legend = FALSE, 
+         size=0.6
+     )
 
 p1 <- p +
       geom_fruit(
           data = melt_simple,
           geom = geom_density_ridges,
-          mapping = aes(y = OTU, x = val, fill = Phylum),
+          mapping = aes(
+                        y = OTU, 
+                        x = val, 
+                        fill = Phylum
+                   ),
           offset = 0.12,
           pwidth = 0.4,
           lwd = .05,
@@ -386,7 +400,11 @@ p2 <- p +
       geom_fruit(
           data = melt_simple,
           geom = geom_boxplot,
-          mapping = aes(y = OTU, x = val, fill = Phylum),
+          mapping = aes(
+                        y = OTU, 
+                        x = val, 
+                        fill = Phylum
+                   ),
           offset = 0.12,
           pwidth = 0.4,
           size = 0.1,
@@ -404,10 +422,13 @@ p2 <- p +
       )
 
 p3 <- p1 + layout_circular()
+
 p4 <- p2 + layout_circular()
+
 (p1 + p2)/(p3 + p4) + plot_annotation(tag_levels = 'A')
 ```
 
+\newpage
 
 ## Versatile bar and box plots by filling with colors and patterns {#chapter2.2}
 
@@ -454,12 +475,16 @@ p1 <- p1 +
           geom=geom_col_pattern,
           mapping=aes(y=id, x=value, pattern=group, pattern_angle=group),
           width=0.6, 
-          pwidth = 0.6, pattern_spacing =0.01,
-          pattern_size = 0.1, pattern_density = 0.4,
-          fill = "grey", pattern_fill="grey35",
+          pwidth = 0.6, 
+          pattern_spacing =0.01,
+          pattern_size = 0.1, 
+          pattern_density = 0.4,
+          fill = "grey", 
+          pattern_fill="grey35",
           position=position_identityx(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
-      ) + theme(legend.key.size = unit(0.3, 'cm'))
+      ) + 
+      theme(legend.key.size = unit(0.3, 'cm'))
 
 p2 <- p2 +
       geom_fruit(
@@ -467,50 +492,66 @@ p2 <- p2 +
           geom=geom_col_pattern,
           mapping=aes(y=id, x=value, pattern=group, pattern_fill=group),
           width=0.6, 
-          pwidth = 0.6, pattern_spacing =0.01,
-          pattern_size = 0.1, pattern_density = 0.4,
+          pwidth = 0.6, 
+          pattern_spacing =0.01,
+          pattern_size = 0.1, 
+          pattern_density = 0.4,
           fill = "grey",
           position=position_identityx(),
           axis.params=list(axis="x",text.size=1.2, hjust=0.5, vjust=1)
-      ) + theme(legend.key.size = unit(0.3, 'cm'))
+      ) + 
+      theme(legend.key.size = unit(0.3, 'cm'))
 
 p3 <- p3 +
       geom_fruit(
           data=dt,
           geom=geom_boxplot_pattern,
           mapping=aes(y=id, x=value, pattern=class, pattern_angle = class),
-          size=0.1, outlier.shape=NA,
-          pwidth=0.5, pattern_size = 0.1,
-          pattern_density = 0.4, pattern_spacing =0.01,
-          fill = "grey", pattern_fill="grey35",
+          size=0.1, 
+          outlier.shape=NA,
+          pwidth=0.5, 
+          pattern_size = 0.1,
+          pattern_density = 0.4, 
+          pattern_spacing =0.01,
+          fill = "grey", 
+          pattern_fill="grey35",
           position=position_dodgex(),
           grid.params=list(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
-      ) + theme(legend.key.size = unit(0.35, 'cm'))
+      ) + 
+      theme(legend.key.size = unit(0.35, 'cm'))
 
 p4 <- p4 +
       geom_fruit(
           data=dt,
           geom=geom_boxplot_pattern,
           mapping=aes(y = id, x = value, pattern = class, pattern_fill = class),
-          size = 0.1, outlier.shape = NA,
-          pwidth = 0.5, pattern_size = 0.1,
-          pattern_density = 0.4, pattern_spacing = 0.01,
+          size = 0.1, 
+          outlier.shape = NA,
+          pwidth = 0.5, 
+          pattern_size = 0.1,
+          pattern_density = 0.4, 
+          pattern_spacing = 0.01,
           fill = "grey",
           position = position_dodgex(),
           grid.params = list(),
           axis.params = list(axis="x", text.size=1.2, hjust=0.5,  vjust=1)
-      ) + theme(legend.key.size = unit(0.35, 'cm'))
+      ) + 
+      theme(legend.key.size = unit(0.35, 'cm'))
 
 (p1 + p2)/(p3 + p4) + plot_annotation(tag_levels = 'A')
 ```
 
+\newpage
 
 ## Taxon-specific graphical information {#chapter2.3}
 
-Adding Taxon-specific graphical information is one of the unique features of *ggtreeExtra*. 
+Supporting adding taxon-specific graphical information on the outside of phylogenetic tree is one of the important features of *ggtreeExtra*. Although iTOL [@iTOL], and ETE3 [@ETE3] also support this, *ggtreeExtra* is more powerful and flexible. 
 
-<!-- to  be continuous -->
+First, the subplots that describe statistical information of taxa can be embeded as insets in *ggtreeExtra* (Fig. \ref{fig:subplot}A) to annotate corresponding taxa by linking *geom_plot* of *ggpmisc* package [@ggpmisc]. Here, a phylogenetic tree was generated by random. Two subplots (*i.e.* *subp1* and *subp2*) that describes statistical information of two tips (*i.e.* *t2* and *t14*) was built by *ggplot2* [@ggplot2], next, the subplots and tip labels was save a *tibble* object (*i.e.* dt) required by *geom_plot*. Then the data was also import by *data* argument of *geom_fruit*, and the *geom* was specified to *geom_plot*, the tip labels column (*i.e.* *id*) was assigned to *y* axis in *aes*, the column (*i.e.* *plot*) contained subplots was assigned to *label* in *aes*.
+
+Second, the local or online images files such as those deposited on phylopic database^[<http://phylopic.org/>] are also supported labeling on the outside of phylogenetic tree by *ggtreeExtra*. It also supports mapping variables of associated data to color and scale the images (Fig. \ref{fig:subplot}B^[The data that used to generate Fig. \ref{fig:subplot}B is from Fig.1 of [@Song2020] and it is available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]). The images layer can also combined with other layers (Fig. \ref{fig:subplot}B). In this example, the bar chart, clade label and heat map was firstly added one by one, then the images layer was added in the outermost ring. We will describe the combination of layers in the next following section in detail. Here, we focus on how to add images in the outer ring. Firstly, a data frame *i.e.* *phylopicda* required by *geom_phylopic* of *ggimage* and contained three columns (one column *i.e.* *taxa* contains some tip labels, one column *i.e.* *uid* contains image id of phylopic database, one column *i.e.* *class* contains the taxonomy information) was built. Then it was also imported by *data* argument of *geom_fruit*, *geom* was specified to *geom_phylopic*. Next, the *taxa* column was assigned to *y* axis in *aes*, *uid* was assigned to *image* in *aes*, *class* was assigned to *color* in *aes* (this can color the images).
+
 
 (ref:subplot) **Using subplots and images as insets on a phylogenetic tree in *ggtreeExtra*.** Subplots can be a *ggplot* object that generated by ggplot2 or its extensions that summarizes taxon-specific information (A). Taxon information can be used color or scale the size of silhouette images (B). The host tree (B) was obtained from TimeTree [@TimeTree2017]. The branch colour represents the Mantel Pearson correlation of gut microbiome. The first ring uses stack bar chart to represent the diet composition of the host. The second ring represents the host taxonomic class and the third ring represents flight status. Some of the representative species are displayed in the outermost ring and colored by taxonomic class (B).
 
@@ -853,20 +894,11 @@ cladeda <- data.frame(nodeid = c(793, 791, 1384, 1394, 1440, 1405),
 p5 <- p4 + 
       geom_cladelab(
           data = cladeda,
-          mapping = aes(
-                        node=nodeid, 
-                        label=label, 
-                        horizontal=horizontal, 
-                        hjust=hjust
-                    ),
-          angle = "auto",
-          offset = 1.4, 
-          align = T, 
-          fontsize = 2, 
-          barsize = 1,
-          family = "Times",
-          fontface="bold",
-          offset.text = 0.1
+          mapping = aes(node=nodeid, label=label, horizontal=horizontal, hjust=hjust),
+          angle = "auto", offset = 1.4, 
+          align = T, fontsize = 2, 
+          barsize = 1, family = "Times",
+          fontface="bold", offset.text = 0.1
       )
 p5
 ```
@@ -895,7 +927,6 @@ library(ggstar)
 library(ggplot2)
 library(ggnewscale)
 library(patchwork)
-
 tree <- read.tree("../data/HMP_tree/hmptree.nwk")
 # the abundance and types of microbes
 dat1 <- read.csv("../data/HMP_tree/tippoint_attr.csv")
@@ -961,7 +992,7 @@ p1 <- p +
                     barsize=NA, fontsize=0.7, angle="auto",
                     hjust=0.5, horizontal=FALSE, fontface="italic"
       )  
-# using geom_fruit to add outer layers
+# Heat map, using geom_fruit to link geom_tile
 p2 <- p1 +
       geom_fruit(
           data=dat2,
@@ -980,7 +1011,7 @@ p2 <- p1 +
                    "#006400","#800080","#696969"),
           guide=guide_legend(keywidth = 0.3, keyheight = 0.3, order=4)
       ) + theme(legend.position="none")
-
+# Bar chart, using geom_fruit to link geom_col
 p3 <- p2 +
       geom_fruit(
           data=dat3,
@@ -992,7 +1023,6 @@ p3 <- p2 +
       )+ 
       geom_treescale(fontsize=1.2, linesize=0.3, x=4.9, y=0.1) +
       theme(legend.position="none")
-
 p4 <- (p + p1 + plot_layout(width=c(3.4,4)))/ (p2 + p3 + plot_layout(width=c(3.4,4))) +
       plot_layout(heights=c(3,4)) + plot_annotation(tag_levels = 'A')
 p4
