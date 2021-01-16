@@ -48,6 +48,7 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
     - `tidyr`
     - `dplyr`
     - `ggimage`
+    - `ggridges`
   
 ```{r, message=FALSE, echo=FALSE, setup}
 library(ggtreeExtra)
@@ -58,7 +59,7 @@ library(treeio)
 library(tidytree)
 library(ggnewscale)
 library(MicrobiotaProcess)
-library(openxlsx)
+library(aplot)
 library(kableExtra)
 library(Cairo)
 library(patchwork)
