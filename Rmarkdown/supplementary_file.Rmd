@@ -20,7 +20,7 @@ link-citations: yes
 **ggtreeExtra: Compact visualization of richly annotated phylogenetic data**
 \endgroup
 
-**Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan and Guangchuang Yu\* **
+**Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan, Tianzhi Wu, Erqiang Hu and Guangchuang Yu\* **
 
 ^\*^correspondence: guangchuangyu@gmail.com, gcyu1@smu.edu.cn
 

@@ -4,9 +4,9 @@
 
 If you use this work in published research, please cite:
 
-S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan
-and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization of richly
-annotated phylogenetic data. *in preparation*.
+S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan,
+T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization
+of richly annotated phylogenetic data. *in preparation*.
 
 This repo contains source code and data to produce
 <!--Manuscript and-->Supplementary Material of the above paper.
