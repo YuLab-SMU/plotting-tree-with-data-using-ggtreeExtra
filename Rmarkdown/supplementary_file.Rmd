@@ -1047,7 +1047,7 @@ p4
 ## Example of complex tree annotations {#chapter3.3}
 
 
-The *ggtreeExtra* package enable us to link *ggtree* [@ggtred1] and geometric layers defined in the *ggplot2* community (Tab. \ref{tab:geom} and Fig. \ref{fig:OverView}). Different annotation layers to visualize high-dimensional associated data sets can be combined freely to create complex tree graphic. As demonstrated in Fig \@ref{fig:HMP}, visualizing a data graphic layer is simple and multiple layers can be added progressively in *ggtreeExtra*. 
+The *ggtreeExtra* package enable us to link *ggtree* [@ggtree1] and geometric layers defined in the *ggplot2* community (Tab. \ref{tab:geom} and Fig. \ref{fig:OverView}). Different annotation layers to visualize high-dimensional associated data sets can be combined freely to create complex tree graphic. As demonstrated in Fig \@ref{fig:HMP}, visualizing a data graphic layer is simple and multiple layers can be added progressively in *ggtreeExtra*. 
 
 
 Here, we reproduce Fig 2 of [@GraPhlAn]. The phylogenetic tree was built using a part of 3737 microbes [@PhyloPhlAn]. The associated data sets were extracted from GraPhlAn configure file. They contains information of present or not and type of ATP synthesis genes, the type and capability of fatty acid metabolism and the lengths of microbes genomes. A heatmap layer was added to display the presence of the two types (F-type and V/A-type) of ATPase (discrete variable). Another heatmap was added to visualize different types (as different colors) and capability (as transparency of the heatmap) of fatty acid metabolism. Finally a bar chart colored by phylum information was employed to represent the lengths of the genomes. These layers were added progressively to the phylogenetic tree decorated with different symbolic points to indicate phylum information of the microbes, and background colors and labels for different clades (Fig. \ref{fig:KEGG}).  
@@ -1214,7 +1214,7 @@ p5 <- p4 +
       theme(legend.position=c(0.95, 0.5),
             legend.background=element_rect(fill=NA),
             legend.title=element_text(size=6),
-            legend.text=element_text(size=5),
+            legend.text=element_text(size=4.5),
             legend.spacing.y = unit(0.02, "cm"))
 p5
 ```
