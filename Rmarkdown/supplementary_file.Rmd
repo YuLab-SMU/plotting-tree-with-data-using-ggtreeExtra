@@ -67,12 +67,12 @@ knitr::include_graphics("./overview.png", dpi=300)
 
 (ref:comparison) **Visualization methods for tree annotation supported by different software tools.** *Note:* circle: circular, inward circular, radial; rectangle: rectangular, slanted, ellipse, round rectangular.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.56, fig.height=3.28, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '55%', compare}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.56, fig.height=3.28, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '52%', compare}
 require(kableExtra)
 
 x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter plot,simple bar chart,patter bar,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin,dot intervals plot,density plot,line plot,pie chart,image plot,inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
 GraPhlAn\tPython,package\tcircular\tHeat map,scatter plot,simple bar chart\tYes\tadd\tNo\tcommand line with configure file\n
-ETE3\tPython,package\trectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,boxplot,pie chart,image plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
+ETE3\tPython,package\tcircular,rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,line plot,pie chart,image plot,inset plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
 iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter plot,simple bar chart,stacked bar chart,dodged bar chart,boxplot,line plot,pie chart,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
 Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter plot\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
 Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,protein domain\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
@@ -119,7 +119,7 @@ compare_tab <-
                 #                  "scale_down"
                                   ),
                 full_width = T,
-                font_size = 6.6,
+                font_size = 6.5,
                 stripe_color = "gray!10",
                 position="center"
   ) %>%
@@ -176,7 +176,8 @@ yy2 <- rbind(yy2_1, yy2_2)
 
 yy <- yy %>% dplyr::full_join(yy2, by="V1") %>%
       dplyr::filter(!(V1=="ggtreeExtra" & value=="pie chart" & layout=="circle")) %>%
-      dplyr::filter(!(V1=="iTOL" & value=="MSA" & layout=="circle"))
+      dplyr::filter(!(V1=="iTOL" & value=="MSA" & layout=="circle")) %>%
+      dplyr::filter(!(V1=="ETE3" & value=="MSA" & layout == "circle"))
 
 dy1 <- data.frame(soft=rep(y$V1, each=length(layers)),
                   layer=rep(layers, length(y$V1))) 
