@@ -67,12 +67,12 @@ knitr::include_graphics("./overview.png", dpi=300)
 
 (ref:comparison) **Visualization methods for tree annotation supported by different software tools.** *Note:* circle: circular, inward circular, radial; rectangle: rectangular, slanted, ellipse, round rectangular.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.56, fig.height=3.28, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '52%', compare}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.5, fig.height=3.2, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '50%', compare}
 require(kableExtra)
 
-x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter plot,simple bar chart,patter bar,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin,dot intervals plot,density plot,line plot,pie chart,image plot,inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeat map,scatter plot,simple bar chart,patter bar,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin,dot intervals plot,density plot,line plot,pie chart,image plot,MSA[note],inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
 GraPhlAn\tPython,package\tcircular\tHeat map,scatter plot,simple bar chart\tYes\tadd\tNo\tcommand line with configure file\n
-ETE3\tPython,package\tcircular,rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,line plot,pie chart,image plot,inset plot,protein domain,MSA[note]\tYes\tadd\tNo\tprogramming,and command,line\n
+ETE3\tPython,package\tcircular,rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,line plot,pie chart,image plot,inset plot,protein domain,MSA\tYes\tadd\tNo\tprogramming,and command,line\n
 iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeat map,scatter plot,simple bar chart,stacked bar chart,dodged bar chart,boxplot,line plot,pie chart,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,configure file)\n
 Microreact\tWeb,tool\tcircular,rectangular\tHeat map,scatter plot\tYes\tadd\tNo\tinteractive,(mouse click,and command line with,configure file)\n
 Evolview\tWeb,tool\tcircular,rectangular,slanted,round rectangular\tHeat map,scatter plot,simple bar chart,stacked bar chart,protein domain\tYes\tadd\tNo\tinteractive,(mouse click with,configure file)\n"
@@ -119,7 +119,7 @@ compare_tab <-
                 #                  "scale_down"
                                   ),
                 full_width = T,
-                font_size = 6.5,
+                font_size = 6.2,
                 stripe_color = "gray!10",
                 position="center"
   ) %>%
@@ -175,7 +175,7 @@ yy2_2 <- data.frame(V1=unique(yy2$V1[duplicated(yy2$V1)]), layout= "rectangle")
 yy2 <- rbind(yy2_1, yy2_2)
 
 yy <- yy %>% dplyr::full_join(yy2, by="V1") %>%
-      dplyr::filter(!(V1=="ggtreeExtra" & value=="pie chart" & layout=="circle")) %>%
+      dplyr::filter(!(V1=="ggtreeExtra" & value %in% c("pie chart","MSA") & layout=="circle")) %>%
       dplyr::filter(!(V1=="iTOL" & value=="MSA" & layout=="circle")) %>%
       dplyr::filter(!(V1=="ETE3" & value=="MSA" & layout == "circle"))
 
@@ -1066,36 +1066,35 @@ dt3 <- read.csv("../data/kegg/secondring_attr.csv")
 # The attrihutes of bar plot
 dt4 <- read.csv("../data/kegg/barplot_attr.csv")
 
+# To combine Spirochaetes and Proteobacteria, Since they have same color
+# in original file, which cause some tips confused.
+dt1 <- aggregate(.~ID, dt1, paste0, collapse="/")
 #reorder the Phyla column
 dt1$Phyla <- factor(dt1$Phyla, levels=c("Actinobacteria","Aquificae","Bacteroidetes",
                                         "Chlamydiae","Chlorobi","Chloroflexi","Crenarchaeota",
-                                        "Cyanobacteria","Euryarchaeota","Firmicutes","Proteobacteria",
-                                        "Spirochaetes","Tenericutes","Thermi","Thermotogae","Other"))
+                                        "Cyanobacteria","Euryarchaeota","Firmicutes", 
+                                        "Spirochaetes/Proteobacteria",
+                                        "Tenericutes","Thermi","Thermotogae","Other"))
 
 # reorder the Type2 column
 dt3$Type2 <- factor(dt3$Type2, levels=c("FA synth init", "FA synth elong",
                                         "acyl-CoA synth", "beta-Oxidation",
                                         "Ketone biosynth"))
 
-dt4$Phyla <- factor(dt4$Phyla, levels=c("Actinobacteria","Aquificae","Bacteroidetes",
-                                        "Chlamydiae","Chlorobi","Chloroflexi","Crenarchaeota",
-                                        "Cyanobacteria","Euryarchaeota","Firmicutes","Proteobacteria",
-                                        "Spirochaetes","Tenericutes","Thermi","Thermotogae","Other"))
 # extract node label for the clade layers
 nodelab <- tree$node.label[nchar(tree$node.label)>0]
 nodeids <- nodeid(tree, nodelab)
-
 # the position of clade label
 textex <- c(1.0, 0.4, 0.2, 1.4, 1.4, 0.4, 1.4, 1.4, 0.4, 0.4,
              0.8, 1, 0.6, 0.6, 0.4, 0.3, 0, 0.4, 0.1, 0.25,
              0.2, 0.3, 0.8, 0.8, 0.8, 0.6, 2.4)
 # optional for clade layers
 cladelabels <- mapply(function(x, y, z){geom_cladelabel(node=x, label=y, barsize=NA, extend=0.3,
-                                              offset.text=z, fontsize=1.2, angle="auto",
+                                              offset.text=z, fontsize=1.3, angle="auto",
                                               hjust=0.5, horizontal=FALSE, fontface="italic")},
                                      nodeids, nodelab, textex, SIMPLIFY=FALSE)
 
-# high light layers
+# optional high light layers
 fills <- c("#808080", "#808080", "#808080", "#808080", "#808080",
            "#191970", "#87CEFA", "#FFC125", "#B0171F", "#B0171F",
            "#B0171F", "#B0171F", "#B0171F", "#B0171F", "#B0171F",
@@ -1110,7 +1109,7 @@ highlights <- mapply(function(x, y){geom_hilight(node=x, extendto=5.8, alpha=0.3
 # to reproduce the original figures, we use the same colors.
 # uses can custom set it.
 colors <- c("#9ACD32", "#EE6A50", "#87CEFA", "#FFC125", "#D15FEE", "#8DEEEE", "#800000",
-            "#006400", "#800080", "#808080", "#B0171F", "#B0171F", "#191970", "#7B68EE",
+            "#006400", "#800080", "#808080", "#B0171F", "#191970", "#7B68EE",
             "#00CD00", "Black")
 p1 <- ggtree(
           tree, 
@@ -1121,12 +1120,9 @@ p1 <- ggtree(
 p1 <- p1 + 
       highlights
 
-p2 <- p1 +
-     geom_fruit(
-         data=dt1,
-         geom=geom_point,
+p2 <- p1 %<+% dt1 +
+     geom_tippoint(
          mapping=aes(
-                     y=ID, 
                      fill=Phyla
                  ),
          shape=21,
@@ -1150,14 +1146,13 @@ p3 <- p2 +
                     x=ring, 
                     fill=Type1
                 ),
-        offset=-0.02,
-        pwidth=0.14,
-        addbrink=TRUE
+        offset=0.01,
+        pwidth=0.14
     ) +
     scale_fill_manual(
         name="ATP synthesis",
         values=c("#339933", "#dfac03"),
-        guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1)
+        guide=guide_legend(keywidth=0.35, keyheight=0.35, order=1)
     ) +
     new_scale_fill() 
 
@@ -1177,11 +1172,11 @@ p4 <- p3 +
       scale_fill_manual(
           name="Fatty Acid metabolism",
           values=c("#b22222", "#005500", "#0000be", "#9f1f9f", "#793a07"),
-          guide=guide_legend(keywidth=0.5, keyheight=0.5, order=2)
+          guide=guide_legend(keywidth=0.35, keyheight=0.35, order=2)
       ) +
       scale_alpha_continuous(
           range=c(0, 0.4),
-          guide=guide_legend(keywidth=0.5, keyheight=0.5,order=3)
+          guide=guide_legend(keywidth=0.35, keyheight=0.35,order=3)
       ) +
       new_scale_fill()
 
@@ -1199,13 +1194,13 @@ p5 <- p4 +
            position=position_dodgex()) +
       scale_fill_manual(
            values=colors,
-           guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)
+           guide=guide_legend(keywidth=0.35, keyheight=0.35, order=4)
       ) +
       geom_treescale(fontsize=1.2, linesize=0.3) +
       theme(legend.position=c(0.95, 0.5),
             legend.background=element_rect(fill=NA),
-            legend.title=element_text(size=7),
-            legend.text=element_text(size=6),
+            legend.title=element_text(size=6),
+            legend.text=element_text(size=5),
             legend.spacing.y = unit(0.02, "cm"))
 p5
 ```
