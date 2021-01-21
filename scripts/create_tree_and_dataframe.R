@@ -141,9 +141,12 @@ dda$color <- NULL
 dd1 <- df %>% filter(V2=="ring_height" & V3 == "22") %>% select(c("V1", "V4")) %>%
        rename(ID="V1", Length="V4")
 dd <- merge(dd1, data1, by.x="ID", by.y="V1")
-dd <- merge(dd, data2, by.x="V3", by.y="V3") %>% select(c("ID", "Length", "V1")) %>%
-      rename(Phyla="V1")
+dd <- merge(dd, data2, by.x="V3", by.y="V3") %>% 
+      select(c("ID", "Length"#, "V1"
+               )) #%>%
+      #rename(Phyla="V1")
 dd$Length <- as.numeric(dd$Length)
+
 write.table(dt, "../data/kegg/tippoint_attr.csv", sep=",", row.names=FALSE, col.names=TRUE, quote=FALSE)
 write.table(dat, "../data/kegg/firstring_attr.csv", sep=",", row.names=FALSE, col.names=TRUE, quote=FALSE)
 write.table(dda, "../data/kegg/secondring_attr.csv", sep=",", row.names=FALSE, col.names=TRUE, quote=FALSE)
