@@ -1209,7 +1209,7 @@ p5 <- p4 +
            guide=guide_legend(keywidth=0.35, keyheight=0.35, order=4)
       ) +
       geom_treescale(fontsize=1.2, linesize=0.3) +
-      theme(legend.position=c(0.95, 0.5),
+      theme(legend.position=c(0.93, 0.76),
             legend.background=element_rect(fill=NA),
             legend.title=element_text(size=6),
             legend.text=element_text(size=4.5),
