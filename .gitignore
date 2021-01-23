@@ -1,2 +1,4 @@
 .DS_Store
 Rmarkdown/*.log
+Rmarkdown/Figures*
+Rmarkdown/Script*.R
