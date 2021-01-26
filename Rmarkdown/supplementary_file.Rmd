@@ -282,6 +282,7 @@ ggdist\tgeom_slab\talpha, color, fill\tcreates slab geom\n
 ggdist\tgeom_slabinterval\talpha, color, fill\tcreates slab, point and interval meta-geom\n
 ggimage\tgeom_image\talpha, color, size\tvisualizes image files\n
 ggimage\tgeom_phylopic\talpha, color, size\tqueries image files from phylopic database and visualizes them\n
+ggmsa\tgeom_msa\tfont,color,char_width\tMultiple sequence alignment layer for ggplot2\n
 ggpattern\tgeom_bar_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws bar charts with support for pattern fills\n
 ggpattern\t \tpattern_angle, alpha, color, fill\t \n
 ggpattern\tgeom_boxplot_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws box and whiskers plot with support for pattern fills\n
@@ -290,6 +291,7 @@ ggpattern\tgeom_col_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws b
 ggpattern\t \tpattern_angle, alpha, color, fill\twith support for pattern fills\n
 ggpattern\tgeom_tile_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws rectangle by using the center of the tile and its\n
 ggpattern\t \tpattern_angle, alpha, color, fill\tsize with support for pattern fills\n
+ggpattern\tgeom_violin_pattern\tpattern_alpha, pattern_color, pattern_fill\tdraws violin plot with support for pattern fills\n
 ggplot2\tgeom_bar\talpha, color, fill\tdraws bar charts\n
 ggplot2\tgeom_boxplot\talpha, color, fill\tdraws box and whiskers plot\n
 ggplot2\tgeom_col\talpha, color, fill\tdraws bar charts using 'stat_identity()'\n
@@ -298,6 +300,7 @@ ggplot2\tgeom_point\talpha, color, fill, shape, size\tcreats scatterplots\n
 ggplot2\tgeom_raster\talpha, fill\ta high performance special case for all the tiles are the same size\n
 ggplot2\tgeom_text\tcolor, size\tadds text to the plot\n
 ggplot2\tgeom_tile\talpha, color, fill\tdraws rectangle by using the center of the tile and its size\n
+ggplot2\tgeom_violin\talpha, color, fill\tA violin plot is a compact display of a continuous distribution\n
 ggpmisc\tgeom_plot\tvp.width,vp.height\tggplot objects as insets to the base ggplot, using syntax similar to that of 'geom_label'\n
 ggpmisc\tgeom_table\tsize\tadds a textual table directly to the ggplot, using syntax similar to that of 'geom_label'\n
 ggrepel\tgeom_text_repel\tcolor, size\tadds text to the plot. The text labels repel away from each other and away from the data points\n
@@ -305,6 +308,7 @@ ggrepel\tgeom_label_repel\talpha, color, fill, size\tdraws a rectangle underneat
 ggrepel\t \t \tfrom each other and away from the data ponts\n
 ggridges\tgeom_density_ridges\talpha,fill\tarranges multiple density plots in a staggered fashion\n
 ggridges\tgeom_density_ridges2\talpha,fill\tarranges multiple density plots in a staggered fashion\n
+ggridges\tgeom_density_ridges_gradient\tfill\tdraws multiple density plots with fill gradients along the x axis\n
 ggridges\tgeom_ridgeline\talpha,color,fill\tplots the sum of the 'y' and 'height' aesthetics versus 'x', filling the area between 'y' and 'y + height' with a color\n
 ggridges\tgeom_ridgeline_gradient\tcolor,fill\tworks just like 'geom_ridgeline' except that the 'fill' aesthetic can vary along the x axis\n
 ggstance\tgeom_barh\talpha, color, fill\thorizontal version of 'geom_bar()'\n
