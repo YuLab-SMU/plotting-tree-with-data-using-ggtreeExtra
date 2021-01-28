@@ -73,7 +73,7 @@ library(tibble)
 library(ggimage)
 ```
 
-To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/[supplemental_file.pdf](Rmarkdown/supplemental_file.pdf), please run the following command on terminal.
+To compile the <!-- Rmarkdown/manuscript.docx and --> Rmarkdown/[supplemental_file.pdf](Rmarkdown/supplementary_file.pdf), please run the following command on terminal.
 
 <!-- ```r
 make manuscript && make supple 

@@ -55,7 +55,7 @@ This repo contains source code and data to produce
       - `ggridges`
 
 To compile the <!-- Rmarkdown/manuscript.docx and -->
-Rmarkdown/[supplemental\_file.pdf](Rmarkdown/supplemental_file.pdf),
+Rmarkdown/[supplemental\_file.pdf](Rmarkdown/supplementary_file.pdf),
 please run the following command on terminal.
 
 <!-- ```r
