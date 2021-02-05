@@ -6,8 +6,9 @@ If you use this work in published research, please cite:
 
 S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan,
 T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization
-of richly annotated phylogenetic data. __*Research Square*__
- doi: [10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1) (preprint).
+of richly annotated phylogenetic data. ***Research Square*** doi:
+[10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1)
+(preprint).
 
 This repo contains source code and data to produce
 <!--Manuscript and-->Supplementary Material of the above paper.
@@ -99,8 +100,8 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ##  [7] ggpattern_0.1.3         knitr_1.30              patchwork_1.0.1        
     ## [10] Cairo_1.5-12.2          kableExtra_1.3.1        aplot_0.0.6            
     ## [13] MicrobiotaProcess_1.3.5 ggnewscale_0.4.3        tidytree_0.3.4         
-    ## [16] treeio_1.15.2           ggtree_2.5.1            ggplot2_3.3.2          
-    ## [19] ggstar_0.0.9            ggtreeExtra_1.1.3.991  
+    ## [16] treeio_1.15.3           ggtree_2.5.1            ggplot2_3.3.2          
+    ## [19] ggstar_1.0.0            ggtreeExtra_1.1.4.991  
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] TH.data_1.0-10      colorspace_1.4-1    ggsignif_0.6.0     
