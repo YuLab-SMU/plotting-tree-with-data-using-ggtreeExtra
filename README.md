@@ -7,7 +7,7 @@ If you use this work in published research, please cite:
 S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan,
 T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization
 of richly annotated phylogenetic data. __*Research Square*__
- doi: [10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1) (preprint).
+ doi: [10.21203/rs.3.rs-155672/v2](https://doi.org/10.21203/rs.3.rs-155672/v2) (preprint).
 
 This repo contains source code and data to produce
 <!--Manuscript and-->Supplementary Material of the above paper.
