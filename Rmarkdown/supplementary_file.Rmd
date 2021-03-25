@@ -1279,8 +1279,7 @@ BGCsda$BGCs <- factor(BGCsda$BGCs,
                               "other"
                             )
                     )
-BGCsda$Count <- log10(BGCsda$Count+1)
-BGCsda$Count <- ifelse(BGCsda$Count==0, NA, BGCsda$Count)
+BGCsda$Count <- log2(BGCsda$Count+1)
 
 trda <- convert_to_treedata(alltax)
 p <- ggtree(trda, layout="inward_circular", size=0.2, xlim=c(18,NA))
@@ -1354,8 +1353,8 @@ p3 <- p2 +
           size=0.02,
           color = "grey50"
       ) +
-      scale_alpha_continuous(range=c(0.1, 1),
-                             name=bquote(paste(Log[10],"(",.("Count+1"), ")")),
+      scale_alpha_continuous(range=c(0, 1),
+                             name=bquote(paste(Log[2],"(",.("Count+1"), ")")),
                              guide=guide_legend(keywidth = 0.4, keyheight = 0.4, order=4)
       ) +
       scale_fill_manual(
