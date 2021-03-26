@@ -28,27 +28,27 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
   <!--and `Biopython` also should be installed. -->
 
   + R (>= 4.0.3) should be installed and located in the user's PATH, and the following packages should be installed.
-    - `ggtreeExtra`
-    - `ggtree`
-    - `treeio`
-    - `tidytree`
-    - `ggplot2`
-    - `kableExtra`
-    - `bookdown`
-    - `MicrobiotaProcess`
-    - `ggstar`
-    - `Cairo`
-    - `aplot`
-    - `patchwork`
-    - `ggnewscale`
-    - `knitr`
-    - `ggpmisc`
-    - [`ggpattern`](https://github.com/coolbutuseless/ggpattern)
-    - `tibble`
-    - `tidyr`
-    - `dplyr`
-    - `ggimage`
-    - `ggridges`
+    - `ggtreeExtra` :                                          `BiocManager::install("ggtreeExtra")`
+    - `ggtree` :                                               `BiocManager::install("ggtree")`
+    - `treeio` :                                               `remotes::install_github("YuLab-SMU/treeio")`
+    - `tidytree` :                                             `install.packages("tidytree")`
+    - `ggplot2` :                                              `install.packages("ggplot2")`
+    - `kableExtra` :                                           `install.packages("kableExtra")`
+    - `bookdown` :                                             `install.package("bookdown")`
+    - `MicrobiotaProcess` :                                    `BiocManager::install("MicrobiotaProcess")`
+    - `ggstar` :                                               `install.packages("ggstar")`
+    - `Cairo` :                                                `install.packages("Cairo")`
+    - `aplot` :                                                `install.packages("aplot")`
+    - `patchwork` :                                            `install.packages("patchwork")`
+    - `ggnewscale` :                                           `install.packages("ggnewscale")`
+    - `knitr` :                                                `install.packages("knitr")`
+    - `ggpmisc` :                                              `install.packages("ggpmisc")`
+    - [`ggpattern`](https://github.com/coolbutuseless/ggpattern) :      `remotes::install_github("coolbutuseless/ggpattern")`
+    - `tibble` :                                             `install.packages("tibble")`
+    - `tidyr` :                                              `install.packages("tidyr")`
+    - `dplyr` :                                              `install.packages("dplyr")`
+    - `ggimage` :                                             `install.packages("ggimage")`
+    - `ggridges` :                                            `install.packages("ggridges")`
   
 ```{r, message=FALSE, echo=FALSE, setup}
 library(ggtreeExtra)
