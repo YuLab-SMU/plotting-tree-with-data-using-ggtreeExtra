@@ -267,6 +267,58 @@ p
 
 \newpage
 
+# Installation
+
+To install `ggtreeExtra` package, please start R (version "4.0") and enter:
+
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ggtreeExtra")
+```
+
+If you want to draw the examples of the supplemental file, you also need to install the following packages. You can refer the following command to install them.
+
+```{r, eval=FALSE}
+
+# For Fig.S3
+
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+remotes::install_github("YuLab-SMU/ggtree")
+
+BiocManager::install(c("phyloseq"))
+install.packages(c("ggplot2", "patchwork", "ggridges"))
+
+# For Fig.S4, you also need to install 'ggpattern'.
+# because ggpattern have not been released on CRAN.
+
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+remotes::install_github("coolbutuseless/ggpattern")
+
+# For Fig.S5
+
+remotes::install_github("YuLab-SMU/treeio") 
+# or if Bioconductor 1.13 is released, you can use `BiocManager::install("treeio")` to install it.
+
+install.packages(c("tidytree", "ggpmisc", "ggimage"))
+
+# For Fig.S6
+install.packages("ggnewscale")
+
+# For Fig.S7
+install.packages("ggstar")
+
+# For Fig.S9
+BiocManager::install("MicrobiotaProcess")
+
+```
+
+The source codes and datasets to produce this file can be obtained from the repository^[<https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>].
+
+\newpage
+
 # Geometric layers supported by *geom_fruit* of *ggtreeExtra* {#chapter2}
 
 The *ggtreeExtra* package was designed to link ggtree [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] and other *ggplot2* extension packages (Fig. \ref{fig:OverView}). The *ggtreeExtra* package implemented a layer function, *geom_fruit*, which can internally reorder associated data based on the structure of a phylogenetic tree, visualize the data using specific geometric layer function with user-provided aesthetic mapping and non-variable setting, the graphic layer will be displayed on the external panel (right-hand side for rectangular layout and outer ring for circular layout). Here is the list of the geometric layer functions which work seamlessly with the *geom_fruit* function (Tab. \ref{tab:geom}). 
