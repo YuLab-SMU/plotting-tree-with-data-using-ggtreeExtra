@@ -33,7 +33,7 @@ This repo contains source code and data to produce
   - R (\>= 4.0.3) should be installed and located in the user’s PATH,
     and the following packages should be installed.
       - `ggtreeExtra` : `BiocManager::install("ggtreeExtra")`
-      - `ggtree` : `BiocManager::install("ggtree")`
+      - `ggtree` : `remotes::install_github("YuLab-SMU/ggtree")`
       - `treeio` : `remotes::install_github("YuLab-SMU/treeio")`
       - `tidytree` : `install.packages("tidytree")`
       - `ggplot2` : `install.packages("ggplot2")`
@@ -102,7 +102,7 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ##  [7] ggpattern_0.1.3         knitr_1.30              patchwork_1.0.1        
     ## [10] Cairo_1.5-12.2          kableExtra_1.3.1        aplot_0.0.6            
     ## [13] MicrobiotaProcess_1.2.1 ggnewscale_0.4.3        tidytree_0.3.4         
-    ## [16] treeio_1.15.6           ggtree_2.5.1            ggplot2_3.3.2          
+    ## [16] treeio_1.15.6           ggtree_2.5.1.9002       ggplot2_3.3.2          
     ## [19] ggstar_1.0.1            ggtreeExtra_1.0.2      
     ## 
     ## loaded via a namespace (and not attached):

@@ -29,7 +29,7 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
 
   + R (>= 4.0.3) should be installed and located in the user's PATH, and the following packages should be installed.
     - `ggtreeExtra` :                                          `BiocManager::install("ggtreeExtra")`
-    - `ggtree` :                                               `BiocManager::install("ggtree")`
+    - `ggtree` :                                               `remotes::install_github("YuLab-SMU/ggtree")`
     - `treeio` :                                               `remotes::install_github("YuLab-SMU/treeio")`
     - `tidytree` :                                             `install.packages("tidytree")`
     - `ggplot2` :                                              `install.packages("ggplot2")`
