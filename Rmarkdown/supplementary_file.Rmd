@@ -282,25 +282,31 @@ If you want to draw the examples of the supplemental file, you also need to inst
 ```{r, eval=FALSE}
 
 # For Fig.S3
-
+# ggtree has been released to the Bioconductor, But the development version (> 2.5.1) was needed in here.
+# You can install ggtree from the github repository by 'remotes', or you can install it by 
+# 'BiocManager::install("ggtree")' if the Bioconductor (>=1.13) is released.
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github("YuLab-SMU/ggtree")
 
 BiocManager::install(c("phyloseq"))
-install.packages(c("ggplot2", "patchwork", "ggridges"))
+install.packages(c("ggplot2", "patchwork", "ggridges", "tibble", "dplyr"))
 
 # For Fig.S4, you also need to install 'ggpattern'.
-# because ggpattern have not been released on CRAN.
+# Because ggpattern have not been released on 'CRAN', we
+# can install it from the github repository.
 
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github("coolbutuseless/ggpattern")
+install.packages("tidyr")
 
 # For Fig.S5
 
+# treeio has also been released to the Bioconductor, But the development version (>= 1.15.6) was needed 
+# in here. You can install it from the github repository by 'remotes', or you can install it by 
+# 'BiocManager::install(treeio)' if the Bioconductor (>=1.13) is released.
 remotes::install_github("YuLab-SMU/treeio") 
-# or if Bioconductor 1.13 is released, you can use `BiocManager::install("treeio")` to install it.
 
 install.packages(c("tidytree", "ggpmisc", "ggimage"))
 
@@ -715,11 +721,11 @@ phylopicda <- read.csv("../data/VertebrateGutMicrobiomes/data_phylopic_uid.csv")
 phylopicda$class <- factor(phylopicda$class, levels=c("Amphibia","Chelonia","Lepidosauria",
                                                       "Aves","Mammalia"))
 
-fig <- ggtree(tr, layout="fan", open.angle=5)
+fig <- ggtree(tr, layout="fan", open.angle=5, continuous=TRUE)
 
 # Optional for color branches.
 fig <- fig %<+% corda
-fig$data$width <- ifelse(is.na(fig$data$r), 0.1, 0.4)
+fig$data$width <- ifelse(is.na(fig$data$r), 0.05, 0.4)
 r <- NULL
 fig <- fig +
      aes(color=r, size=I(width)) +
