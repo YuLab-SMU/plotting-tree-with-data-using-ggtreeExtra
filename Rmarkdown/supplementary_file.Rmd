@@ -284,7 +284,7 @@ If you want to draw the examples of the supplemental file, you also need to inst
 # For Fig.S3
 # ggtree has been released to the Bioconductor, But the development version (> 2.5.1) was needed in here.
 # You can install ggtree from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install("ggtree")' if the Bioconductor (>=1.13) is released.
+# 'BiocManager::install("ggtree")' if the Bioconductor (>=3.13) is released.
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github("YuLab-SMU/ggtree")
@@ -305,7 +305,7 @@ install.packages("tidyr")
 
 # treeio has also been released to the Bioconductor, But the development version (>= 1.15.6) was needed 
 # in here. You can install it from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install(treeio)' if the Bioconductor (>=1.13) is released.
+# 'BiocManager::install(treeio)' if the Bioconductor (>=3.13) is released.
 remotes::install_github("YuLab-SMU/treeio") 
 
 install.packages(c("tidytree", "ggpmisc", "ggimage"))
