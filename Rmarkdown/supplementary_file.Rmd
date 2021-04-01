@@ -235,7 +235,7 @@ p1 <- ggplot() +
 
 p2 <- ggplot(data=dy2) +
       geom_col(aes(x=number, y=V1, fill=V1), show.legend=FALSE, width=0.78) +
-      geom_text(aes(x=number-1, y=V1, label=number)) +
+      geom_text(aes(x=number+1, y=V1, label=number), size=3) +
       ylab(NULL) +
       xlab(NULL) +
       theme_bw() +
@@ -248,7 +248,7 @@ p2 <- ggplot(data=dy2) +
 
 p3 <- ggplot(data=dy3) +
       geom_col(aes(x=value, y=number), fill="grey68", width=0.78) +
-      geom_text(aes(x=value, y=number-0.5, label=number)) +
+      #geom_text(aes(x=value, y=number-0.5, label=number)) +
       ylab(NULL) +
       xlab(NULL) +
       theme_bw() +
