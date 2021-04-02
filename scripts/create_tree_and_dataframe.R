@@ -212,6 +212,9 @@ da1_2$Leaf <- NULL
 da1_2$Kindom <- "Bacteria"
 da1_2 <- da1_2[,c(7, seq_len(6))]
 
+da1_tmp <- data.frame(Kindom="Bacteria",Phylum="Firmicutes",Class="Bacilli",
+                      Order="Bacillales",Family="Bacillaceae",Genus="Bacillus",Isolation="Leaf406")
+da1_2 <- rbind(da1_2, da1_tmp)
 da3 <- da[,c(1, 2, 3)]
 da3$Inhibitor <- paste0("s__", da3$Inhibitor)
 da3$Sensitive <- paste0("s__", da3$Sensitive)
