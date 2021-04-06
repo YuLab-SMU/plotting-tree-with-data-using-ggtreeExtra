@@ -1297,7 +1297,7 @@ We found some strains from Firmicutes and Gammaproteobacteria have more inhibito
 Chord diagram allows us to display flows or connections between taxa, such as syntenic linkage among genes and genomes, and reticulate evolutionary relationships including horizontal gene transfer. With the modular design (Fig. \ref{fig:OverView}), *ggtreeExtra* allows more data types from diverse sources to be integrated with a phylogenetic tree and a chord diagram to explore associated data at the evolutionary and interaction context. 
 
 
-(ref:ArabidopsisTree) **Illustration of representing multi-dimensional data sets on a inward circular phylogenetic tree with chord diagram incorporated to display inter-relationships.** The inward circular layout tree reflects the evolutionary relationships among isolates from the *Arabidopsis* leaf microbiome [@ArabidopsisMicrobiota]. In the center of the plot, the arcs connect isolates to show the inhibitory interactions, the arc arrows were meant to indicate directional inhibition and the colors of the arcs represent interaction strengths (*i.e.* weak or strong). The colors of symbolic points on tips indicate taxonomy annotation and circle points represent the phylum while square points represent the class from Proteobacteria. The heatmap on the external ring displays the number of detected BGCs (biosynthesis gene clusters). The outermost ring uses the stacked bar chart to visualize the number of inhibiting and sensitive interactions per strain.
+(ref:ArabidopsisTree) **Illustration of representing multi-dimensional data sets on a inward circular phylogenetic tree with chord diagram incorporated to display inter-relationships.** The inward circular layout tree reflects the evolutionary relationships among isolates from the *Arabidopsis* leaf microbiome [@ArabidopsisMicrobiota]. In the center of the plot, the arcs connect isolates to show the inhibitory interactions, the arc arrows were meant to indicate directional inhibition and the colors of the arcs represent interaction strengths (*i.e.* weak or strong). The colors of symbolic points on tips indicate taxonomy annotation and circle points represent the phylum while square points represent the class from Proteobacteria. The heatmap (dot plot) on the external ring displays the number of detected BGCs (biosynthesis gene clusters). The outermost ring uses the stacked bar chart to visualize the number of inhibiting and sensitive interactions per strain.
 
 
 
@@ -1306,7 +1306,6 @@ library(ggtree)
 library(ggtreeExtra)
 library(ggplot2)
 library(MicrobiotaProcess)
-library(ggstar)
 library(ggnewscale)
 library(grid)
 
@@ -1400,19 +1399,25 @@ p2 <- p1 +
 p3 <- p2 +
       geom_fruit(
           data=BGCsda,
-          geom=geom_tile,
+          geom=geom_point,
           mapping=aes(
                       y=Strain, 
                       x=BGCs, 
-                      alpha=Count, 
+                      size=Count, 
                       fill=BGCs
                   ),
+          shape = 21,
+          stroke = 0,
           offset=-0.9,
-          pwidth=1
+          pwidth=1,
+          grid.params=list(linetype=3)
       ) +
-      scale_alpha_continuous(range=c(0, 1),
-                             name=bquote(paste(Log[2],"(",.("Count+1"), ")")),
-                             guide=guide_legend(keywidth = 0.4, keyheight = 0.4, order=4)
+      scale_size_continuous(range=c(0, 2),
+                            limits=c(sort(BGCsda$Count)[2], max(BGCsda$Count)),
+                            breaks=c(1, 2, 3),
+                            name=bquote(paste(Log[2],"(",.("Count+1"), ")")),
+                            guide=guide_legend(keywidth = 0.4, keyheight = 0.4, order=4, 
+                                               override.aes = list(stroke=0.2))
       ) +
       scale_fill_manual(
           values=c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3",
@@ -1454,6 +1459,7 @@ p5 <- p4 +
                       )
       ) +
       scale_fill_manual(
+          name = "Number of interactions",
           values=c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3"),
           guide=guide_legend(keywidth=0.5,keyheight=0.5,order=5)
       ) +
