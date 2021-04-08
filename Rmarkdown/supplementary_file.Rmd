@@ -462,6 +462,7 @@ p1 <- p +
       ) 
 
 p2 <- p +
+      scale_color_viridis_d() +
       geom_fruit(
           data = melt_simple,
           geom = geom_boxplot,
