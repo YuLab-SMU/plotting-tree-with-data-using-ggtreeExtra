@@ -70,7 +70,7 @@ knitr::include_graphics("./overview.png", dpi=300)
 ```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=7.5, fig.height=3.2, error=FALSE, fig.cap='(ref:comparison)', results='asis', out.width = '60%', compare}
 require(kableExtra)
 
-x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeatmap,scatter plot,simple bar chart,patter bar chart,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin plot,dot intervals plot,density plot,line plot,pie chart,image plot,MSA[note],inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
+x <- "ggtreeExtra\tR,package\tcircular,inward circular,rectangular,slanted,ellipse,round rectangular,radial\tHeatmap,scatter plot,simple bar chart,pattern bar chart,stacked bar chart,dodged bar chart,boxplot,pattern boxplot,violin plot,dot intervals plot,density plot,line plot,pie chart,image plot,MSA[note],inset plot\tYes\tadd,modify,delete\tYes\tprogramming,and command,line\n
 GraPhlAn\tPython,package\tcircular\tHeatmap,scatter plot,simple bar chart\tYes\tadd\tNo\tcommand line with config file\n
 ETE3\tPython,package\tcircular,rectangular\tHeatmap,scatter plot,simple bar chart,stacked bar chart,line plot,pie chart,image plot,inset plot,protein domain,MSA\tYes\tadd\tNo\tprogramming,and command,line\n
 iTOL\tWeb,tool\tcircular,rectangular,slanted,ellipse,inward circular\tHeatmap,scatter plot,simple bar chart,stacked bar chart,dodged bar chart,boxplot,line plot,pie chart,image plot,protein domain,MSA\tYes\tadd\tNo\tinteractive,(mouse click,with,config file)\n
