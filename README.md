@@ -102,8 +102,8 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ##  [7] ggpattern_0.1.3         knitr_1.30              patchwork_1.0.1        
     ## [10] Cairo_1.5-12.2          kableExtra_1.3.1        aplot_0.0.6            
     ## [13] MicrobiotaProcess_1.2.1 ggnewscale_0.4.3        tidytree_0.3.4         
-    ## [16] treeio_1.15.6           ggtree_2.5.1.9002       ggplot2_3.3.2          
-    ## [19] ggstar_1.0.1            ggtreeExtra_1.0.2      
+    ## [16] treeio_1.15.6           ggtree_2.5.2            ggplot2_3.3.2          
+    ## [19] ggstar_1.0.2            ggtreeExtra_1.0.3      
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] TH.data_1.0-10      colorspace_1.4-1    ggsignif_0.6.0     
@@ -142,3 +142,33 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ## [100] vegan_2.5-6         classInt_0.4-3      digest_0.6.27      
     ## [103] webshot_0.5.2       gridGraphics_0.5-0  stats4_4.0.3       
     ## [106] munsell_0.5.0       ggplotify_0.0.5     viridisLite_0.3.0
+
+# Docker image
+
+We also provided a [docker
+image](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv) to
+help users to build the computing environment. You can pull and run it
+according to the following.
+
+  - Install Docker (<https://www.docker.com/>)
+      - `sudo apt-get install docker.io` (Ubuntu)
+  - Pull the Docker image from Docker Hub:
+      - `docker pull xushuangbin/ggtreeextraarticleenv:latest`
+      - or
+      - `sudo pull xushuangbin/ggtreeextraarticleenv:latest`
+  - Run the image:
+      - `docker run -e PASSWORD=yourpassword -p 8787:8787
+        xushuangbin/ggtreeextraarticleenv`
+      - or
+      - `sudo docker run -e PASSWORD=yourpassword -p 8787:8787
+        xushuangbin/ggtreeextraarticleenv`
+  - Log in to RStudio at <http://localhost:8787> using username
+    `rstudio` and password `yourpassword`. For Windows users, you also
+    need to provide your IP address, you can find it using
+    `docker-machine ip default`.
+  - Inside the RStudio, run: `browseVignettes(package =
+    "ggtreeExtraArticleEnv")`
+  - You can click one of the links: “PDF”, “source”, “R code”
+  - In case of `The requested page was not found` error, try add ‘help/’
+    in front of the hostname in the URL (this is a known bug):
+    <http://localhost:8787/help/library/ggtreeExtraArticleEnv/doc/supplementary_file.pdf>

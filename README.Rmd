@@ -95,3 +95,23 @@ Here is the output of `sessionInfo()` of the system on which [the Supplemental f
 sessionInfo()
 ```
 
+# Docker image
+
+We also provided a [docker image](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv) to help users to build the computing environment. You can pull and run it according to the following.
+
+- Install Docker (https://www.docker.com/)
+  - `sudo apt-get install docker.io` (Ubuntu)
+- Pull the Docker image from Docker Hub:
+  - `docker pull xushuangbin/ggtreeextraarticleenv:latest`
+  - or
+  - `sudo pull xushuangbin/ggtreeextraarticleenv:latest`
+- Run the image:
+  - `docker run -e PASSWORD=yourpassword -p 8787:8787 xushuangbin/ggtreeextraarticleenv`
+  - or
+  - `sudo docker run -e PASSWORD=yourpassword -p 8787:8787 xushuangbin/ggtreeextraarticleenv`
+- Log in to RStudio at [http://localhost:8787](http://localhost:8787) using username `rstudio` and password `yourpassword`. For Windows users, you also need to provide your IP address, you can find it using `docker-machine ip default`.
++ Inside the RStudio, run:
+  `browseVignettes(package = "ggtreeExtraArticleEnv")`
+- You can click one of the links: "PDF", "source", "R code"
+- In case of `The requested page was not found` error, try add 'help/' in front of the hostname in the URL (this is a known bug):
+  http://localhost:8787/help/library/ggtreeExtraArticleEnv/doc/supplementary_file.pdf
