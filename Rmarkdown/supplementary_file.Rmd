@@ -20,9 +20,9 @@ link-citations: yes
 **ggtreeExtra: Compact visualization of richly annotated phylogenetic data**
 \endgroup
 
-**Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan, Tianzhi Wu, Erqiang Hu and Guangchuang Yu\* **
+**Shuangbin Xu, Zehan Dai, Pingfan Guo, Xiaocong Fu, Shanshan Liu, Lang Zhou, Wenli Tang, Tingze Feng, Meijun Chen, Li Zhan, Tianzhi Wu, Erqiang Hu, Yong Jiang\*, Xiaochen Bo\* and Guangchuang Yu\* **
 
-^\*^correspondence: guangchuangyu@gmail.com, gcyu1@smu.edu.cn
+^\*^correspondence: Guangchuang Yu \<gcyu1@smu.edu.cn\>, Xiaochen Bo \<boxc@bmi.ac.cn\> and Yong Jiang \<jiang48231@163.com\>
 
 \renewcommand{\figurename}{Fig.}
 \newcommand{\beginsupplement}{%
@@ -279,14 +279,14 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("ggtreeExtra")
 ```
 
-If you want to draw the examples of the supplemental file, you also need to install the following packages. You can refer the following command to install them.
+If you want to draw the examples of the supplemental file, you also need to install the following packages. You can refer the following commands to install them.
 
 ```{r, eval=FALSE}
 
 # For Fig.S3
 # ggtree has been released to the Bioconductor, But the development version (> 2.5.1) was needed in here.
 # You can install ggtree from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install("ggtree")' if the Bioconductor (>=3.13) is released.
+# 'BiocManager::install("ggtree")' once the Bioconductor (>=3.13) was released.
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github("YuLab-SMU/ggtree")
@@ -307,7 +307,7 @@ install.packages("tidyr")
 
 # treeio has also been released to the Bioconductor, But the development version (>= 1.15.6) was needed 
 # in here. You can install it from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install(treeio)' if the Bioconductor (>=3.13) is released.
+# 'BiocManager::install(treeio)' once the Bioconductor (>=3.13) was released.
 remotes::install_github("YuLab-SMU/treeio") 
 
 install.packages(c("tidytree", "ggpmisc", "ggimage"))
@@ -328,7 +328,7 @@ The source codes and datasets to produce this file can be obtained from the repo
 
 ## Docker image
 
-We also provided a docker image^[<https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv>] to help users to build the computing environment. Users can pull and run it according to the following. They don't need to install the dependency packages.
+We also provided a docker image^[<https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv>] to help users to build the computing environment. Users can pull and run it according to the following commands. They don't need to install the dependency packages.
 
 1. Install Docker (https://www.docker.com/). For example:
 
@@ -1328,13 +1328,9 @@ As the mentioned above, *ggtreeExtra* can link *ggtree* [@ggtree1] and geometric
 
 The Fig. 1b and Fig. 2 of [@Arabidopsis] show the directional interactions and the biosynthetic potential of isolates from the *Arabidopsis* leaf microbiome on the phylogenetic tree using GraPhlAn [@GraPhlAn]. Since GraPhlAn only supports annotation on circular layout trees using a few geometric layers, some phylogenetic patterns behind multi-dimensional data can not be found easily. Here, we use *ggtree* and *ggtreeExtra* to combine and visualize the information presented in the Fig.1b and Fig.2 of [@Arabidopsis] to a single tree graphic (Fig. \ref{fig:ArabidopsisTree}). In detail, the tree was visualized using *inward_circular* layout and the interactions of the isolates were visualized as a chord diagram using *geom_taxalink* implemented in *ggtree* [@ggtree1]. The biosynthetic potential of the isolates was displayed as a heatmap. The types of the BGCs (biosynthesis gene clusters) were used to color the heatmap and the numbers of BGCs were used to set the transparency of the heatmap. The number of interactions of inhibitions or sensitivities per strain was displayed by a stacked bar chart which was colored by the type of the interactions. 
 
-We found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. Besides, the strains that prefer the interactions of sensitivity might have more BGCs (biosynthesis gene clusters) from ribosomally synthesized and post-translationally modified peptides (*RiPP*). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis]. 
-
 Chord diagram allows us to display flows or connections between taxa, such as syntenic linkage among genes and genomes, and reticulate evolutionary relationships including horizontal gene transfer. With the modular design (Fig. \ref{fig:OverView}), *ggtreeExtra* allows more data types from diverse sources to be integrated with a phylogenetic tree and a chord diagram to explore associated data at the evolutionary and interaction context. 
 
-
 (ref:ArabidopsisTree) **Illustration of representing multi-dimensional data sets on a inward circular phylogenetic tree with chord diagram incorporated to display inter-relationships.** The inward circular layout tree reflects the evolutionary relationships among isolates from the *Arabidopsis* leaf microbiome [@ArabidopsisMicrobiota]. In the center of the plot, the arcs connect isolates to show the inhibitory interactions, the arc arrows were meant to indicate directional inhibition and the colors of the arcs represent interaction strengths (*i.e.* weak or strong). The colors of symbolic points on tips indicate taxonomy annotation and circle points represent the phylum while square points represent the class from Proteobacteria. The heatmap (dot plot) on the external ring displays the number of detected BGCs (biosynthesis gene clusters). The outermost ring uses the stacked bar chart to visualize the number of inhibiting and sensitive interactions per strain.
-
 
 
 ```{r, fig.width=7, fig.height=7, error=FALSE, warning=FALSE, message=FALSE, fig.cap="(ref:ArabidopsisTree)", dev="CairoPNG", dpi=300, ArabidopsisTree}
@@ -1511,6 +1507,46 @@ p5 <- p4 +
       )
 p5
 ```
+
+With ggtreeExtra incorporating all these information, some of the evolutionary patterns that are not straightforward might become more obvious. For example, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney's test, the number of different interactions among these strains was confirmed to be significant (Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
+
+(ref:compareNumber) **The comparison of number of inhibitor or sensitive interactions between the strains from different Phyla or Classes.**
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6, fig.height=4, error=FALSE, fig.cap='(ref:compareNumber)', results='asis',compareNumber}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(MicrobiotaProcess)
+library(tibble)
+
+weighttab <- read.csv("../data/Arabidopsis_leaf_microbiome/Interaction_weight.csv")
+tippoint <- read.csv("../data/Arabidopsis_leaf_microbiome/stain_tippoint.csv")
+
+intersectNums <- merge(tippoint, weighttab, by.x="Isolation", by.y="Strain")
+intersectNums <- intersectNums %>%
+                 select(c("Isolation", "Taxa", "Number", "value"))
+
+intersectNums$Number <- gsub(" Strong", "", intersectNums$Number)
+intersectNums$Number <- gsub(" Weak", "", intersectNums$Number)
+intersectNums2 <- reshape2::dcast(intersectNums, Isolation + Taxa ~ Number, sum)
+
+tipInterNums <- intersectNums2 %>%
+                select(-c("Taxa")) %>%
+                tibble::column_to_rownames(var="Isolation")
+tipTaxa <- intersectNums2 %>%
+           select(c("Isolation", "Taxa")) %>%
+           tibble::column_to_rownames(var="Isolation")
+
+FigS10 <- MicrobiotaProcess::ggbox(obj=tipInterNums,
+                               sampleda=tipTaxa,
+                               factorNames="Taxa",
+                               indexNames=c("Inhibitor", "Sensitive")
+          ) +
+          theme(axis.text.x=element_blank())
+FigS10
+```
+
+\newpage
 
 # Summary {#chapter4}
 
