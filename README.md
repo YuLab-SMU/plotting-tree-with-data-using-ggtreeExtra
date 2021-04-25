@@ -143,12 +143,12 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ## [103] webshot_0.5.2       gridGraphics_0.5-0  stats4_4.0.3       
     ## [106] munsell_0.5.0       ggplotify_0.0.5     viridisLite_0.3.0
 
-# Docker image
+## Docker image
 
 We also provided a [docker
 image](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv) to
 help users to build the computing environment. You can pull and run it
-according to the following.
+according to the following commands.
 
   - Install Docker (<https://www.docker.com/>)
       - `sudo apt-get install docker.io` (Ubuntu)

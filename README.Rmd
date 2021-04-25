@@ -95,9 +95,9 @@ Here is the output of `sessionInfo()` of the system on which [the Supplemental f
 sessionInfo()
 ```
 
-# Docker image
+## Docker image
 
-We also provided a [docker image](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv) to help users to build the computing environment. You can pull and run it according to the following.
+We also provided a [docker image](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv) to help users to build the computing environment. You can pull and run it according to the following commands.
 
 - Install Docker (https://www.docker.com/)
   - `sudo apt-get install docker.io` (Ubuntu)
