@@ -284,14 +284,7 @@ If you want to draw the examples of the supplemental file, you also need to inst
 ```{r, eval=FALSE}
 
 # For Fig.S3
-# ggtree has been released to the Bioconductor, But the development version (> 2.5.1) was needed in here.
-# You can install ggtree from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install("ggtree")' once the Bioconductor (>=3.13) was released.
-if (!requireNamespace("remotes", quietly = TRUE))
-    install.packages("remotes")
-remotes::install_github("YuLab-SMU/ggtree")
-
-BiocManager::install(c("phyloseq"))
+BiocManager::install(c("ggtree", "phyloseq"))
 install.packages(c("ggplot2", "patchwork", "ggridges", "tibble", "dplyr"))
 
 # For Fig.S4, you also need to install 'ggpattern'.
@@ -305,11 +298,7 @@ install.packages("tidyr")
 
 # For Fig.S5
 
-# treeio has also been released to the Bioconductor, But the development version (>= 1.15.6) was needed 
-# in here. You can install it from the github repository by 'remotes', or you can install it by 
-# 'BiocManager::install(treeio)' once the Bioconductor (>=3.13) was released.
-remotes::install_github("YuLab-SMU/treeio") 
-
+BiocManager::install("treeio")
 install.packages(c("tidytree", "ggpmisc", "ggimage"))
 
 # For Fig.S6
@@ -757,7 +746,7 @@ phylopicda <- read.csv("../data/VertebrateGutMicrobiomes/data_phylopic_uid.csv")
 phylopicda$class <- factor(phylopicda$class, levels=c("Amphibia","Chelonia","Lepidosauria",
                                                       "Aves","Mammalia"))
 
-fig <- ggtree(tr, layout="fan", open.angle=5, continuous=TRUE)
+fig <- ggtree(tr, layout="fan", open.angle=5, continuous="color")
 
 # Optional for color branches.
 fig <- fig %<+% corda
@@ -1508,16 +1497,17 @@ p5 <- p4 +
 p5
 ```
 
-With ggtreeExtra incorporating all these information, some of the evolutionary patterns that are not straightforward might become more obvious. For example, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney's test, the number of different interactions among these strains was confirmed to be significant (Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
+With ggtreeExtra incorporating all these information, some of the evolutionary patterns that are not straightforward might become more obvious. For example, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney U test, the number of different interactions among these strains was confirmed to be significant (Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
 
 (ref:compareNumber) **The comparison of number of inhibitor or sensitive interactions between the strains from different Phyla or Classes.**
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6, fig.height=4, error=FALSE, fig.cap='(ref:compareNumber)', results='asis',compareNumber}
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6, fig.height=6, error=FALSE, fig.cap='(ref:compareNumber)', results='asis',compareNumber}
 library(ggplot2)
 library(dplyr)
 library(magrittr)
 library(MicrobiotaProcess)
 library(tibble)
+library(ggsignif)
 
 weighttab <- read.csv("../data/Arabidopsis_leaf_microbiome/Interaction_weight.csv")
 tippoint <- read.csv("../data/Arabidopsis_leaf_microbiome/stain_tippoint.csv")
@@ -1528,21 +1518,65 @@ intersectNums <- intersectNums %>%
 
 intersectNums$Number <- gsub(" Strong", "", intersectNums$Number)
 intersectNums$Number <- gsub(" Weak", "", intersectNums$Number)
-intersectNums2 <- reshape2::dcast(intersectNums, Isolation + Taxa ~ Number, sum)
+intersectNums <- reshape2::dcast(intersectNums, Isolation + Taxa ~ Number, sum)
+intersectNums <- reshape2::melt(intersectNums, id=c("Isolation", "Taxa"), variable.name="Number")
 
-tipInterNums <- intersectNums2 %>%
-                select(-c("Taxa")) %>%
-                tibble::column_to_rownames(var="Isolation")
-tipTaxa <- intersectNums2 %>%
+tipTaxa <- intersectNums %>%
            select(c("Isolation", "Taxa")) %>%
+           distinct() %>%
            tibble::column_to_rownames(var="Isolation")
 
-FigS10 <- MicrobiotaProcess::ggbox(obj=tipInterNums,
-                               sampleda=tipTaxa,
-                               factorNames="Taxa",
-                               indexNames=c("Inhibitor", "Sensitive")
-          ) +
-          theme(axis.text.x=element_blank())
+comparelist <- MicrobiotaProcess:::get_comparelist(data=tipTaxa, classgroup="Taxa", controlgroup=NULL)
+intersectNums1 <- intersectNums[intersectNums$Number=="Inhibitor",]
+com_res1 <- lapply(comparelist, function(x)multi_compare(fun=wilcox.test, data=intersectNums1,
+                                                        feature="value", factorNames="Taxa",
+                                                        subgroup=x))
+com_resp1 <- lapply(com_res1, function(x)as.character(sprintf("%.2g",get_pvalue(x[[1]]))))
+
+intersectNums2 <- intersectNums[intersectNums$Number=="Sensitive",]
+com_res2 <- lapply(comparelist, function(x)multi_compare(fun=wilcox.test, data=intersectNums2,
+                                                          feature="value", factorNames="Taxa",
+                                                          subgroup=x))
+com_resp2 <- lapply(com_res2, function(x)as.character(sprintf("%.2g",get_pvalue(x[[1]]))))
+comparelist <- data.frame(do.call("rbind", comparelist))
+compare1 <- list(c("Actinobacteria", "Firmicutes"),
+                 c("Alphaproteobacteria", "Firmicutes"),
+                 c("Bacteroidetes", "Firmicutes"),
+                 c("Betaproteobacteria", "Firmicutes"),
+                 c("Actinobacteria", "Gammaproteobacteria"),
+                 c("Alphaproteobacteria", "Gammaproteobacteria"),
+                 c("Bacteroidetes", "Gammaproteobacteria"),
+                 c("Betaproteobacteria", "Gammaproteobacteria"))
+
+compare1 <- data.frame(do.call("rbind", compare1))
+comparelist$flag <- ifelse(comparelist$X1 %in% compare1$X1 & comparelist$X2 %in% compare1$X2, "T", "F")
+comparelist1 <- comparelist2 <- comparelist
+comparelist1$Number <- "Inhibitor"
+comparelist1$pvalue <- unlist(com_resp1)
+comparelist2$Number <- "Sensitive"
+comparelist2$pvalue <- unlist(com_resp2)
+signda <- do.call("rbind", list(comparelist1, comparelist2))
+signda$y <- c(seq(112, by=10, length.out=21), seq(21, by=2, length.out=21))
+
+FigS10 <- ggplot(data=intersectNums
+            ) +
+     geom_boxplot(aes(x=Taxa, y=value, fill=Taxa), outlier.size=0.5,outlier.shape=21) +
+     geom_signif(data=signda,
+                 mapping=aes(xmin=X1, xmax=X2, color=flag, annotations=pvalue, y_position=y),
+                 manual = T,
+                 textsize = 2,
+                 size=0.4,
+                 tip_length = 0.01
+
+     ) +
+     scale_color_manual(values=c("T"="red","F"="black")) +
+     facet_wrap(~Number, scales="free", nrow=1)  +
+     theme_bw() +
+     xlab(NULL) +
+     ylab(NULL)+
+     theme(axis.text.x=element_text(angle=-45, hjust=0),
+           legend.position="none",
+           plot.margin = unit(c(0.2, 1.8, 0.2, 0.2), "cm"))
 FigS10
 ```
 
