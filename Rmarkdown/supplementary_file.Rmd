@@ -57,7 +57,7 @@ library(patchwork)
 
 # Overview of the *ggtreeExtra* package {#chapter1}
 
-Integrating and visualizing associated data with a phylogenetic tree helps to identify biological patterns and generate new hypotheses. The associated data sets are diverse (*e.g.* abundance of species, gene expression level, taxonomy information of species, type and scale of target genes, and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools were designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as a universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphics [@Wilkinson2012] implemented in the ggplot2 package. Users can easily map variables (*e.g.* abundance of species, length of the genome, or sampling location) of associated data to aesthetic attributes (*e.g.* size, color, and shape) for visualizing external geometric objects (*e.g.* bar chart, point, or box plot) with a phylogenetic tree. The details (such as the actual mapping of visual values, figure legends, and plot appearance) of the graphics can be adjusted by the corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
+Integrating and visualizing associated data with a phylogenetic tree help to identify biological patterns and generate new hypotheses. The associated data sets are diverse (*e.g.* abundance of species, gene expression level, taxonomy information of species, type and scale of target genes, and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools were designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as a universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphics [@Wilkinson2012] implemented in the ggplot2 package. Users can easily map variables (*e.g.* abundance of species, length of the genome, or sampling location) of associated data to aesthetic attributes (*e.g.* size, color, and shape) for visualizing external geometric objects (*e.g.* bar chart, point, or box plot) with a phylogenetic tree. The details (such as the actual mapping of visual values, figure legends, and plot appearance) of the graphics can be adjusted by the corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
 
 (ref:OverView) **Overview of the design of *ggtreeExtra* package.**
 
@@ -279,7 +279,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("ggtreeExtra")
 ```
 
-If you want to draw the examples of the supplemental file, you also need to install the following packages. You can refer the following commands to install them.
+To reproduce examples in this document, you need to install several extra packages.
 
 ```{r, eval=FALSE}
 
@@ -288,8 +288,8 @@ BiocManager::install(c("ggtree", "phyloseq"))
 install.packages(c("ggplot2", "patchwork", "ggridges", "tibble", "dplyr"))
 
 # For Fig.S4, you also need to install 'ggpattern'.
-# Because ggpattern have not been released on 'CRAN', we
-# can install it from the github repository.
+# Because ggpattern has not been released on 'CRAN', 
+# we need to install it from the github repository.
 
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
@@ -311,7 +311,7 @@ install.packages("ggstar")
 BiocManager::install("MicrobiotaProcess")
 ```
 
-The source codes and datasets to produce this file can be obtained from the repository^[<https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>].
+The source codes and datasets to produce this file can be obtained from the github repository, <https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>.
 
 \newpage
 
@@ -1497,7 +1497,7 @@ p5 <- p4 +
 p5
 ```
 
-With ggtreeExtra incorporating all these information, some of the evolutionary patterns that are not straightforward might become more obvious. For example, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney U test, the number of different interactions among these strains was confirmed to be significant (Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
+With the visualization methods provided in ggtree and ggtreeExtra, it is more easy to identify evolutionary patterns. From Fig. \ref{fig:ArabidopsisTree}, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney U test, the number of different interactions among these strains was confirmed to be significant (highlighted in red in Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
 
 (ref:compareNumber) **The comparison of number of inhibitor or sensitive interactions between the strains from different Phyla or Classes.**
 
