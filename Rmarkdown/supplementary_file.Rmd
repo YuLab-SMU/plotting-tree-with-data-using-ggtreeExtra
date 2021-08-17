@@ -299,7 +299,7 @@ install.packages("tidyr")
 # For Fig.S5
 
 BiocManager::install("treeio")
-install.packages(c("tidytree", "ggpmisc", "ggimage"))
+install.packages(c("tidytree", "ggpp", "ggimage"))
 
 # For Fig.S6
 install.packages("ggnewscale")
@@ -383,8 +383,8 @@ ggplot2\tgeom_raster\talpha, fill\ta high performance special case for all the t
 ggplot2\tgeom_text\tcolor, size\tadds text to the plot\n
 ggplot2\tgeom_tile\talpha, color, fill\tdraws rectangle by using the center of the tile and its size\n
 ggplot2\tgeom_violin\talpha, color, fill\tA violin plot is a compact display of a continuous distribution\n
-ggpmisc\tgeom_plot\tvp.width,vp.height\tggplot objects as insets to the base ggplot, using syntax similar to that of 'geom_label'\n
-ggpmisc\tgeom_table\tsize\tadds a textual table directly to the ggplot, using syntax similar to that of 'geom_label'\n
+ggpp\tgeom_plot\tvp.width,vp.height\tggplot objects as insets to the base ggplot, using syntax similar to that of 'geom_label'\n
+ggpp\tgeom_table\tsize\tadds a textual table directly to the ggplot, using syntax similar to that of 'geom_label'\n
 ggrepel\tgeom_text_repel\tcolor, size\tadds text to the plot. The text labels repel away from each other and away from the data points\n
 ggrepel\tgeom_label_repel\talpha, color, fill, size\tdraws a rectangle underneath the text. The text labels repel away\n
 ggrepel\t \t \tfrom each other and away from the data ponts\n
@@ -419,7 +419,7 @@ knitr::kable(y, caption=caption, booktabs = T, position = "!h") %>%
 Each geometric layer function has its own unique geometric attributes (Tab. \ref{tab:geom}). Users can choose appropriate geometric layer functions according to the type of input data. The variables of data can be mapped to visual attributes of the corresponding geometric layer function. For example, if users want to view the distribution and uncertainty (continuous data) of associated data in different groups (such as the gene expression or species abundance in different samples), several methods, including box plot, violin plot, and density plot, can be used (Fig. \ref{fig:ggridges}). For simple numeric data (*e.g.* length of the genome, the abundance of species), they can be visualized with a simple (pattern) bar plot or grouped (pattern) bar plot. Specifically,a pattern bar plot is efficient to visualize count data for different groups in grayscale (Fig. \ref{fig:ggpattern}). The non-variable aesthetic setting is also supported. 
 
 
-To demonstrate the usage of *ggtreeExtra* with other *ggplot2*-based packages, we provided several examples, including density plot with *ggridges* (Fig. \ref{fig:ggridges}A and C), boxplot with *ggplot2* (Fig. \ref{fig:ggridges}B and D) and *ggpattern* (Figure \ref{fig:ggpattern}C and D), bar chart with *ggpattern* (Fig. \ref{fig:ggpattern}A and B), subplot with *ggpmisc* (Fig. \ref{fig:subplot}A) and silhouette image with *ggimage* (Fig. \ref{fig:subplot}B). These examples also illustrate the design of the *ggtreeExtra* package (Fig. \ref{fig:OverView}). The *ggtreeExtra* package supports the grammar of graphic syntax and allows employing geometric layers defined in the *ggplot2* community to visualize phylogenetic data with a tree. With the development of the ggplot2 community, *ggtreeExtra* supports more geometric layers compared to other tools (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). The latest version of *ggtreeExtra* can integrate heatmap, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, pie, image plot, inset plot (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Even though other tools might support similar graphic layers, *ggtreeExtra* is more powerful and flexible since it inherits all the features and advantages of the geometric functions developed by the community. For example, *iTOL* [@iTOL], *ETE3* [@ETE3], and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but the only *ggtreeExtra* supports mapping variable to color and scale the size of the images (Fig. \ref{fig:subplot}B^[The data that used to generate Fig. \ref{fig:subplot}B is from Fig.1 of [@Song2020] and it is available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]). Besides, *ggtreeExtra* supports several visualization methods that cannot be found elsewhere. For example, subplots that describe statistical information of taxa can be embedded as insets in *ggtreeExtra* (Fig. \ref{fig:subplot}A) to annotate corresponding taxa. As the *ggplot2* [@ggplot2] community keeps expanding, there will be more *geom* functions implemented in either *ggplot2* [@ggplot2] or other extensions and *geom_fruit* will gain more power to present data in the future.
+To demonstrate the usage of *ggtreeExtra* with other *ggplot2*-based packages, we provided several examples, including density plot with *ggridges* (Fig. \ref{fig:ggridges}A and C), boxplot with *ggplot2* (Fig. \ref{fig:ggridges}B and D) and *ggpattern* (Figure \ref{fig:ggpattern}C and D), bar chart with *ggpattern* (Fig. \ref{fig:ggpattern}A and B), subplot with *ggpp* (Fig. \ref{fig:subplot}A) and silhouette image with *ggimage* (Fig. \ref{fig:subplot}B). These examples also illustrate the design of the *ggtreeExtra* package (Fig. \ref{fig:OverView}). The *ggtreeExtra* package supports the grammar of graphic syntax and allows employing geometric layers defined in the *ggplot2* community to visualize phylogenetic data with a tree. With the development of the ggplot2 community, *ggtreeExtra* supports more geometric layers compared to other tools (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). The latest version of *ggtreeExtra* can integrate heatmap, scatter plot, simple (grouped) (pattern) bar plot, simple (grouped) (pattern) box plot, violin, dot intervals plot, density plot, pie, image plot, inset plot (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}). Even though other tools might support similar graphic layers, *ggtreeExtra* is more powerful and flexible since it inherits all the features and advantages of the geometric functions developed by the community. For example, *iTOL* [@iTOL], *ETE3* [@ETE3], and *ggtreeExtra* all support displaying image plot on the phylogenetic tree, but the only *ggtreeExtra* supports mapping variable to color and scale the size of the images (Fig. \ref{fig:subplot}B^[The data that used to generate Fig. \ref{fig:subplot}B is from Fig.1 of [@Song2020] and it is available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]). Besides, *ggtreeExtra* supports several visualization methods that cannot be found elsewhere. For example, subplots that describe statistical information of taxa can be embedded as insets in *ggtreeExtra* (Fig. \ref{fig:subplot}A) to annotate corresponding taxa. As the *ggplot2* [@ggplot2] community keeps expanding, there will be more *geom* functions implemented in either *ggplot2* [@ggplot2] or other extensions and *geom_fruit* will gain more power to present data in the future.
 
 
 ## Visualizing distribution of species abundance {#chapter2.1}
@@ -575,7 +575,6 @@ p1 <- p1 +
           pattern_density = 0.4,
           fill = "grey", 
           pattern_fill="grey35",
-          position=position_identityx(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
       ) + 
       theme(legend.key.size = unit(0.3, 'cm'))
@@ -591,7 +590,6 @@ p2 <- p2 +
           pattern_size = 0.1, 
           pattern_density = 0.4,
           fill = "grey",
-          position=position_identityx(),
           axis.params=list(axis="x",text.size=1.2, hjust=0.5, vjust=1)
       ) + 
       theme(legend.key.size = unit(0.3, 'cm'))
@@ -609,7 +607,6 @@ p3 <- p3 +
           pattern_spacing =0.01,
           fill = "grey", 
           pattern_fill="grey35",
-          position=position_dodgex(),
           grid.params=list(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
       ) + 
@@ -627,7 +624,6 @@ p4 <- p4 +
           pattern_density = 0.4, 
           pattern_spacing = 0.01,
           fill = "grey",
-          position = position_dodgex(),
           grid.params = list(),
           axis.params = list(axis="x", text.size=1.2, hjust=0.5,  vjust=1)
       ) + 
@@ -641,10 +637,10 @@ p4 <- p4 +
 ## Taxon-specific graphical information {#chapter2.3}
 
 
-Displaying graphs of representative species on a phylogenetic tree is commonly used to compare morphological differences. ETE3 [@ETE3] and iTOL [@iTOL] support linking external images to any tree node. Besides linking external images, *ggtreeExtra* supports querying silhouette images directly from the PhyloPic database^[<http://phylopic.org/>] and allows aesthetic mapping to fill the color and rescale the size of the images using tree-associated data variable. Moreover, with the aids of the *ggpmisc* package [@ggpmisc], subplots that describe taxon-specific statistical information can be embedded as insets in *ggtreeExtra*.
+Displaying graphs of representative species on a phylogenetic tree is commonly used to compare morphological differences. ETE3 [@ETE3] and iTOL [@iTOL] support linking external images to any tree node. Besides linking external images, *ggtreeExtra* supports querying silhouette images directly from the PhyloPic database^[<http://phylopic.org/>] and allows aesthetic mapping to fill the color and rescale the size of the images using tree-associated data variable. Moreover, with the aids of the *ggpp* package [@ggpp], subplots that describe taxon-specific statistical information can be embedded as insets in *ggtreeExtra*.
 
 
-In the first example (Fig. \ref{fig:subplot}A), we simulated a tree with associated data of two taxa. The data contains numerical values for two different groups (*e.g*, species abundance for different samples or body mass index in different regions). The data of each taxon was visualized as a boxplot using *ggplot2*. The boxplots (complex *ggplot* objects) and the taxon labels were stored as a *tibble* object (similar to a data frame with the ability to store a list of arbitrary objects in a column). The *geom_fruit* function utilizes the *geom_plot* provided by the *ggpmisc* package to redraw the boxplots as insets and aligns the insets to corresponding taxa. This example also illustrates that *ggtreeExtra* allows using complex data as input if and only if there is a geometric layer supporting it. 
+In the first example (Fig. \ref{fig:subplot}A), we simulated a tree with associated data of two taxa. The data contains numerical values for two different groups (*e.g*, species abundance for different samples or body mass index in different regions). The data of each taxon was visualized as a boxplot using *ggplot2*. The boxplots (complex *ggplot* objects) and the taxon labels were stored as a *tibble* object (similar to a data frame with the ability to store a list of arbitrary objects in a column). The *geom_fruit* function utilizes the *geom_plot* provided by the *ggpp* package to redraw the boxplots as insets and aligns the insets to corresponding taxa. This example also illustrates that *ggtreeExtra* allows using complex data as input if and only if there is a geometric layer supporting it. 
 
 
 The second example (Fig. \ref{fig:subplot}B) reproduces Fig. 1 of [@Song2020]^[data available on <https://github.com/tanaes/tetrapod_microbiome_analysis>]. The host tree was obtained from TimeTree [@TimeTree2017]. The branch color represents the Mantel Pearson correlation of gut microbiome. The first ring uses a stack bar chart to represent the diet composition of the host. The second ring represents the host taxonomic class and the third ring represents flight status. Some of the representative species are displayed in the outermost ring and colored by taxonomic class using *geom_phylopic* provided by the *ggimage* package developed in-house. Providing the UID of PhyloPic for corresponding species, the *geom_phylopic* will automatically read the PhyloPic image directly from the PhyloPic database online and users don't need to download the images manually. The *ggimage* package also provides a function, *phylopic_uid*, to convert scientific names of species to PhyloPic UID and there is no need to search UID manually. This example demonstrated that using a variable (*e.g.* taxonomic class) to color the images is supported and this is a unique feature that is available in *ggtreeExtra* with the help of *ggimage*.
@@ -662,7 +658,7 @@ library(ggtree)
 library(treeio)
 library(tidytree)
 library(ggnewscale)
-library(ggpmisc)
+library(ggpp)
 library(ggplot2)
 library(ggimage)
 library(patchwork)
@@ -867,7 +863,7 @@ The *ggtreeExtra* is a sub-package of the *ggtree* package suite and it works se
 In previous examples (Figure S3-5), we have demonstrated the usage of importing external data directly in *geom_fruit*. Here, we reproduce Figure 3.3 (also served as the book cover) of [@smith2019]^[the source data is available on <https://github.com/TheWrightonLab/Methanotroph_rpS3Analyses_SmithWrighton2018>] to show how to use internal data stored in a tree object and integrate external associated data to a tree using the `%<+%` operator and visualize the data in *ggtreeExtra*. The tree was built using *RAxML* [@RAxML] and was parsed by the *read.raxml* function provided by the *treeio* package [@treeio]. Clade support (*i.e.*, bootstrap values) will be parsed and stored in the output tree object. The tree was visualized by *ggtree* [@ggtree1]. There are associated data sets that contain the information of Ecosystem type, sequencing type, and sample treatment method (all categorical data). The first column of external data should be tip labels and the element of the column must be unique so that the data can be linked to the *ggtree* graphic object using the `%<+%` operator. The *geom_fruit* function can utilize internal tree data from the tree object (either parsed by *treeio* or integrated by *ggtree*). The variable of the data can be mapped to related attributes of the geometry layer. In this case of using internal data, the *y* aesthetic mapping can be ignored. Here we used heatmaps to visualize categorical data. The external ring heatmaps represent different types of corresponding categories (*i.e.*, the types of Ecosystem were mapped to the color of the innermost ring heatmaps, the types of sequencing methods were mapped to the color of the middle ring heatmap and the types of sample treatment were mapped to the color of the outermost ring heatmaps) (Fig. \ref{fig:Metha}). 
 
 
-Comparing with other tools, there is no restriction of data types in *geom_fruit* of the *ggtreeExtra* package. It depends on the data types required by corresponding geometric functions (Tab. \ref{tab:geom}). For example, visualizing the distribution of species abundance (numerical data with unequal lengths) with a tree is not supported by other tools. Such data can be visualized as density plots using *geom_density_ridges* [@ggridges] in *ggtreeExtra* (Fig. \ref{fig:ggridges}A and C). Even *ggplot* graphic objects (a complex data structure produced by *ggplot2*) can be served as taxon-specific data and can be used in *ggtreeExtra* via the *geom_plot* layer provided by the *ggpmisc* package [@ggpmisc]. As long as a data type is supported by a geometric layer that works with *ggtreeExtra* (Tab. \ref{tab:geom}), it is supported by *ggtreeExtra*. Since there will more ggplot2 extensions developed in the future, more data types will be supported and the applications of *ggtreeExtra* in multi-discipline areas will also be expanded.
+Comparing with other tools, there is no restriction of data types in *geom_fruit* of the *ggtreeExtra* package. It depends on the data types required by corresponding geometric functions (Tab. \ref{tab:geom}). For example, visualizing the distribution of species abundance (numerical data with unequal lengths) with a tree is not supported by other tools. Such data can be visualized as density plots using *geom_density_ridges* [@ggridges] in *ggtreeExtra* (Fig. \ref{fig:ggridges}A and C). Even *ggplot* graphic objects (a complex data structure produced by *ggplot2*) can be served as taxon-specific data and can be used in *ggtreeExtra* via the *geom_plot* layer provided by the *ggpp* package [@ggpp]. As long as a data type is supported by a geometric layer that works with *ggtreeExtra* (Tab. \ref{tab:geom}), it is supported by *ggtreeExtra*. Since there will more ggplot2 extensions developed in the future, more data types will be supported and the applications of *ggtreeExtra* in multi-discipline areas will also be expanded.
 
 
 (ref:Metha) **Phylogeny of methanotroph ribosomal protein S39 (rpS3) genes from Figure 3.3 of [@smith2019]**. Bootstrap value was parsed with the tree by the *read.raxml* function and other associated data sets were integrated into the tree via the `%<+%` operator. The *ggtreeExtra* can directly use these data sets to visualize data layers.

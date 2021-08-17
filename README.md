@@ -79,13 +79,13 @@ rmarkdown::render("./Rmarkdown/supplementary_file.Rmd")
 Here is the output of `sessionInfo()` of the system on which [the
 Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
 
-    ## R version 4.0.3 (2020-10-10)
+    ## R version 4.1.0 (2021-05-18)
     ## Platform: x86_64-pc-linux-gnu (64-bit)
     ## Running under: Ubuntu 18.04.4 LTS
     ## 
     ## Matrix products: default
-    ## BLAS:   /mnt/d/UbuntuApps/R/4.0.3/lib/R/lib/libRblas.so
-    ## LAPACK: /mnt/d/UbuntuApps/R/4.0.3/lib/R/lib/libRlapack.so
+    ## BLAS:   /mnt/d/UbuntuApps/R/4.1.0/lib/R/lib/libRblas.so
+    ## LAPACK: /mnt/d/UbuntuApps/R/4.1.0/lib/R/lib/libRlapack.so
     ## 
     ## locale:
     ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -99,51 +99,57 @@ Supplemental file](Rmarkdown/supplementary_file.pdf) was compiled:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] ggimage_0.2.8           tibble_3.1.0            dplyr_1.0.5            
-    ##  [4] tidyr_1.1.2             ggridges_0.5.2          ggpmisc_0.3.7          
-    ##  [7] ggpattern_0.1.3         knitr_1.30              patchwork_1.0.1        
-    ## [10] Cairo_1.5-12.2          kableExtra_1.3.1        aplot_0.0.6            
-    ## [13] MicrobiotaProcess_1.2.1 ggnewscale_0.4.3        tidytree_0.3.4         
-    ## [16] treeio_1.14.4           ggtree_2.4.2            ggplot2_3.3.2          
-    ## [19] ggstar_1.0.2            ggtreeExtra_1.0.4      
+    ##  [1] ggimage_0.2.8               tibble_3.1.2               
+    ##  [3] dplyr_1.0.6                 tidyr_1.1.3                
+    ##  [5] ggridges_0.5.3              ggpmisc_0.3.9              
+    ##  [7] ggpattern_0.1.3             knitr_1.33                 
+    ##  [9] patchwork_1.1.1             Cairo_1.5-12.2             
+    ## [11] kableExtra_1.3.4            aplot_0.0.6                
+    ## [13] MicrobiotaProcess_1.5.0.992 ggnewscale_0.4.5           
+    ## [15] tidytree_0.3.4              treeio_1.17.1.991          
+    ## [17] ggtree_3.1.1.991            ggplot2_3.3.3              
+    ## [19] ggstar_1.0.2                ggtreeExtra_1.3.1          
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] TH.data_1.0-10      colorspace_1.4-1    ggsignif_0.6.0     
-    ##   [4] class_7.3-17        ellipsis_0.3.1      modeltools_0.2-23  
-    ##   [7] XVector_0.30.0      rstudioapi_0.11     ggrepel_0.8.2      
-    ##  [10] fansi_0.4.2         mvtnorm_1.1-1       coin_1.3-1         
-    ##  [13] xml2_1.3.2          codetools_0.2-16    splines_4.0.3      
-    ##  [16] libcoin_1.0-6       polyclip_1.10-0     ade4_1.7-16        
-    ##  [19] jsonlite_1.7.2      phyloseq_1.34.0     cluster_2.1.0      
-    ##  [22] png_0.1-7           BiocManager_1.30.10 compiler_4.0.3     
-    ##  [25] httr_1.4.2          rvcheck_0.1.8       assertthat_0.2.1   
-    ##  [28] Matrix_1.2-18       lazyeval_0.2.2      htmltools_0.5.0    
-    ##  [31] prettyunits_1.1.1   tools_4.0.3         igraph_1.2.6       
-    ##  [34] gtable_0.3.0        glue_1.4.2          reshape2_1.4.4     
-    ##  [37] Rcpp_1.0.6          Biobase_2.50.0      vctrs_0.3.6        
-    ##  [40] Biostrings_2.58.0   rhdf5filters_1.2.0  multtest_2.46.0    
-    ##  [43] ape_5.4-1           nlme_3.1-150        iterators_1.0.13   
-    ##  [46] xfun_0.19           stringr_1.4.0       Rmisc_1.5          
-    ##  [49] rvest_0.3.6         lifecycle_1.0.0     gtools_3.8.2       
-    ##  [52] zlibbioc_1.36.0     MASS_7.3-53         zoo_1.8-8          
-    ##  [55] scales_1.1.1        hms_0.5.3           parallel_4.0.3     
-    ##  [58] biomformat_1.18.0   sandwich_3.0-0      rhdf5_2.34.0       
-    ##  [61] yaml_2.2.1          gridGeometry_0.2-0  gridExtra_2.3      
-    ##  [64] reshape_0.8.8       stringi_1.5.3       S4Vectors_0.28.0   
-    ##  [67] foreach_1.5.1       e1071_1.7-4         permute_0.9-5      
-    ##  [70] BiocGenerics_0.36.0 rlang_0.4.10        pkgconfig_2.0.3    
-    ##  [73] matrixStats_0.57.0  evaluate_0.14       lattice_0.20-41    
-    ##  [76] sf_0.9-6            purrr_0.3.4         Rhdf5lib_1.12.0    
-    ##  [79] tidyselect_1.1.0    plyr_1.8.6          magrittr_2.0.1     
-    ##  [82] R6_2.5.0            IRanges_2.24.0      magick_2.5.2       
-    ##  [85] generics_0.1.0      multcomp_1.4-14     DBI_1.1.0          
-    ##  [88] pillar_1.5.1        withr_2.3.0         mgcv_1.8-33        
-    ##  [91] units_0.6-7         survival_3.2-7      crayon_1.4.1       
-    ##  [94] KernSmooth_2.23-18  utf8_1.2.1          rmarkdown_2.5      
-    ##  [97] progress_1.2.2      grid_4.0.3          data.table_1.13.2  
-    ## [100] vegan_2.5-6         classInt_0.4-3      digest_0.6.27      
-    ## [103] webshot_0.5.2       gridGraphics_0.5-0  stats4_4.0.3       
-    ## [106] munsell_0.5.0       ggplotify_0.0.5     viridisLite_0.3.0
+    ##   [1] TH.data_1.0-10         colorspace_2.0-1       ggsignif_0.6.1        
+    ##   [4] class_7.3-19           ellipsis_0.3.2         modeltools_0.2-23     
+    ##   [7] XVector_0.32.0         proxy_0.4-25           rstudioapi_0.13       
+    ##  [10] ggrepel_0.9.1          fansi_0.5.0            mvtnorm_1.1-1         
+    ##  [13] coin_1.4-1             xml2_1.3.2             codetools_0.2-18      
+    ##  [16] splines_4.1.0          libcoin_1.0-8          polyclip_1.10-0       
+    ##  [19] ade4_1.7-16            jsonlite_1.7.2         phyloseq_1.36.0       
+    ##  [22] cluster_2.1.2          png_0.1-7              BiocManager_1.30.15   
+    ##  [25] compiler_4.1.0         httr_1.4.2             rvcheck_0.1.8         
+    ##  [28] assertthat_0.2.1       Matrix_1.3-3           lazyeval_0.2.2        
+    ##  [31] htmltools_0.5.1.1      prettyunits_1.1.1      tools_4.1.0           
+    ##  [34] igraph_1.2.6           gtable_0.3.0           glue_1.4.2            
+    ##  [37] GenomeInfoDbData_1.2.6 reshape2_1.4.4         Rcpp_1.0.6            
+    ##  [40] Biobase_2.52.0         vctrs_0.3.8            Biostrings_2.60.0     
+    ##  [43] rhdf5filters_1.4.0     multtest_2.48.0        ape_5.5               
+    ##  [46] svglite_2.0.0          nlme_3.1-152           iterators_1.0.13      
+    ##  [49] xfun_0.23              stringr_1.4.0          Rmisc_1.5             
+    ##  [52] rvest_1.0.0            lifecycle_1.0.0        gtools_3.8.2          
+    ##  [55] zlibbioc_1.38.0        MASS_7.3-54            zoo_1.8-9             
+    ##  [58] scales_1.1.1           hms_1.1.0              parallel_4.1.0        
+    ##  [61] biomformat_1.20.0      sandwich_3.0-1         rhdf5_2.36.0          
+    ##  [64] yaml_2.2.1             gridGeometry_0.2-0     gridExtra_2.3         
+    ##  [67] reshape_0.8.8          stringi_1.6.2          S4Vectors_0.30.0      
+    ##  [70] foreach_1.5.1          e1071_1.7-7            permute_0.9-5         
+    ##  [73] BiocGenerics_0.38.0    GenomeInfoDb_1.28.0    rlang_0.4.11          
+    ##  [76] pkgconfig_2.0.3        systemfonts_1.0.2      matrixStats_0.58.0    
+    ##  [79] bitops_1.0-7           evaluate_0.14          lattice_0.20-44       
+    ##  [82] sf_0.9-8               purrr_0.3.4            Rhdf5lib_1.14.0       
+    ##  [85] tidyselect_1.1.1       plyr_1.8.6             magrittr_2.0.1        
+    ##  [88] R6_2.5.0               magick_2.7.2           IRanges_2.26.0        
+    ##  [91] generics_0.1.0         multcomp_1.4-17        DBI_1.1.1             
+    ##  [94] pillar_1.6.1           withr_2.4.2            mgcv_1.8-35           
+    ##  [97] units_0.7-1            survival_3.2-11        RCurl_1.98-1.3        
+    ## [100] crayon_1.4.1           KernSmooth_2.23-20     utf8_1.2.1            
+    ## [103] rmarkdown_2.8          progress_1.2.2         grid_4.1.0            
+    ## [106] data.table_1.14.0      vegan_2.5-7            classInt_0.4-3        
+    ## [109] digest_0.6.27          webshot_0.5.2          gridGraphics_0.5-1    
+    ## [112] stats4_4.1.0           munsell_0.5.0          ggplotify_0.0.7       
+    ## [115] viridisLite_0.4.0
 
 ## Docker image
 

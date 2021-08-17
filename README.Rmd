@@ -42,7 +42,7 @@ This repo contains source code and data to produce <!--Manuscript and-->Suppleme
     - `patchwork` :                                            `install.packages("patchwork")`
     - `ggnewscale` :                                           `install.packages("ggnewscale")`
     - `knitr` :                                                `install.packages("knitr")`
-    - `ggpmisc` :                                              `install.packages("ggpmisc")`
+    - `ggpp` :                                              `install.packages("ggpp")`
     - [`ggpattern`](https://github.com/coolbutuseless/ggpattern) :      `remotes::install_github("coolbutuseless/ggpattern")`
     - `tibble` :                                             `install.packages("tibble")`
     - `tidyr` :                                              `install.packages("tidyr")`
