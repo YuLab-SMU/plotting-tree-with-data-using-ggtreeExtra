@@ -11,7 +11,7 @@ html_preview: false
 
 If you use this work in published research, please cite:
 
-S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang^\*^, X Bo^\*^ and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Molecular Biology and Evolution*__. 2021, msab166. doi: [10.1093/molbev/msab166](https://doi.org/10.1093/molbev/msab166) (accepted).
+__S Xu__, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang^\*^, X Bo^\*^ and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Molecular Biology and Evolution*__. 2021, 38(9):4039-4042. doi: [10.1093/molbev/msab166](https://doi.org/10.1093/molbev/msab166).
 
 
 This repo contains source code and data to produce <!--Manuscript and-->Supplementary Material of the above paper.
@@ -65,7 +65,7 @@ library(Cairo)
 library(patchwork)
 library(knitr)
 library(ggpattern)
-library(ggpmisc)
+library(ggpp)
 library(ggridges)
 library(tidyr)
 library(dplyr)
